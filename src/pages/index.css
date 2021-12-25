@@ -1,0 +1,40 @@
+.small-info {
+    font-family: "Ruda", sans-serif;
+    background-color: #53939D;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seperator {
+    width: 1.5px;
+    height: 19px;
+    background-color: white;
+    border-radius: 1px;
+    margin: 0px 10px;
+}
+
+.title-info {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    font-family: "Ruda", sans-serif;
+    font-size: 20px;
+}
+
+.main-logo {
+    width: 40%;
+}
+
+.address {
+    padding-bottom: 0px;
+    color: #53939D;
+    margin-bottom: -10px;
+}
+
+.weekdays {
+    margin-bottom: -35px;
+}
