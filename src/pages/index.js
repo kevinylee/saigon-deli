@@ -29,23 +29,23 @@ const IndexPage = () => {
             <span className="seperator"></span>
             <a href="#pho">Pho</a>
             <span className="seperator"></span>
-            <a href="#vermicelli">Rice Vermicelli</a>
+            <a href="#bun">Rice Vermicelli</a>
             <span className="seperator"></span>
             <a href="#vegetarian">Vegetarian</a>
             <span className="seperator"></span>
             <a href="#banhcanh">Banh Canh</a>
             <span className="seperator"></span>
-            <a href="hutieu">Hu Tieu</a>
+            <a href="#noodlesoup">Noodle Soup</a>
             <span className="seperator"></span>
-            <a href="stirfried">Stir Fried Noodles</a>
+            <a href="#stirfried">Stir Fried Noodles</a>
             <span className="seperator"></span>
-            <a href="ricedishes">Rice Dishes</a>
+            <a href="#ricedishes">Rice Dishes</a>
             <span className="seperator"></span>
-            <a href="friedrice">Fried Rice</a>
+            <a href="#friedrice">Fried Rice</a>
             <span className="seperator"></span>
-            <a href="hotsoursoups">Soup</a>
+            <a href="#hotsoursoups">Soup</a>
             <span className="seperator"></span>
-            <a href="beverages">Beverage</a>
+            <a href="#beverages">Beverage</a>
           </div>
         </div>
         <div className="menu">
@@ -188,7 +188,7 @@ const IndexPage = () => {
             </div>
           </div>
           <div className="hutieu">
-            <p className="category-name" id="hutieu">Hu Tieu (noodle soup)</p>
+            <p className="category-name" id="noodlesoup">Hu Tieu (noodle soup)</p>
             <p className="description">Rice or egg noodles in a pork broth, broccoli, and your choice of meat, seafood, or tofu.</p>
             <div className="vegitems">
               <div className="names">
