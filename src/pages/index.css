@@ -1,5 +1,16 @@
+body {
+    font-family: "Ruda", sans-serif;
+    margin: 0px 0px 0px 0px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
 .small-info {
     font-family: "Ruda", sans-serif;
+    font-size: 18px;
     background-color: #53939D;
     color: white;
     display: flex;
@@ -16,6 +27,7 @@
 }
 
 .title-info {
+    margin-bottom: 25px;
     padding-top: 40px;
     display: flex;
     flex-direction: column;
@@ -37,4 +49,159 @@
 
 .weekdays {
     margin-bottom: -35px;
+}
+
+.top-categories {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #354884;
+    color: white;
+    width: 100%;
+    height: 50px;
+}
+
+.description {
+    color: #656565;
+    margin-bottom: 0px;
+    max-width: 450px;
+    font-size: 14px;
+}
+
+.appetizers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.appe-items {
+    display: flex;
+    flex-direction: row;
+}
+
+.appename {
+    font-weight: bold;
+}
+
+.desc {
+    font-size: 14px;
+    max-width: 480px;
+}
+.desc-fade {
+    color: #898989;
+    font-size: 15px;
+}
+
+.appe-prices > p {
+    margin-bottom: 65px;
+}
+
+#second {
+    margin-bottom: 72px;
+}
+
+#third {
+    margin-bottom: 103px;
+}
+
+.pho {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phoitems {
+    display: flex;
+    flex-direction: row;
+}
+
+.names {
+    font-weight: bold;
+    width: 450px;
+    margin-top: 3%;
+
+}
+
+.large {
+    margin-right: 2%;
+}
+
+.bun {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bunitems {
+    display: flex;
+    flex-direction: row;
+}
+
+#shorten {
+    width: 350px;
+}
+
+.bunprices {
+    margin-top: 30px;
+}
+
+.vegetarian {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vegitems {
+    display: flex;
+    flex-direction: row;
+}
+
+.udon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hutieu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stirfried {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ricedishes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.friedrice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hotsoup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.beverage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-name {
+    font-weight: bold;
+    font-size: 40px;
+    margin-bottom: 0px;
 }
