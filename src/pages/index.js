@@ -1,6 +1,9 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import Logo from "../images/SDlogo.svg"
+import Pho from "../images/photest.jpg"
+import Banh from "../images/banhmitest.jpg"
+import Spring from "../images/springrolltest.jpg"
 import "./index.css"
 
 // markup
@@ -73,6 +76,16 @@ const IndexPage = () => {
                 <p id="last">$3.75</p>
               </div>
             </div>
+            <div className="pics">
+              <div className="img-desc">
+                <img src={Spring} className="pho-img" alt="spring-rolls"></img>
+                <p className="desc">2. Vegetarian Egg Rolls</p>
+              </div>
+              <div className="img-desc">
+                <img src={Banh} className="pho-img" alt="banh-mi"></img>
+                <p className="desc">3. Vietnamese Sandwich (banh mi) ⭐</p>
+              </div>
+            </div>
           </div>
           <div className="pho">
             <p className="category-name" id="pho">Pho (Noodle Soup)</p>
@@ -109,6 +122,16 @@ const IndexPage = () => {
                 <p>$9.25</p>
                 <p>$8.50</p>
                 <p>$9.25</p>
+              </div>
+            </div>
+            <div className="pics">
+              <div className="img-desc">
+                <img src={Pho} className="pho-img" alt="pho"></img>
+                <p className="desc">11. Special Pho (beef and meatballs)</p>
+              </div>
+              <div className="img-desc">
+                <img src={Pho} className="pho-img" alt="pho"></img>
+                <p className="desc">6. Pho with meatballs</p>
               </div>
             </div>
           </div>
