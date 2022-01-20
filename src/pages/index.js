@@ -10,9 +10,9 @@ import "./index.css"
 const IndexPage = () => {
   return (
     <main>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Ruda&display=swap" rel="stylesheet">
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ruda&display=swap');
+      </style>
       <title>Saigon Deli</title>
       <body>
         <header>
