@@ -51,16 +51,26 @@ a {
     margin-bottom: -35px;
 }
 
+.categories {
+    background-color: #354884;
+    color: white;
+    width: 100%;
+}
+
 .top-categories {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    background-color: #354884;
-    color: white;
-    width: 100%;
-    height: 50px;
+    height: 60px;
+}
+
+.bottom-categories {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
 }
 
 .description {
@@ -103,7 +113,7 @@ a {
 }
 
 #third {
-    margin-bottom: 103px;
+    margin-bottom: 100px;
 }
 
 .pho {
@@ -115,13 +125,14 @@ a {
 .phoitems {
     display: flex;
     flex-direction: row;
+    margin-bottom: 12px;
 }
 
 .names {
     font-weight: bold;
     width: 450px;
     margin-top: 3%;
-
+    padding-top: 16.7px;
 }
 
 .large {
@@ -145,6 +156,10 @@ a {
 
 .bunprices {
     margin-top: 30px;
+}
+
+#bev-double {
+    margin-bottom: 36px;
 }
 
 .vegetarian {
@@ -227,5 +242,43 @@ a {
 .desc {
     color: #656565;
     font-size: 14px;
+}
 
+.catering {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#catering2 {
+    margin-top: 0px;
+}
+
+#catering3 {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #53939D;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+
+#footer-saigon {
+    font-size: 30px;
+}
+
+#footer-hours {
+    
+}
+
+#yelp-link {
+    align-self: center;
+}
+
+#yelp-img {
+    max-width: 400px;
+    max-height: 100px;
 }

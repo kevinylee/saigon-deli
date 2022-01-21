@@ -4,6 +4,7 @@ import Logo from "../images/SDlogo.svg"
 import Pho from "../images/photest.jpg"
 import Banh from "../images/banhmitest.jpg"
 import Spring from "../images/springrolltest.jpg"
+import Yelp from "../images/Yelp_Logo.svg"
 import "./index.css"
 
 // markup
@@ -27,28 +28,31 @@ const IndexPage = () => {
           <p className="address">4142 Brooklyn Ave NE Seattle, WA 98105</p>
           <p className="weekdays">Mon - Fri: 11am-8pm</p>
           <p className="weekends">Sat - Sun: 11am-8:30pm</p>
-          <div className="top-categories">
-            <a href="#appetizers">Appetizers</a>
-            <span className="seperator"></span>
-            <a href="#pho">Pho</a>
-            <span className="seperator"></span>
-            <a href="#bun">Rice Vermicelli</a>
-            <span className="seperator"></span>
-            <a href="#vegetarian">Vegetarian</a>
-            <span className="seperator"></span>
-            <a href="#banhcanh">Banh Canh</a>
-            <span className="seperator"></span>
-            <a href="#noodlesoup">Noodle Soup</a>
-            <span className="seperator"></span>
-            <a href="#stirfried">Stir Fried Noodles</a>
-            <span className="seperator"></span>
-            <a href="#ricedishes">Rice Dishes</a>
-            <span className="seperator"></span>
-            <a href="#friedrice">Fried Rice</a>
-            <span className="seperator"></span>
-            <a href="#hotsoursoups">Soup</a>
-            <span className="seperator"></span>
-            <a href="#beverages">Beverage</a>
+          <div className="categories">
+            <div className="top-categories">
+              <a href="#appetizers">Appetizers</a>
+              <span className="seperator"></span>
+              <a href="#pho">Pho</a>
+              <span className="seperator"></span>
+              <a href="#bun">Rice Vermicelli</a>
+              <span className="seperator"></span>
+              <a href="#vegetarian">Vegetarian</a>
+              <span className="seperator"></span>
+              <a href="#banhcanh">Banh Canh</a>
+              <span className="seperator"></span>
+              <a href="#noodlesoup">Noodle Soup</a>
+            </div>
+            <div className="bottom-categories">
+              <a href="#stirfried">Stir Fried Noodles</a>
+              <span className="seperator"></span>
+              <a href="#ricedishes">Rice Dishes</a>
+              <span className="seperator"></span>
+              <a href="#friedrice">Fried Rice</a>
+              <span className="seperator"></span>
+              <a href="#hotsoursoups">Soup</a>
+              <span className="seperator"></span>
+              <a href="#beverages">Beverage</a>
+            </div>
           </div>
         </div>
         <div className="menu">
@@ -156,7 +160,7 @@ const IndexPage = () => {
                 <p>$9.95</p>
                 <p>$10.95</p>
                 <p>$10.95</p>
-                <p>$11.95</p>
+                <p id="bev-double">$11.95</p>
                 <p>$11.95</p>
               </div>
             </div>
@@ -221,7 +225,7 @@ const IndexPage = () => {
                 <p>39. Shrimp rice noodle soup</p>
                 <p>40. Egg noodle soup w/ wonton & BBQ pork</p>
                 <p>41. Egg noodle soup w/ wonton & seafood</p>
-                <p>42. Special Egg noodle & Rice noodle (wonton, bbq pork, & seafood)</p>
+                <p id="shorten">42. Special Egg noodle & Rice noodle (wonton, bbq pork, & seafood)</p>
               </div>
               <div className="bunprices">
                 <p>$11.50</p>
@@ -254,11 +258,11 @@ const IndexPage = () => {
           <div className="ricedishes">
             <p className="category-name" id="ricedishes">Rice Dishes</p>
             <p className="description">All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu.
-              We cook the vegetables with an in house special sauce.</p>
+              We cook the vegetables with our in-house special sauce.</p>
             <div className="vegitems">
               <div className="names">
                 <p>47. Rice with beef & vegetables</p>
-                <p>48. Rice with pork & vegetanbles</p>
+                <p>48. Rice with pork & vegetables</p>
                 <p>49. Rice with chicken & vegetables</p>
                 <p>50. Rice with shrimp & vegetables</p>
                 <p>51. Rice with tofu & vegetables</p>
@@ -273,7 +277,7 @@ const IndexPage = () => {
                 <p>60. Rice with eggplant & chicken</p>
                 <p>61. Saigon Deli rice (short ribs)</p>
                 <p>62. Special rice (Choice of beef, chicken, pork, and tofu)</p>
-                <p>*63. Spicy Beef Noodle Soup (Vermicelli noodle, sliced beef, special meetball, lemongrass)</p>
+                <p className="shorten">*63. Spicy Beef Noodle Soup (Vermicelli noodle, sliced beef, special meetball, lemongrass)</p>
               </div>
               <div className="bunprices">
                 <p>$9.50</p>
@@ -341,7 +345,7 @@ const IndexPage = () => {
                 <p>74. Soybean milk</p>
                 <p>75. Fresh lemonade</p>
                 <p>76. Cocunut juice</p>
-                <p>77. Vietnamese coffee (served warm or cold with condensed milk)</p>
+                <p id="shorten">77. Vietnamese coffee (served warm or cold with condensed milk)</p>
                 <p>78. Thai iced tea</p>
               </div>
               <div className="bunprices">
@@ -350,13 +354,29 @@ const IndexPage = () => {
                 <p>$2.50</p>
                 <p>$3.50</p>
                 <p>$2.95</p>
-                <p>$3.95</p>
+                <p id="bev-double">$3.95</p>
                 <p>$3.50</p>
               </div>
             </div>
           </div>
         </div>
+        <p className="catering">Don't forget to ask us about our catering service</p>
+        <p className="catering" id="catering2">for your event or party.</p>
+        <p className="catering" id="catering3">(206) 634-2866</p>
       </body>
+      <footer>
+        <div className="footer-info">
+          <p id="footer-saigon">Saigon Deli</p>
+          <a href="https://www.google.com/maps/place/4142+Brooklyn+Ave+NE,+Seattle,+WA+98105/@47.6581627,-122.3161964,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f4a024abe1:0x1738ed6050774b05!8m2!3d47.6581627!4d-122.3140077" target="_blank">
+            4142 Brooklyn Ave NE Seattle, WA 98105
+          </a>
+          <p id="footer-hours">Mon - Fri: 11am-8pm</p>
+          <p id="footer-hours">Sat - Sun: 11am-8:30pm</p>
+        </div>
+        <a id="yelp-link" href="https://www.yelp.com/biz/saigon-deli-seattle-2?osq=saigon+deli" target="_blank">
+          <img src={Yelp} className="pho-img" id="yelp-img" alt="Yelp logo"></img>
+        </a>
+      </footer>
     </main>
   )
 }
