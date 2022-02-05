@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import Logo from "../images/SDLogo.png"
+import Logo from "../images/SDLogo1.svg"
 import Title from "../images/title_back.png"
 import Chowmein from "../images/saigonFoodPics/saigon_deli_chowmein_with_chicken_and_vegetable.jpg"
 import Chowfun from "../images/saigonFoodPics/saigon_deli_Chowfun_with_tofu_and_vegetables.jpg"
