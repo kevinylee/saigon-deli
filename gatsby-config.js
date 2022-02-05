@@ -1,7 +1,8 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
+    siteUrl: "https://www.saigondeliuw.com",
     title: "Saigon Deli",
+    description: "The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes."
   },
-  plugins: [],
+  plugins: [`gatsby-plugin-react-helmet`],
 };

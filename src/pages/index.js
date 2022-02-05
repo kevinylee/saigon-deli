@@ -1,7 +1,6 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Helmet } from "react-helmet"
 import Logo from "../images/SDLogo1.svg"
-import Title from "../images/title_back.png"
 import Chowmein from "../images/saigonFoodPics/saigon_deli_chowmein_with_chicken_and_vegetable.jpg"
 import Chowfun from "../images/saigonFoodPics/saigon_deli_Chowfun_with_tofu_and_vegetables.jpg"
 import BanhCanh from "../images/saigonFoodPics/saigon_deli_Banh_Canh_Soup.jpg"
@@ -16,19 +15,25 @@ import BoKho from "../images/saigonFoodPics/saigon_deli_Bo_Kho.jpg"
 import Combo from "../images/saigonFoodPics/saigon_deli_Combo_Sandwich_with_Wonton_soup.jpg"
 import Spring from "../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg"
 import Rolls from "../images/saigonFoodPics/saigon_deli_Eggroll.jpg"
+import BunBoHue from "../images/saigonFoodPics/saigon_deli_Bun_Bo_Hue.jpg"
 import Yelp from "../images/Yelp_Logo.svg"
+import "@fontsource/ruda/600.css"
+import "@fontsource/ruda/400.css"
 import "./index.css"
 
 // markup
 const IndexPage = () => {
   return (
-    <main>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ruda&display=swap');
-      </style>
-      <title>Saigon Deli</title>
-      <body>
+    <div className="main">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta property="og:type" content="website" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Saigon Deli</title>
+        <meta property="og:description" content="The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes." />
+        <meta property="description" content="The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes." />
+        <link rel="canonical" href="http://saigondeliuw.com" />
+      </Helmet>
         <header>
               <div className="small-info">
                   <p>takeout & dine-in</p>
@@ -364,7 +369,7 @@ const IndexPage = () => {
             </div>
             <div className="pics">
               <div className="img-desc">
-                <img src={Special} className="pho-img" alt="Bun-Bo-Hue"></img>
+                <img src={BunBoHue} className="pho-img" alt="Bun-Bo-Hue"></img>
                 <p className="desc">63. Spicy Beef Noodle Soup (Bun Bo Hue)</p>
               </div>
             </div>
@@ -446,21 +451,20 @@ const IndexPage = () => {
           <p className="catering" id="catering2">for your event or party.</p>
           <p className="catering" id="catering3">(206) 634-2866</p>
         </div>
-      </body>
       <footer>
         <div className="footer-info">
           <p id="footer-saigon">Saigon Deli</p>
-          <a href="https://www.google.com/maps/place/4142+Brooklyn+Ave+NE,+Seattle,+WA+98105/@47.6581627,-122.3161964,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f4a024abe1:0x1738ed6050774b05!8m2!3d47.6581627!4d-122.3140077" target="_blank">
+          <a href="https://www.google.com/maps/place/4142+Brooklyn+Ave+NE,+Seattle,+WA+98105/@47.6581627,-122.3161964,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f4a024abe1:0x1738ed6050774b05!8m2!3d47.6581627!4d-122.3140077" target="_blank" rel="noreferrer">
             4142 Brooklyn Ave NE Seattle, WA 98105
           </a>
           <p id="footer-hours">Mon - Fri: 11am-8pm</p>
           <p id="footer-hours">Sat - Sun: 11am-8:30pm</p>
         </div>
-        <a id="yelp-link" href="https://www.yelp.com/biz/saigon-deli-seattle-2?osq=saigon+deli" target="_blank">
+        <a id="yelp-link" href="https://www.yelp.com/biz/saigon-deli-seattle-2?osq=saigon+deli" target="_blank" rel="noreferrer">
           <img src={Yelp} className="pho-img" id="yelp-img" alt="Yelp logo"></img>
         </a>
       </footer>
-    </main>
+    </div>
   )
 }
 

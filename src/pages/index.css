@@ -76,6 +76,10 @@ a {
     width: 100%;
 }
 
+.categories a:hover {
+    font-weight: bold;
+}
+
 .top-categories {
     display: flex;
     flex-wrap: wrap;
