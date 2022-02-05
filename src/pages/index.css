@@ -18,6 +18,14 @@ a {
     align-items: center;
 }
 
+.horizontal-line {
+    background-color: white;
+    border-radius: 1px;
+    height: 1.5px;
+    width: 275px;
+    margin-top: 1%;
+}
+
 .seperator {
     width: 1.5px;
     height: 19px;
@@ -35,30 +43,42 @@ a {
     gap: 20px;
     font-family: "Ruda", sans-serif;
     font-size: 20px;
+    background: url("../images/title_back.png");
+    width: 100%;
 }
 
 .main-logo {
-    width: 40%;
+    width: 45%;
 }
 
 .address {
     padding-bottom: 0px;
-    color: #53939D;
+    color: white;
     margin-bottom: -10px;
 }
 
 .weekdays {
+    color: white;
+    margin-top: 0px;
     margin-bottom: -35px;
 }
 
+.weekends {
+    color: white;
+}
+
 .categories {
+    display: flex;
+    flex-wrap: wrap;
     background-color: #354884;
+    flex-direction: column;
     color: white;
     width: 100%;
 }
 
 .top-categories {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -67,6 +87,7 @@ a {
 
 .bottom-categories {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -150,8 +171,8 @@ a {
     flex-direction: row;
 }
 
-#shorten {
-    width: 350px;
+.shorten {
+    width: 380px;
 }
 
 .bunprices {
@@ -197,6 +218,19 @@ a {
     align-items: center;
 }
 
+#rice-desc {
+    margin-top: 3px;
+    margin-bottom: 20px;
+}
+
+#sixtwo {
+    margin-bottom: 8px;;
+}
+
+#sixtytwo-price {
+    margin-bottom: 47px;
+}
+
 .friedrice {
     display: flex;
     flex-direction: column;
@@ -229,6 +263,8 @@ a {
 
 .pics {
     display: flex;
+    flex-wrap: wrap;
+    align-content: center;
     justify-content: space-between;
     gap: 50px;
 }
@@ -270,10 +306,6 @@ footer {
     font-size: 30px;
 }
 
-#footer-hours {
-    
-}
-
 #yelp-link {
     align-self: center;
 }
@@ -281,4 +313,276 @@ footer {
 #yelp-img {
     max-width: 400px;
     max-height: 100px;
+}
+
+@media screen and (max-width: 420px) {
+    .small-info {
+        font-size: 85%;
+    }
+
+    .main-logo {
+        width: 80%;
+    }
+
+    .address {
+        font-size: 80%;
+    }
+
+    .horizontal-line {
+        width: 50%;
+    }
+    
+    .weekdays {
+        font-size: 80%;
+    }
+    
+    .weekends {
+        font-size: 80%;
+    }
+
+    .top-categories {
+        font-size: 72%;
+    }
+
+    .bottom-categories {
+        font-size: 72%;
+    }
+
+    .description {
+        font-size: 77%;
+    }
+
+    .appe-items {
+        width: 85%;
+    }
+
+    #appe-first {
+        margin-bottom: 213%;
+    }
+
+    #second {
+        margin-bottom: 230%;
+    }
+
+    #third {
+        margin-bottom: 300%;
+    }
+
+    .pics {
+        gap: 20%;
+    }
+
+    .pho-img {
+        width: 80%;
+    }
+    
+    .img-desc {
+        margin-top: 5%;
+    }
+
+    .description {
+        width: 77%;
+    }
+
+    .phoitems {
+        width: 85%;
+    }
+
+    .names {
+        margin-top: 1.88%;
+        padding-top: 9.5%;
+    }
+
+    #ten-price {
+        margin-top: 1%;
+    }
+
+    .large > p {
+        margin-bottom: 34.3%;
+    }
+
+    .small > p {
+        margin-bottom: 39.3%;
+        margin-left: 5%;
+    }
+
+    .category-name {
+        font-size: 30px;
+    }
+
+    .bunitems {
+        width: 85%;
+    }
+
+    #bun-names {
+        margin-top: 0%;
+    }
+
+    .bunprices > p{
+        margin-bottom: 30%;
+    }
+
+    #bun-first-price {
+        margin-bottom: 80%;
+    }
+
+    .vegitems {
+        width: 86%;
+    }
+
+    #vegnames {
+        padding-top: 2%;
+    }
+
+    #vegprices {
+        margin-top: 4%;
+    }
+
+    #twentyeight-price {
+        margin-bottom: 78%;
+    }
+
+    #banhcanh {
+        font-size: 170%;
+    }
+
+    #udon-names {
+        padding-top: 2%;
+    }
+
+    #udon-prices {
+        margin-top: 3.75%;
+    }
+
+    #hutieu-names {
+        padding-top: 1.7%;
+        max-width: 81%;
+        font-size: 92%;
+    }
+
+    #hutieu-prices {
+        margin-top: 8%;
+        margin-left: 6%;
+    }
+
+    #hutieu-prices > p {
+        margin-top: 0%;
+        margin-bottom: 26%;
+    }
+
+    #forty-price {
+        padding-bottom: 40%;
+    }
+
+    #fortyone-price {
+        padding-bottom: 40%;
+    }
+
+    #stirfried-names {
+        padding-top: 2%;
+        font-size: 92%;
+        width: 80%;
+    }
+
+    #stirfried-prices {
+        margin-top: 3.75%;
+        margin-left: 6%;
+    }
+
+    #stirfried-prices > p {
+        padding-bottom: 30%;
+    }
+
+    #rice-names {
+        padding-top: 0%;
+        margin-top: 3.8%;
+        font-size: 92%;
+        width: 80%;
+    }
+
+    #rice-names > p {
+        margin-left: 3%;
+        width: 85%;
+    }
+
+    #rice-prices {
+        margin-top: 3.75%;
+        margin-left: 5%;
+    }
+
+    #rice-prices > p {
+        margin-top: 28.5%;
+        margin-bottom: 0;
+    }
+
+    #fortynine-price {
+        margin-top: 13.5px;
+        padding-bottom: 35.75%;
+    }
+
+    #fiftytwo-price {
+        padding-bottom: 37%;
+    }
+
+    #sixtytwo-price {
+        padding-bottom: 103%;
+    }
+    
+    #friedrice-names {
+        font-size: 92%;
+        padding-top: 0%;
+    }
+
+    #friedrice-prices {
+        margin-top: 1.2%;
+    }
+
+    #friedrice-prices > p {
+        margin-bottom: 0;
+        margin-top: 29.5%;
+    }
+
+    #hotsoup-names {
+        padding-top: 0%;
+    }
+
+    #hotsoup-prices {
+        margin-top: 1.5%;
+    }
+
+    #beverage-names {
+        width: 80%;
+        font-size: 92%;
+        padding-top: 0%;
+    }
+
+    #beverage-names > p {
+        width: 88%;
+        margin-left: 4%;
+    }
+
+    #beverage-prices {
+        margin-top: 1.2%;
+        margin-left: 5%;
+    }
+
+    #beverage-prices > p {
+        margin-top: 32.85%;
+    }
+
+    .catering {
+        margin-top: 10%;
+        font-size: 124%;
+    }
+
+    .footer-info {
+        margin-left: 5%;
+        width: 50%;
+        font-size: 90%;
+    }
+
+    #yelp-link {
+        margin-left: 7%;
+        width: 60%;
+    }
 }
