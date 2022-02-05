@@ -176,7 +176,7 @@ const IndexPage = () => {
                 <p>$9.95</p>
                 <p>$10.95</p>
                 <p>$10.95</p>
-                <p id="bev-double">$11.95</p>
+                <p className="shorten-price">$11.95</p>
                 <p>$11.95</p>
               </div>
             </div>

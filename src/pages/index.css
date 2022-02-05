@@ -570,6 +570,17 @@ footer {
         margin-top: 32.85%;
     }
 
+    #bev-double {
+        padding-top: 9%;
+        padding-bottom: 30%;
+    }
+
+    .shorten-price {
+        padding-top: 0;
+        padding-bottom: 40%;
+    }
+
+
     .catering {
         margin-top: 10%;
         font-size: 124%;
