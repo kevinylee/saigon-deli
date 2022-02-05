@@ -32,7 +32,6 @@ const IndexPage = () => {
         <title>Saigon Deli</title>
         <meta property="og:description" content="The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes." />
         <meta property="description" content="The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes." />
-        <link rel="canonical" href="http://saigondeliuw.com" />
       </Helmet>
         <header>
               <div className="small-info">
