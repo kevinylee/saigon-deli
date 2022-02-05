@@ -27,7 +27,7 @@ a {
 }
 
 .seperator {
-    width: 1.5px;
+    width: 1px;
     height: 19px;
     background-color: white;
     border-radius: 1px;
@@ -74,10 +74,6 @@ a {
     flex-direction: column;
     color: white;
     width: 100%;
-}
-
-.categories a:hover {
-    font-weight: bold;
 }
 
 .top-categories {
