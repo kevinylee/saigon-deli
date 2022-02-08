@@ -45,7 +45,7 @@ const IndexPage = () => {
           <p className="address">4142 Brooklyn Ave NE Seattle, WA 98105</p>
           <span className="horizontal-line"></span>
           <p className="weekdays">Mon - Fri: 11am-8pm</p>
-          <p className="weekends">Sat - Sun: 11am-8:30pm</p>
+          <p className="weekends">Sat - Sun: 11:30am-8pm</p>
           <div className="categories">
             <div className="top-categories">
               <a href="#appetizers">Appetizers</a>
