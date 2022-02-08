@@ -1,21 +1,21 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
 import Logo from "../images/SDLogo1.svg"
-import Chowmein from "../images/saigonFoodPics/saigon_deli_chowmein_with_chicken_and_vegetable.jpg"
-import Chowfun from "../images/saigonFoodPics/saigon_deli_Chowfun_with_tofu_and_vegetables.jpg"
-import BanhCanh from "../images/saigonFoodPics/saigon_deli_Banh_Canh_Soup.jpg"
-import Bun from "../images/saigonFoodPics/saigon_deli_Bun_with_charbroiled_Pork_and_eggroll.jpg"
-import Friedrice from "../images/saigonFoodPics/saigon_deli_Fried_rice_with_shrimp.jpg"
-import Special from "../images/saigonFoodPics/saigon_deli_Special_rice_with_pork.jpg"
-import ShortRib from "../images/saigonFoodPics/saigon_deli_rice_with_short_ribs.jpg"
-import Porkchop from "../images/saigonFoodPics/saigon_deli_Pork_chop_with_rice.jpg"
-import RiceBeefVeg from "../images/saigonFoodPics/saigon_deli_Rice_with_Beef_and_Vegetables.jpg"
-import Pho from "../images/saigonFoodPics/saigon_deli_Pho_Beef.jpg"
-import BoKho from "../images/saigonFoodPics/saigon_deli_Bo_Kho.jpg"
-import Combo from "../images/saigonFoodPics/saigon_deli_Combo_Sandwich_with_Wonton_soup.jpg"
-import Spring from "../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg"
-import Rolls from "../images/saigonFoodPics/saigon_deli_Eggroll.jpg"
-import BunBoHue from "../images/saigonFoodPics/saigon_deli_Bun_Bo_Hue.jpg"
+import Chowmein from "../images/saigonFoodPics/saigon_deli_chowmein_with_chicken_and_vegetable.png"
+import Chowfun from "../images/saigonFoodPics/saigon_deli_Chowfun_with_tofu_and_vegetables.png"
+import BanhCanh from "../images/saigonFoodPics/saigon_deli_Banh_Canh_Soup.png"
+import Bun from "../images/saigonFoodPics/saigon_deli_Bun_with_charbroiled_Pork_and_eggroll.png"
+import Friedrice from "../images/saigonFoodPics/saigon_deli_Fried_rice_with_shrimp.png"
+import Special from "../images/saigonFoodPics/saigon_deli_Special_rice_with_pork.png"
+import ShortRib from "../images/saigonFoodPics/saigon_deli_rice_with_short_ribs.png"
+import Porkchop from "../images/saigonFoodPics/saigon_deli_Pork_chop_with_rice.png"
+import RiceBeefVeg from "../images/saigonFoodPics/saigon_deli_Rice_with_Beef_and_Vegetables.png"
+import Pho from "../images/saigonFoodPics/saigon_deli_Pho_Beef.png"
+import BoKho from "../images/saigonFoodPics/saigon_deli_Bo_Kho.png"
+import Combo from "../images/saigonFoodPics/saigon_deli_Combo_Sandwich_with_Wonton_soup.png"
+import Spring from "../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.png"
+import Rolls from "../images/saigonFoodPics/saigon_deli_Eggroll.png"
+import BunBoHue from "../images/saigonFoodPics/saigon_deli_Bun_Bo_Hue.png"
 import Yelp from "../images/Yelp_Logo.svg"
 import "@fontsource/ruda/600.css"
 import "@fontsource/ruda/400.css"
@@ -330,14 +330,14 @@ const IndexPage = () => {
                 <p>$9.95</p>
                 <p id="fortyeight-price">$9.95</p>
                 <p id="fortynine-price">$9.95</p>
-                <p>$10.95</p>
+                <p id="fifty-price">$10.95</p>
                 <p>$9.95</p>
                 <p id="fiftytwo-price">$10.95</p>
                 <p id="fiftytwo-price">$9.95</p>
                 <p id="fiftytwo-price">$9.95</p>
                 <p id="fiftytwo-price">$9.95</p>
                 <p id="fiftytwo-price">$10.95</p>
-                <p id="fiftytwo-price">$9.95</p>
+                <p id="fiftyseven-price">$9.95</p>
                 <p>$11.50</p>
                 <p>$9.95</p>
                 <p>$9.95</p>
