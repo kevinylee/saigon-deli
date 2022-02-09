@@ -417,7 +417,7 @@ const IndexPage = () => {
             <div className="pics">
               <div className="img-desc">
                 <img src={BoKho} className="pho-img" alt="Bo-Kho"></img>
-                <p className="desc">69. Sour soup w/ beef</p>
+                <p className="desc">Beef Stew Noodle Soup (Hu Tieu Bo Kho)</p>
               </div>
             </div>
           </div>
