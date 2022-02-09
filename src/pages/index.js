@@ -42,6 +42,7 @@ const IndexPage = () => {
         </header>
         <div className="title-info">
           <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
+          <p className="number">(206) 634-2866</p>
           <p className="address">4142 Brooklyn Ave NE Seattle, WA 98105</p>
           <span className="horizontal-line"></span>
           <p className="weekdays">Mon - Fri: 11am-8pm</p>

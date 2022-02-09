@@ -51,10 +51,18 @@ a {
     width: 45%;
 }
 
+.number {
+    color: white;
+    margin-bottom: 0%;
+    font-size: 120%;
+}
+
 .address {
     padding-bottom: 0px;
+    margin-top: 0px;
     color: white;
     margin-bottom: -10px;
+    font-size: 120%;
 }
 
 .weekdays {
