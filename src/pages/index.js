@@ -78,7 +78,7 @@ const IndexPage = () => {
             <p className="category-name" id="appetizers">Appetizers</p>
             <div className="appe-items">
               <div className="names-desc">
-                <p className="appename">1. Spring Rolls - Gui Cuon</p>
+                <p className="appename">1. Spring Rolls - Goi Cuon</p>
                 <p className="desc">Rice vermicelli & lettuce rolled in fresh rice paper with your choice of
                   Shrimp, Chicken, or Tofu. Served with peanut sauce.</p>
                 <p className="appename">2. Vegetarian Egg Rolls</p>
