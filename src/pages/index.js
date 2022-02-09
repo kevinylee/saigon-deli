@@ -86,7 +86,7 @@ const IndexPage = () => {
                   Served with fish sauce.</p>
                 <p className="appename">3. Vietnamese Sandwich (banh mi) ⭐</p>
                 <p className="desc">Fresh baguette filled with shredded carrots, cucumbers, cilantro, 
-                  and your choice of BBQ Pork, Chicken, or Tofu.</p>
+                  and your choice of <b className="desc-fade">BBQ Pork, Chicken, or Tofu.</b></p>
                 <p className="desc-fade">*Add an egg for $0.75</p>
                 <p className="appename">3A. COMBO: Sandwich & Wonton soup</p>
                 <p className="desc">Small wonton soup with your choice of a Vietnamese Sandwich.</p>
@@ -101,7 +101,7 @@ const IndexPage = () => {
             <div className="pics">
               <div className="img-desc">
                 <img src={Spring} className="pho-img" alt="spring-rolls"></img>
-                <p className="desc">1. Spring Rolls - Gui Cuon</p>
+                <p className="desc">1. Spring Rolls - Goi Cuon</p>
               </div>
               <div className="img-desc">
                 <img src={Rolls} className="pho-img" alt="egg-rolls"></img>
@@ -426,7 +426,7 @@ const IndexPage = () => {
             <div className="vegitems">
               <div className="names" id="beverage-names">
                 <p>72. Canned soda</p>
-                <p>73. Snapple</p>
+                <p>73. Gatorade</p>
                 <p>74. Soybean milk</p>
                 <p>75. Fresh lemonade</p>
                 <p>76. Cocunut juice</p>
