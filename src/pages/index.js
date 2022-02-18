@@ -17,6 +17,7 @@ import Spring from "../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp
 import Rolls from "../images/saigonFoodPics/saigon_deli_Eggroll.jpg"
 import BunBoHue from "../images/saigonFoodPics/saigon_deli_Bun_Bo_Hue.jpg"
 import Yelp from "../images/Yelp_Logo.svg"
+import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
 import "@fontsource/ruda/400.css"
 import "./index.css"
@@ -29,9 +30,14 @@ const IndexPage = () => {
         <meta charSet="utf-8" />
         <meta property="og:type" content="website" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Saigon Deli</title>
+        <title>Saigon Deli - The Best Vietnamese Food in Seattle</title>
+        <meta property="og:title" content="Saigon Deli - The Best Vietnamese Food in Seattle" />
         <meta property="og:description" content="The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes." />
         <meta property="description" content="The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes." />
+        <meta property="og:url" content="https://www.saigondeliuw.com" />
+        <meta name="keywords" content="banh mi, pho, vietnamese, bun bo hue, pho seattle, vietnamese food" />
+        <meta name="author" content="Kevin Lee" />
+        <link rel="icon" type="image/png" href={WebsiteIcon} sizes="64x64" />
       </Helmet>
         <header>
               <div className="small-info">
