@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
+import axios from "axios"
 import Logo from "../images/SDLogo1.svg"
 import Chowmein from "../images/saigonFoodPics/saigon_deli_chowmein_with_chicken_and_vegetable.jpg"
 import Chowfun from "../images/saigonFoodPics/saigon_deli_Chowfun_with_tofu_and_vegetables.jpg"
@@ -21,6 +22,20 @@ import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
 import "@fontsource/ruda/400.css"
 import "./index.css"
+
+const Items = async () => {
+  const response = await axios.get("/.netlify/functions/gsheets");
+  const rows = response.data.Rows;
+  rows.map(row => {
+    console.log(row.Category);
+    console.log(row.Title);
+    console.log(row.Price);
+    console.log(row.Description);
+  })
+};
+
+Items();
+
 
 // markup
 const IndexPage = () => {
