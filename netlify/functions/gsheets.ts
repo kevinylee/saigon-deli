@@ -1,23 +1,20 @@
 import { Handler } from "@netlify/functions";
-const { GoogleSpreadsheet } = require('google-spreadsheet');
+import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet';
 
 const handler: Handler = async (event, context) => {
-  console.log('we made it');
   // Initialize the sheet - doc ID is the long id in the sheets URL
   const doc = new GoogleSpreadsheet('1GneLscLi_f5Xc4moIaIQm5DdDALuP1JtFqOtUhy9yAo');
-  console.log(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
-  console.log(process.env.GOOGLE_PRIVATE_KEY);
+
   await doc.useServiceAccountAuth({
     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
     private_key: process.env.GOOGLE_PRIVATE_KEY,
   });
   
-
   const res = await doc.loadInfo().then(async () => {
     console.log(doc.title);
 
-    const sheet = doc.sheetsByIndex[0];
-    const rows = await sheet.getRows();
+    const sheet: GoogleSpreadsheetWorksheet =  doc.sheetsByIndex[0];
+    const rows = await sheet.getRows() as any;
     const finalrows = rows.map(row => {
       return ({
         "Category": row.Category,
@@ -31,21 +28,15 @@ const handler: Handler = async (event, context) => {
   
     return {
       statusCode: 200,
-      body: JSON.stringify({ Rows: finalrows }),
+      body: JSON.stringify({ Menu: finalrows, Hours: [] }),
     };
   }).catch(err => {
-    console.log('awawdwaadwda');
     console.log(err);
   });
-
-  if (res) {
-    return res;
-  }kevy
   
-
-  return {
+  return res || {
     statusCode: 500,
-    body: JSON.stringify({ Rows: [] }),
+    body: JSON.stringify({ Menu: [], Hours: [] }),
   };
 };
 
