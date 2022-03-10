@@ -5,14 +5,27 @@ exports.createPages = async ({ actions: { createPage } }) => {
     console.log(error);
   });
 
-  const menu = formatResponse(response.data.Rows);
+  const menu = formatResponse(response.data.Menu); // ARRAY of json objects
+  const appetizers = formatResponse(response.data.Appetizers);
+  const pho = formatResponse(response.data.Pho);
+  const bun = formatResponse(response.data.Bun);
+  const vegetarian = formatResponse(response.data.Vegetarian);
+  const banhcanh = formatResponse(response.data.BanhCanh);
+  const hutieu = formatResponse(response.data.HuTieu);
+  const stirfried = formatResponse(response.data.StirFried);
+  const ricedishes = formatResponse(response.data.RiceDishes);
+  const friedrice = formatResponse(response.data.FriedRice);
+  const soursoup = formatResponse(response.data.SourSoup);
+  const beverage = formatResponse(response.data.Beverage);
+  console.log("hey2");
+  console.log(beverage);
 
   // Create the index page & fill it with menu data
   createPage({
     path: `/`,
-    component: require.resolve("./src/templates/index.js"),
+    component: require.resolve("./src/templates/index.js"), 
     context: { 
-      menu,
+      menu, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
     },
   })
 };

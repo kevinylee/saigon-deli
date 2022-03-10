@@ -1,7 +1,11 @@
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -25,6 +29,17 @@ var __export = (target, all) => {
   __markAsModule(target);
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __reExport = (target, module2, desc) => {
+  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
+    for (let key of __getOwnPropNames(module2))
+      if (!__hasOwnProp.call(target, key) && key !== "default")
+        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+  }
+  return target;
+};
+var __toModule = (module2) => {
+  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", module2 && module2.__esModule && "default" in module2 ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
 };
 
 // node_modules/lodash/lodash.js
@@ -35294,7 +35309,7 @@ var require_GoogleSpreadsheetWorksheet = __commonJS({
         }
       });
     }
-    var GoogleSpreadsheetWorksheet = class {
+    var GoogleSpreadsheetWorksheet2 = class {
       constructor(parentSpreadsheet, { properties, data }) {
         this._spreadsheet = parentSpreadsheet;
         this._headerRowIndex = 1;
@@ -35809,7 +35824,7 @@ var require_GoogleSpreadsheetWorksheet = __commonJS({
         this.resetLocalCache(true);
       }
     };
-    module2.exports = GoogleSpreadsheetWorksheet;
+    module2.exports = GoogleSpreadsheetWorksheet2;
   }
 });
 
@@ -35819,7 +35834,7 @@ var require_GoogleSpreadsheet = __commonJS({
     var _ = require_lodash();
     var { JWT } = require_src8();
     var Axios = require_axios2();
-    var GoogleSpreadsheetWorksheet = require_GoogleSpreadsheetWorksheet();
+    var GoogleSpreadsheetWorksheet2 = require_GoogleSpreadsheetWorksheet();
     var { getFieldMask } = require_utils3();
     var GOOGLE_AUTH_SCOPES = [
       "https://www.googleapis.com/auth/spreadsheets"
@@ -35965,7 +35980,7 @@ var require_GoogleSpreadsheet = __commonJS({
       _updateOrCreateSheet({ properties, data }) {
         const { sheetId } = properties;
         if (!this._rawSheets[sheetId]) {
-          this._rawSheets[sheetId] = new GoogleSpreadsheetWorksheet(this, { properties, data });
+          this._rawSheets[sheetId] = new GoogleSpreadsheetWorksheet2(this, { properties, data });
         } else {
           this._rawSheets[sheetId]._rawProperties = properties;
           this._rawSheets[sheetId]._fillCellData(data);
@@ -36128,12 +36143,12 @@ var require_GoogleSpreadsheet = __commonJS({
 var require_google_spreadsheet = __commonJS({
   "node_modules/google-spreadsheet/index.js"(exports, module2) {
     var GoogleSpreadsheet2 = require_GoogleSpreadsheet();
-    var GoogleSpreadsheetWorksheet = require_GoogleSpreadsheetWorksheet();
+    var GoogleSpreadsheetWorksheet2 = require_GoogleSpreadsheetWorksheet();
     var GoogleSpreadsheetRow = require_GoogleSpreadsheetRow();
     var { GoogleSpreadsheetFormulaError } = require_errors();
     module2.exports = {
       GoogleSpreadsheet: GoogleSpreadsheet2,
-      GoogleSpreadsheetWorksheet,
+      GoogleSpreadsheetWorksheet: GoogleSpreadsheetWorksheet2,
       GoogleSpreadsheetRow,
       GoogleSpreadsheetFormulaError
     };
@@ -36144,12 +36159,9 @@ var require_google_spreadsheet = __commonJS({
 __export(exports, {
   handler: () => handler
 });
-var { GoogleSpreadsheet } = require_google_spreadsheet();
+var import_google_spreadsheet = __toModule(require_google_spreadsheet());
 var handler = async (event, context) => {
-  console.log("we made it");
-  const doc = new GoogleSpreadsheet("1GneLscLi_f5Xc4moIaIQm5DdDALuP1JtFqOtUhy9yAo");
-  console.log(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
-  console.log(process.env.GOOGLE_PRIVATE_KEY);
+  const doc = new import_google_spreadsheet.GoogleSpreadsheet("1GneLscLi_f5Xc4moIaIQm5DdDALuP1JtFqOtUhy9yAo");
   await doc.useServiceAccountAuth({
     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
     private_key: process.env.GOOGLE_PRIVATE_KEY
@@ -36163,25 +36175,34 @@ var handler = async (event, context) => {
         "Category": row.Category,
         "Title": row.Title,
         "Price": row.Price,
-        "Description": row.Description
+        "Description": row.Description,
+        "LargePrice": row.LargePrice,
+        "SmallPrice": row.SmallPrice
       };
     });
-    console.log(finalrows);
+    console.log(rows);
+    const appetizers = finalrows.filter((item) => item.Category === "Appetizers");
+    const pho = finalrows.filter((item) => item.Category === "Pho");
+    const bun = finalrows.filter((item) => item.Category === "Bun");
+    const vegetarian = finalrows.filter((item) => item.Category === "Vegetarian");
+    const banhcanh = finalrows.filter((item) => item.Category === "Banh Canh");
+    const hutieu = finalrows.filter((item) => item.Category === "Hu Tieu");
+    const stirfried = finalrows.filter((item) => item.Category === "Stir Fried Noodle");
+    const ricedishes = finalrows.filter((item) => item.Category === "Rice Dishes");
+    const friedrice = finalrows.filter((item) => item.Category === "Fried Rice");
+    const soursoup = finalrows.filter((item) => item.Category === "Sour Soup");
+    const beverage = finalrows.filter((item) => item.Category === "Beverage");
+    console.log(beverage);
     return {
       statusCode: 200,
-      body: JSON.stringify({ Rows: finalrows })
+      body: JSON.stringify({ Menu: finalrows, Appetizers: appetizers, Pho: pho, Bun: bun, Vegetarian: vegetarian, BanhCanh: banhcanh, HuTieu: hutieu, StirFried: stirfried, RiceDishes: ricedishes, FriedRice: friedrice, SourSoup: soursoup, Beverage: beverage, Hours: [] })
     };
   }).catch((err) => {
-    console.log("awawdwaadwda");
     console.log(err);
   });
-  if (res) {
-    return res;
-  }
-  kevy;
-  return {
+  return res || {
     statusCode: 500,
-    body: JSON.stringify({ Rows: [] })
+    body: JSON.stringify({ Menu: [], Appetizers: [], Pho: [], Bun: [], Vegetarian: [], BanhCanh: [], HuTieu: [], StirFried: [], RiceDishes: [], FriedRice: [], SourSoup: [], Beverage: [], Hours: [] })
   };
 };
 // Annotate the CommonJS export names for ESM import in node:
