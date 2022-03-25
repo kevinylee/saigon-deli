@@ -106,6 +106,7 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p id="last">$9.50</p>
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={Spring} className="pho-img" alt="spring-rolls"></img>
@@ -122,6 +123,7 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">3A. COMBO: Sandwich & Wonton soup</p>
               </div>
             </div>
+            */}
           </div>
           {/*<Pho pho={ pho }/>*/}
           {/* <div className="pho">
@@ -194,12 +196,14 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$11.95</p>
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={Bun} className="pho-img" alt="bun"></img>
                 <p className="desc">12. Bun with charbroiled pork & eggrolls</p>
               </div>
             </div>
+            */}
           </div>
           {/*<Vegetarian vegetarian={ vegetarian }/>*/}
           <div className="vegetarian">
@@ -230,12 +234,14 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$10.50</p> 
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={Chowfun} className="pho-img" alt="Chowfun-with-tofu-and-vegetables"></img>
                 <p className="desc">25. Chowfun w/ tofu & vegetables</p>
               </div>
             </div>
+            */}
           </div>
           {/*<BanhCanh banhcanh={ banhcanh }/>*/}
           <div className="udon">
@@ -257,12 +263,14 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$11.50</p>
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={BanhCanh} className="pho-img" alt="banh-canh"></img>
                 <p className="desc">34. Banh canh w/ shrimp</p>
               </div>
             </div>
+            */}
           </div>
           {/*<HuTieu hutieu={ hutieu }/>*/}
           <div className="hutieu">
@@ -308,12 +316,14 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$11.95</p>
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={Chowmein} className="pho-img" alt="chowmein-with-chicken-and-vegetables"></img>
                 <p className="desc">43. Chowmein with vegetables & chicken</p>
               </div>
             </div>
+            */}
           </div>
           {/*<RiceDishes ricedishes={ ricedishes }/>*/}
           <div className="ricedishes">
@@ -361,6 +371,7 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$11.50</p>
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={RiceBeefVeg} className="pho-img" alt="rice-with-beef-and-vegetables"></img>
@@ -387,6 +398,7 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">63. Spicy Beef Noodle Soup (Bun Bo Hue)</p>
               </div>
             </div>
+            */}
           </div>
           {/*<FriedRice friedrice={ friedrice }/>*/}
           <div className="friedrice">
@@ -404,12 +416,14 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$12.50</p>
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={Friedrice} className="pho-img" alt="friedrice-with-shrimp"></img>
                 <p className="desc">65. Fried rice with shrimp</p>
               </div>
             </div>
+            */}
           </div>
           {/*<SourSoup soursoup={ soursoup }/>*/}
           <div className="hotsoup">
@@ -431,12 +445,14 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$11.50</p>
               </div>
             </div>
+            {/*
             <div className="pics">
               <div className="img-desc">
                 <img src={BoKho} className="pho-img" alt="Bo-Kho"></img>
                 <p className="desc">Beef Stew Noodle Soup (Hu Tieu Bo Kho)</p>
               </div>
             </div>
+            */}
           </div>
           {/*<Beverage beverage={ beverage }/>*/}
           <div className="beverage">

@@ -18,14 +18,14 @@ exports.createPages = async ({ actions: { createPage } }) => {
   // const soursoup = formatResponse(response.data.SourSoup);
   // const beverage = formatResponse(response.data.Beverage);
 
-  // // Create the index page & fill it with menu data
-  // createPage({
-  //   path: `/`,
-  //   component: require.resolve("./src/templates/index.js"), 
-  //   context: { 
-  //     menu, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
-  //   },
-  // });
+  // Create the index page & fill it with menu data
+  createPage({
+    path: `/`,
+    component: require.resolve("./src/templates/index.js"), 
+    context: { 
+      // menu, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
+    },
+  });
 };
 
 const formatResponse = (r) => r;
