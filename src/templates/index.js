@@ -81,8 +81,8 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
           </div>
         </div>
         <div className="menu">
-          <Appetizers a={ appetizers }/>
-          {/* <div className="appetizers">
+          {/*<Appetizers a={ appetizers }/>*/}
+          <div className="appetizers">
             <p className="category-name" id="appetizers">Appetizers</p>
             <div className="appe-items">
               <div className="names-desc">
@@ -122,8 +122,8 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">3A. COMBO: Sandwich & Wonton soup</p>
               </div>
             </div>
-          </div> */}
-          <Pho pho={ pho }/>
+          </div>
+          {/*<Pho pho={ pho }/>*/}
           {/* <div className="pho">
             <p className="category-name" id="pho">Pho (Noodle Soup)</p>
             <p className="description">Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime.</p>
@@ -167,9 +167,9 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">11. Special Pho (beef and meatballs)</p>
               </div>
             </div>
-          </div> */}
-          <Bun bun={ bun }/>
-          {/* <div className="bun">
+          </div>
+          {/*<Bun bun={ bun }/>*/}
+          <div className="bun">
             <p className="category-name" id="bun">Bun (Rice Vermicelli)</p>
             <p className="description">Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)</p>
             <div className="bunitems">
@@ -200,9 +200,9 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">12. Bun with charbroiled pork & eggrolls</p>
               </div>
             </div>
-          </div> */}
-          <Vegetarian vegetarian={ vegetarian }/>
-          {/* <div className="vegetarian">
+          </div>
+          {/*<Vegetarian vegetarian={ vegetarian }/>*/}
+          <div className="vegetarian">
             <p className="category-name" id="vegetarian">Vegetarian Dishes</p>
             <div className="vegitems">
               <div className="names" id="vegnames">
@@ -236,36 +236,36 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">25. Chowfun w/ tofu & vegetables</p>
               </div>
             </div>
-          </div> */}
-          <BanhCanh banhcanh={ banhcanh }/>
-          {/* // <div className="udon">
-          //   <p className="category-name" id="banhcanh">Banh Canh (udon noodle soup)</p>
-          //   <p className="description">Served with vegetables and your choice of the following:</p>
-          //   <div className="vegitems">
-          //     <div className="names" id="udon-names">
-          //       <p>31. Banh canh w/ chicken</p>
-          //       <p>32. Banh canh w/ beef</p>
-          //       <p>33. Banh canh w/ pork</p>
-          //       <p>34. Banh canh w/ shrimp</p>
-          //       <p>35. Banh canh w/ seafood</p>
-          //     </div>
-          //     <div className="bunprices" id="udon-prices">
-          //       <p>$10.50</p>
-          //       <p>$10.50</p>
-          //       <p>$10.50</p>
-          //       <p>$11.50</p>
-          //       <p>$11.50</p>
-          //     </div>
-          //   </div>
-          //   <div className="pics">
-          //     <div className="img-desc">
-          //       <img src={BanhCanh} className="pho-img" alt="banh-canh"></img>
-          //       <p className="desc">34. Banh canh w/ shrimp</p>
-          //     </div>
-          //   </div>
-          // </div> */}
-          <HuTieu hutieu={ hutieu }/>
-          {/* <div className="hutieu">
+          </div>
+          {/*<BanhCanh banhcanh={ banhcanh }/>*/}
+          <div className="udon">
+            <p className="category-name" id="banhcanh">Banh Canh (udon noodle soup)</p>
+            <p className="description">Served with vegetables and your choice of the following:</p>
+            <div className="vegitems">
+              <div className="names" id="udon-names">
+                <p>31. Banh canh w/ chicken</p>
+                <p>32. Banh canh w/ beef</p>
+                <p>33. Banh canh w/ pork</p>
+                <p>34. Banh canh w/ shrimp</p>
+                <p>35. Banh canh w/ seafood</p>
+              </div>
+              <div className="bunprices" id="udon-prices">
+                <p>$10.50</p>
+                <p>$10.50</p>
+                <p>$10.50</p>
+                <p>$11.50</p>
+                <p>$11.50</p>
+              </div>
+            </div>
+            <div className="pics">
+              <div className="img-desc">
+                <img src={BanhCanh} className="pho-img" alt="banh-canh"></img>
+                <p className="desc">34. Banh canh w/ shrimp</p>
+              </div>
+            </div>
+          </div>
+          {/*<HuTieu hutieu={ hutieu }/>*/}
+          <div className="hutieu">
             <p className="category-name" id="noodlesoup">Hu Tieu (noodle soup)</p>
             <p className="description">Rice or egg noodles in a pork broth, broccoli, and your choice of meat, seafood, or tofu.</p>
             <div className="vegitems">
@@ -288,9 +288,9 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$12.95</p>
               </div>
             </div>
-          </div> */}
-          <StirFried stirfried={ stirfried }/>
-          {/* <div className="stirfried">
+          </div>
+          {/*<StirFried stirfried={ stirfried }/>*/}
+          <div className="stirfried">
             <p className="category-name" id="stirfried">Stir Fried Noodle</p>
             <p className="description">Rice or egg noodles stir fried with broccoli, carrot, and your choice of meat, seafood, or tofu.
               Served with a sprinkle of crushed peanut.</p>
@@ -314,9 +314,9 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">43. Chowmein with vegetables & chicken</p>
               </div>
             </div>
-          </div> */}
-          <RiceDishes ricedishes={ ricedishes }/>
-          {/* <div className="ricedishes">
+          </div>
+          {/*<RiceDishes ricedishes={ ricedishes }/>*/}
+          <div className="ricedishes">
             <p className="category-name" id="ricedishes">Rice Dishes</p>
             <p className="description">All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu.
               We cook the vegetables with our in-house special sauce.</p>
@@ -387,9 +387,9 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">63. Spicy Beef Noodle Soup (Bun Bo Hue)</p>
               </div>
             </div>
-          </div> */}
-          <FriedRice friedrice={ friedrice }/>
-          {/* <div className="friedrice">
+          </div>
+          {/*<FriedRice friedrice={ friedrice }/>*/}
+          <div className="friedrice">
             <p className="category-name" id="friedrice">Fried Rice</p>
             <p className="description">Our fried rice is cooked with egg, mixed peas and your choice of meat.</p>
             <div className="vegitems">
@@ -410,9 +410,9 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">65. Fried rice with shrimp</p>
               </div>
             </div>
-          </div> */}
-          <SourSoup soursoup={ soursoup }/>
-          {/* <div className="hotsoup">
+          </div>
+          {/*<SourSoup soursoup={ soursoup }/>*/}
+          <div className="hotsoup">
             <p className="category-name" id="hotsoursoups">Hot & Sour Soup</p>
             <p className="description">Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood.</p>
             <div className="vegitems">
@@ -437,9 +437,9 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p className="desc">Beef Stew Noodle Soup (Hu Tieu Bo Kho)</p>
               </div>
             </div>
-          </div> */}
-          <Beverage beverage={ beverage }/>
-          {/* <div className="beverage">
+          </div>
+          {/*<Beverage beverage={ beverage }/>*/}
+          <div className="beverage">
             <p className="category-name" id="beverages">Beverage</p>
             <div className="vegitems">
               <div className="names" id="beverage-names">
@@ -461,7 +461,7 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
                 <p>$3.75</p>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="catering-box">
           <p className="catering">Don't forget to ask us about our catering service</p>
