@@ -1,5 +1,4 @@
 import { Handler } from "@netlify/functions";
-import { privateDecrypt } from "crypto";
 import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet';
 
 const handler: Handler = async (event, context) => {
@@ -26,8 +25,6 @@ const handler: Handler = async (event, context) => {
         "SmallPrice": row.SmallPrice,
       });
     });
-
-    console.log(rows);
     
     // hard coded. new categories will not be accounted for.
     const appetizers = finalrows.filter(item => item.Category === "Appetizers");
@@ -41,7 +38,8 @@ const handler: Handler = async (event, context) => {
     const friedrice = finalrows.filter(item => item.Category === "Fried Rice");
     const soursoup = finalrows.filter(item => item.Category === "Sour Soup");
     const beverage = finalrows.filter(item => item.Category === "Beverage");
-    console.log(beverage);
+
+    // console.log(appetizers);
   
     return {
       statusCode: 200,

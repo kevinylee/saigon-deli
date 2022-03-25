@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 exports.createPages = async ({ actions: { createPage } }) => {
-  const response = await axios.get('http://localhost:9999/.netlify/functions/gsheets').catch(error => {
+  const response = await axios.get('https://saigon-deli.netlify.app/.netlify/functions/gsheets').catch(error => {
     console.log(error);
   });
 
@@ -17,8 +17,6 @@ exports.createPages = async ({ actions: { createPage } }) => {
   const friedrice = formatResponse(response.data.FriedRice);
   const soursoup = formatResponse(response.data.SourSoup);
   const beverage = formatResponse(response.data.Beverage);
-  console.log("hey2");
-  console.log(beverage);
 
   // Create the index page & fill it with menu data
   createPage({
@@ -27,7 +25,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     context: { 
       menu, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
     },
-  })
+  });
 };
 
 const formatResponse = (r) => r;

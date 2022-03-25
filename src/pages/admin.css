@@ -1,0 +1,7 @@
+#container {
+  margin: 0px 24px;
+}
+
+#container #header a {
+  display: block;
+}

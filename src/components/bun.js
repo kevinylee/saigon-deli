@@ -11,18 +11,14 @@ const Bun = (props) => {
                 <div className="names" id="bun-names">
                     {
                         props.bun.map(ele => (
-                            <>
                             <p>{ele.Title}</p>
-                            </>
                         ))
                     }
                 </div>
                 <div className="bunprices">
                     {
                         props.bun.map(ele => (
-                            <>
                             <p>{ele.Price}</p>
-                            </>
                         ))
                     }
                 </div>

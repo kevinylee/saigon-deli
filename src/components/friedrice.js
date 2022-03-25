@@ -11,18 +11,14 @@ const FriedRice = (props) => {
                 <div className="names" id="friedrice-names">
                     {
                         props.friedrice.map(ele => (
-                            <>
                             <p>{ele.Title}</p>
-                            </>
                         ))
                     }
                 </div>
                 <div className="bunprices" id="friedrice-prices">
                     {
                         props.friedrice.map(ele => (
-                            <>
                             <p>{ele.Price}</p>
-                            </>
                         ))
                     }
                 </div>
