@@ -19,7 +19,16 @@ exports.createPages = async ({ actions: { createPage } }) => {
   const friedrice = formatResponse(response.data.FriedRice);
   const soursoup = formatResponse(response.data.SourSoup);
   const beverage = formatResponse(response.data.Beverage);
-  const restaurant = formatResponse(response.data.Restaurant);
+  let restaurant = formatResponse(response.data.Restaurant);
+
+  if (!restaurant || !restaurant.Phone) {
+    restaurant = {
+      Phone: '',
+      Weekdays: '',
+      Weekends: '',
+      Notice: ''
+    }
+  }
 
   // Create the index page & fill it with menu data
   createPage({
