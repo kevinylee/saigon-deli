@@ -43,11 +43,7 @@ const handler: Handler = async (event, context) => {
 
     const restaurantSheet: GoogleSpreadsheetWorksheet =  doc.sheetsByIndex[1];
     const restaurantRow = await restaurantSheet.getRows();
-
-    console.log(restaurantRow);
-    console.log('booom');
-    console.log(restaurantRow[0]['Weekdays']);
-  
+    
     return {
       statusCode: 200,
       body: JSON.stringify({ 

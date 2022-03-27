@@ -42,6 +42,13 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
                   <p>for cater: {restaurant.Phone}</p>
               </div>
         </header>
+        {
+          restaurant.Notice && (
+            <div className="notice">
+             <p>{restaurant.Notice}</p>
+            </div>
+          )
+        }
         <div className="title-info">
           <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
           <p className="number">{restaurant.Phone}</p>
