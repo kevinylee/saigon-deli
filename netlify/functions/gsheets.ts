@@ -15,9 +15,9 @@ const handler: Handler = async (event, context) => {
   const res = await doc.loadInfo().then(async () => {
     console.log(doc.title);
 
-    const sheet: GoogleSpreadsheetWorksheet =  doc.sheetsByIndex[0];
-    const rows = await sheet.getRows() as any;
-    const finalrows = rows.map(row => {
+    const menuSheet: GoogleSpreadsheetWorksheet =  doc.sheetsByIndex[0];
+    const menuRows = await menuSheet.getRows() as any;
+    const finalrows = menuRows.map(row => {
       return ({
         "Category": row.Category,
         "Title": row.Title,
@@ -40,10 +40,41 @@ const handler: Handler = async (event, context) => {
     const friedrice = finalrows.filter(item => item.Category === "Fried Rice");
     const soursoup = finalrows.filter(item => item.Category === "Sour Soup");
     const beverage = finalrows.filter(item => item.Category === "Beverage");
+
+    const restaurantSheet: GoogleSpreadsheetWorksheet =  doc.sheetsByIndex[1];
+    const restaurantRow = await restaurantSheet.getRows();
+    const formatted = restaurantRow.map((row) => {
+      return ({
+        "Weekdays": row['Weekdays'],
+        "Weekends": row['Weekends'],
+        "Phone Number": row['Phone Number'],
+        "Special Notice": row['Special Notice']
+      });
+    });
+
+    console.log(formatted);
   
     return {
       statusCode: 200,
-      body: JSON.stringify({ Menu: finalrows, Appetizers: appetizers, Pho: pho, Bun: bun, Vegetarian: vegetarian, BanhCanh: banhcanh, HuTieu: hutieu, StirFried: stirfried, RiceDishes: ricedishes, FriedRice: friedrice, SourSoup: soursoup, Beverage: beverage, Hours: [] }),
+      body: JSON.stringify({ 
+        Appetizers: appetizers, 
+        Pho: pho, 
+        Bun: bun, 
+        Vegetarian: vegetarian, 
+        BanhCanh: banhcanh, 
+        HuTieu: hutieu, 
+        StirFried: stirfried, 
+        RiceDishes: ricedishes, 
+        FriedRice: friedrice, 
+        SourSoup: soursoup, 
+        Beverage: beverage, 
+        Restaurant: {
+          Weekdays: formatted[0].Weekdays,
+          Weekends: formatted[0].Weekends,
+          Phone: formatted[0]['Phone Number'],
+          Notice: formatted[0]['Special Notice']
+        } 
+      })
     };
   }).catch(err => {
     console.log(err);
@@ -51,7 +82,14 @@ const handler: Handler = async (event, context) => {
   
   return res || {
     statusCode: 500,
-    body: JSON.stringify({ Menu: [], Appetizers: [], Pho: [], Bun: [], Vegetarian: [], BanhCanh: [], HuTieu: [], StirFried: [], RiceDishes: [], FriedRice: [], SourSoup: [], Beverage: [], Hours: [] }),
+    body: JSON.stringify({ Menu: [], Appetizers: [], Pho: [], Bun: [], Vegetarian: [], BanhCanh: [], HuTieu: [], StirFried: [], RiceDishes: [], FriedRice: [], SourSoup: [], Beverage: [], 
+      Restaurant: {
+        Weekdays: '',
+        Weekends: '',
+        Phone: '',
+        Notice: ''
+      } 
+    }),
   };
 };
 
