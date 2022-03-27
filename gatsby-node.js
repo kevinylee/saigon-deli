@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 exports.createPages = async ({ actions: { createPage } }) => {
-
-  const BASE_URL = process.env.ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999";
+  // https://saigon-deli.netlify.app
+  const BASE_URL = process.env.ENV === "prod" ? "https://deploy-preview-5--saigon-deli.netlify.app" : "http://localhost:9999";
 
   const response = await axios.get(`${BASE_URL}/.netlify/functions/gsheets`).catch(error => {
     console.log(error);
@@ -21,7 +21,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
   const beverage = formatResponse(response.data.Beverage);
   let restaurant = formatResponse(response.data.Restaurant);
 
-  if (!restaurant || !restaurant.Phone) {
+  if (restaurant === null) {
     restaurant = {
       Phone: '',
       Weekdays: '',

@@ -43,16 +43,10 @@ const handler: Handler = async (event, context) => {
 
     const restaurantSheet: GoogleSpreadsheetWorksheet =  doc.sheetsByIndex[1];
     const restaurantRow = await restaurantSheet.getRows();
-    const formatted = restaurantRow.map((row) => {
-      return ({
-        "Weekdays": row['Weekdays'],
-        "Weekends": row['Weekends'],
-        "Phone Number": row['Phone Number'],
-        "Special Notice": row['Special Notice']
-      });
-    });
 
-    console.log(formatted);
+    console.log(restaurantRow);
+    console.log('booom');
+    console.log(restaurantRow[0]['Weekdays']);
   
     return {
       statusCode: 200,
@@ -69,10 +63,10 @@ const handler: Handler = async (event, context) => {
         SourSoup: soursoup, 
         Beverage: beverage, 
         Restaurant: {
-          Weekdays: formatted[0].Weekdays,
-          Weekends: formatted[0].Weekends,
-          Phone: formatted[0]['Phone Number'],
-          Notice: formatted[0]['Special Notice']
+          Weekdays: restaurantRow[0]['Weekdays'],
+          Weekends: restaurantRow[0]['Weekends'],
+          Phone: restaurantRow[0]['Phone Number'],
+          Notice: restaurantRow[0]['Special Notice']
         } 
       })
     };
