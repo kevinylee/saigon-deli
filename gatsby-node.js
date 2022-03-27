@@ -1,11 +1,13 @@
 const axios = require('axios');
 
 exports.createPages = async ({ actions: { createPage } }) => {
-  const response = await axios.get('https://deploy-preview-4--saigon-deli.netlify.app/.netlify/functions/gsheets').catch(error => {
+  // https://saigon-deli.netlify.app
+  const BASE_URL = process.env.ENV === "prod" ? "https://deploy-preview-5--saigon-deli.netlify.app" : "http://localhost:9999";
+
+  const response = await axios.get(`${BASE_URL}/.netlify/functions/gsheets`).catch(error => {
     console.log(error);
   });
 
-  const menu = formatResponse(response.data.Menu); // ARRAY of json objects
   const appetizers = formatResponse(response.data.Appetizers);
   const pho = formatResponse(response.data.Pho);
   const bun = formatResponse(response.data.Bun);
@@ -17,13 +19,24 @@ exports.createPages = async ({ actions: { createPage } }) => {
   const friedrice = formatResponse(response.data.FriedRice);
   const soursoup = formatResponse(response.data.SourSoup);
   const beverage = formatResponse(response.data.Beverage);
+  let restaurant = formatResponse(response.data.Restaurant);
+
+  if (restaurant === null) {
+    restaurant = {
+      Phone: '',
+      Weekdays: '',
+      Weekends: '',
+      Notice: ''
+    }
+  }
 
   // Create the index page & fill it with menu data
   createPage({
     path: `/`,
     component: require.resolve("./src/templates/index.js"), 
     context: { 
-      menu, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
+      appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
+      restaurant
     },
   });
 };

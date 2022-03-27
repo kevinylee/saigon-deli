@@ -22,7 +22,10 @@ const AdminPage = () => {
   const [password, setPassword] = useState(null);
 
   const verifyUser = async () => {
-    const { data } = await axios.post("https://deploy-preview-4--saigon-deli.netlify.app/.netlify/functions/password", 
+    // https://deploy-preview-5--saigon-deli.netlify.app
+    // https://saigon-deli.netlify.app
+    const BASE_URL = process.env.ENV === "prod" ? "https://deploy-preview-5--saigon-deli.netlify.app" : "http://localhost:9999";
+    const { data } = await axios.post(`${BASE_URL}/.netlify/functions/password`, 
       { password: password }
     ).catch(err => {
       console.log(err);
@@ -45,7 +48,9 @@ const AdminPage = () => {
       </div>
       <input placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
       <button onClick={verifyUser}>Login</button>
-      <button  disabled={status !== "Logged In."} onClick={runNetlifyBuild}>Update Menu</button>
+      <br />
+      <br />
+      <button disabled={status !== "Logged In."} onClick={runNetlifyBuild}>Update Menu</button>
     </div>
   )
 };

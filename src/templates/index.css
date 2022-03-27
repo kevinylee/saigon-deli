@@ -8,6 +8,18 @@ a {
     color: white;
 }
 
+.notice {
+    text-align: center;
+    background-color: #53939D;
+    padding: 0px 0px 12px 0px;
+    color: white;
+}
+
+.notice p {
+    margin: 0px;
+    font-size: 18px;
+}
+
 .small-info {
     font-family: "Ruda", sans-serif;
     font-size: 18px;

@@ -1,7 +1,5 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
-import axios from "axios"
-import { useStaticQuery, graphql } from "gatsby"
 import Logo from "../images/SDLogo1.svg"
 import Yelp from "../images/Yelp_Logo.svg"
 import WebsiteIcon from "../images/banhmi-icon.png"
@@ -20,10 +18,8 @@ import FriedRice from "../components/friedrice"
 import SourSoup from "../components/soursoup"
 import Beverage from "../components/beverage"
 
-
-
 // markup
-const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
+const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
   return (
     <div className="main">
       <Helmet>
@@ -43,16 +39,23 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
               <div className="small-info">
                   <p>takeout & dine-in</p>
                   <span className="seperator"></span>
-                  <p>for cater: (206) 634-2866</p>
+                  <p>for cater: {restaurant.Phone}</p>
               </div>
         </header>
+        {
+          restaurant.Notice && (
+            <div className="notice">
+             <p>{restaurant.Notice}</p>
+            </div>
+          )
+        }
         <div className="title-info">
           <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
-          <p className="number">(206) 634-2866</p>
+          <p className="number">{restaurant.Phone}</p>
           <p className="address">4142 Brooklyn Ave NE Seattle, WA 98105</p>
           <span className="horizontal-line"></span>
-          <p className="weekdays">Mon - Fri: 11am-8pm</p>
-          <p className="weekends">Sat - Sun: 11:30am-8pm</p>
+          <p className="weekdays">Mon - Fri: {restaurant.Weekdays}</p>
+          <p className="weekends">Sat - Sun: {restaurant.Weekends}</p>
           <div className="categories">
             <div className="top-categories">
               <a href="#appetizers">Appetizers</a>
@@ -96,7 +99,7 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
         <div className="catering-box">
           <p className="catering">Don't forget to ask us about our catering service</p>
           <p className="catering" id="catering2">for your event or party.</p>
-          <p className="catering" id="catering3">(206) 634-2866</p>
+          <p className="catering" id="catering3">{restaurant.Phone}</p>
         </div>
       <footer>
         <div className="footer-info">
@@ -104,8 +107,8 @@ const IndexPage = ({ pageContext: { menu, appetizers, pho, bun, vegetarian, banh
           <a href="https://www.google.com/maps/place/4142+Brooklyn+Ave+NE,+Seattle,+WA+98105/@47.6581627,-122.3161964,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f4a024abe1:0x1738ed6050774b05!8m2!3d47.6581627!4d-122.3140077" target="_blank" rel="noreferrer">
             4142 Brooklyn Ave NE Seattle, WA 98105
           </a>
-          <p id="footer-hours">Mon - Fri: 11am-8pm</p>
-          <p id="footer-hours">Sat - Sun: 11am-8:30pm</p>
+          <p id="footer-hours">Mon - Fri: {restaurant.Weekdays}</p>
+          <p id="footer-hours">Sat - Sun: {restaurant.Weekends}</p>
         </div>
         <a id="yelp-link" href="https://www.yelp.com/biz/saigon-deli-seattle-2?osq=saigon+deli" target="_blank" rel="noreferrer">
           <img src={Yelp} className="pho-img" id="yelp-img" alt="Yelp logo"></img>

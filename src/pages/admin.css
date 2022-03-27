@@ -3,5 +3,11 @@
 }
 
 #container #header a {
-  display: block;
+  color: black;
+  text-decoration: underline;
+  color: blue;
+}
+
+#container input {
+  margin-right: 10px;
 }
