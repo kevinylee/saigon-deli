@@ -5,6 +5,7 @@ const handler: Handler = async (event, context) => {
   // Initialize the sheet - doc ID is the long id in the sheets URL
   const doc = new GoogleSpreadsheet('1GneLscLi_f5Xc4moIaIQm5DdDALuP1JtFqOtUhy9yAo');
 
+  // Formatting of the newlines in the private key gets morphed when Netlify passes it down
   const formattedKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/gm, "\n")
 
   await doc.useServiceAccountAuth({
