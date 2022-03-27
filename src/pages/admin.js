@@ -22,7 +22,7 @@ const AdminPage = () => {
   const [password, setPassword] = useState(null);
 
   const verifyUser = async () => {
-    const { data } = await axios.post("https://saigon-deli.netlify.app/.netlify/functions/password", 
+    const { data } = await axios.post("https://deploy-preview-4--saigon-deli.netlify.app/.netlify/functions/password", 
       { password: password }
     ).catch(err => {
       console.log(err);

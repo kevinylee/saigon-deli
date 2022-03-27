@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 exports.createPages = async ({ actions: { createPage } }) => {
-  const response = await axios.get('https://saigon-deli.netlify.app/.netlify/functions/gsheets').catch(error => {
+  const response = await axios.get('https://deploy-preview-4--saigon-deli.netlify.app/.netlify/functions/gsheets').catch(error => {
     console.log(error);
   });
 
