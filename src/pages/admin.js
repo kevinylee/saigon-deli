@@ -46,7 +46,9 @@ const AdminPage = () => {
       </div>
       <input placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
       <button onClick={verifyUser}>Login</button>
-      <button  disabled={status !== "Logged In."} onClick={runNetlifyBuild}>Update Menu</button>
+      <br />
+      <br />
+      <button disabled={status !== "Logged In."} onClick={runNetlifyBuild}>Update Menu</button>
     </div>
   )
 };
