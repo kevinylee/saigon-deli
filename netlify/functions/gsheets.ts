@@ -38,8 +38,6 @@ const handler: Handler = async (event, context) => {
     const friedrice = finalrows.filter(item => item.Category === "Fried Rice");
     const soursoup = finalrows.filter(item => item.Category === "Sour Soup");
     const beverage = finalrows.filter(item => item.Category === "Beverage");
-
-    // console.log(appetizers);
   
     return {
       statusCode: 200,
