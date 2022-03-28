@@ -2,7 +2,7 @@ const axios = require('axios');
 
 exports.createPages = async ({ actions: { createPage } }) => {
   // https://saigon-deli.netlify.app
-  const BASE_URL = process.env.ENV === "prod" ? "https://deploy-preview-5--saigon-deli.netlify.app" : "http://localhost:9999";
+  const BASE_URL = process.env.ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999";
 
   const response = await axios.get(`${BASE_URL}/.netlify/functions/gsheets`).catch(error => {
     console.log(error);
