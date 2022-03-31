@@ -12,16 +12,10 @@ const StirFried = (props) => {
                     {
                         props.stirfried.map(ele => (
                             <>
-                            <p>{ele.Title}</p>
-                            </>
-                        ))
-                    }
-                </div>
-                <div className="bunprices" id="stirfried-prices">
-                    {
-                        props.stirfried.map(ele => (
-                            <>
-                            <p>{ele.Price}</p>
+                            <div className="item-price">
+                                <p className="item">{ele.Title}</p>
+                                <p className="price">{ele.Price}</p>
+                            </div>
                             </>
                         ))
                     }

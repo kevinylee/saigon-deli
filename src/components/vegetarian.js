@@ -11,16 +11,10 @@ const Vegetarian = (props) => {
                     {
                         props.vegetarian.map(ele => (
                             <>
-                            <p>{ele.Title}</p>
-                            </>
-                        ))
-                    }
-                </div>
-                <div className="bunprices" id="vegprices">
-                    {
-                        props.vegetarian.map(ele => (
-                            <>
-                            <p>{ele.Price}</p>
+                            <div className="item-price">
+                                <p>{ele.Title}</p>
+                                <p className="price">{ele.Price}</p>
+                            </div>
                             </>
                         ))
                     }

@@ -20,6 +20,22 @@ a {
     font-size: 18px;
 }
 
+.item-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-height: 30%;
+}
+
+.price {
+    font-weight: lighter;
+}
+
+.item {
+    font-weight: bold;
+    max-width: 75%;
+}
+
 .small-info {
     font-family: "Ruda", sans-serif;
     font-size: 18px;

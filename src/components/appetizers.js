@@ -13,17 +13,11 @@ const Appetizers = (props) => {
                     {
                         props.a.map(ele => (
                             <>
-                            <p className="appename">{ele.Title}</p>
+                            <div className="item-price">
+                              <p className="appename">{ele.Title}</p>
+                              <p>{ele.Price}</p>
+                            </div>
                             <p className="desc">{ele.Description}</p>
-                            </>
-                        ))
-                    }
-                </div>
-                <div className="appe-prices">
-                    {
-                        props.a.map(ele => (
-                            <>
-                            <p>{ele.Price}</p>
                             </>
                         ))
                     }
