@@ -97,9 +97,10 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           <Beverage beverage={ beverage }/>
         </div>
         <div className="catering-box">
-          <p className="catering">Don't forget to ask us about our catering service</p>
-          <p className="catering" id="catering2">for your event or party.</p>
-          <p className="catering" id="catering3">{restaurant.Phone}</p>
+          <div className="catering">
+            <p>{restaurant.Catering}</p>
+            <p id="catering3">{restaurant.Phone}</p>
+          </div>
         </div>
       <footer>
         <div className="footer-info">

@@ -301,14 +301,20 @@ a {
     font-size: 14px;
 }
 
-.catering {
-    font-size: 35px;
-    text-align: center;
-    margin-bottom: 0px;
+.catering-box {
+    display: flex;
+    justify-content: center;
 }
 
-#catering2 {
-    margin-top: 0px;
+.catering {
+    max-width: 600px;
+    text-align: center;
+    width: 90%;
+}
+
+.catering p {
+    font-size: 28px;
+    margin-bottom: 0px;
 }
 
 #catering3 {
