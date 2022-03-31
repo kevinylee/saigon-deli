@@ -12,16 +12,10 @@ const BanhCanh = (props) => {
                     {
                         props.banhcanh.map(ele => (
                             <>
-                            <p>{ele.Title}</p>
-                            </>
-                        ))
-                    }
-                </div>
-                <div className="bunprices" id="udon-prices">
-                    {
-                        props.banhcanh.map(ele => (
-                            <>
-                            <p>{ele.Price}</p>
+                            <div className="item-price">
+                                <p>{ele.Title}</p>
+                                <p className="price">{ele.Price}</p>
+                            </div>
                             </>
                         ))
                     }
