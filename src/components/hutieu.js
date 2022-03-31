@@ -10,16 +10,10 @@ const HuTieu = (props) => {
                     {
                         props.hutieu.map(ele => (
                             <>
-                            <p>{ele.Title}</p>
-                            </>
-                        ))
-                    }
-                </div>
-                <div className="bunprices" id="hutieu-prices">
-                    {
-                        props.hutieu.map(ele => (
-                            <>
-                            <p>{ele.Price}</p>
+                            <div className="item-price">
+                                <p className="item">{ele.Title}</p>
+                                <p className="price">{ele.Price}</p>
+                            </div>
                             </>
                         ))
                     }
