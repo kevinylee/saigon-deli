@@ -146,6 +146,7 @@ a {
 .appe-items {
     display: flex;
     flex-direction: row;
+    margin-bottom: 24px;
 }
 
 .appename {
@@ -394,10 +395,6 @@ footer {
 
     .description {
         font-size: 77%;
-    }
-
-    .appe-items {
-        width: 85%;
     }
 
     #appe-first {

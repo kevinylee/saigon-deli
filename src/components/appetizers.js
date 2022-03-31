@@ -12,13 +12,13 @@ const Appetizers = (props) => {
                 <div className="name-desc">
                     {
                         props.a.map(ele => (
-                            <>
-                            <div className="item-price">
-                              <p className="appename">{ele.Title}</p>
-                              <p>{ele.Price}</p>
-                            </div>
-                            <p className="desc">{ele.Description}</p>
-                            </>
+                            <React.Fragment>
+                              <div className="item-price">
+                                <p className="appename">{ele.Title}</p>
+                                <p>{ele.Price}</p>
+                              </div>
+                              <p className="desc">{ele.Description}</p>
+                            </React.Fragment>
                         ))
                     }
                 </div>
