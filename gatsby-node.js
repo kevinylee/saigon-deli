@@ -2,9 +2,9 @@ const axios = require('axios');
 
 exports.createPages = async ({ actions: { createPage } }) => {
   // https://saigon-deli.netlify.app
-  const BASE_URL = process.env.ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999";
+  const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
-  const response = await axios.get(`https://saigon-deli.netlify.app/.netlify/functions/gsheets`).catch(error => {
+  const response = await axios.get(`${BASE_URL}/.netlify/functions/gsheets`).catch(error => {
     console.log(error);
   });
 
@@ -26,7 +26,8 @@ exports.createPages = async ({ actions: { createPage } }) => {
       Phone: '',
       Weekdays: '',
       Weekends: '',
-      Notice: ''
+      Notice: '',
+      Catering: ''
     }
   }
 

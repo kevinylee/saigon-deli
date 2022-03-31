@@ -63,8 +63,9 @@ const handler: Handler = async (event, context) => {
           Weekdays: restaurantRow[0]['Weekdays'],
           Weekends: restaurantRow[0]['Weekends'],
           Phone: restaurantRow[0]['Phone Number'],
-          Notice: restaurantRow[0]['Special Notice']
-        } 
+          Notice: restaurantRow[0]['Special Notice'],
+          Catering: restaurantRow[0]['Catering Description']
+        }
       })
     };
   }).catch(err => {
@@ -78,8 +79,9 @@ const handler: Handler = async (event, context) => {
         Weekdays: '',
         Weekends: '',
         Phone: '',
-        Notice: ''
-      } 
+        Notice: '',
+        Catering: ''
+      }
     }),
   };
 };
