@@ -23,7 +23,7 @@ const AdminPage = () => {
 
   const verifyUser = async () => {
     // https://saigon-deli.netlify.app
-    const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://deploy-preview-9--saigon-deli.netlify.app" : "http://localhost:9999");
+    const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
     const { data } = await axios.post(`${BASE_URL}/.netlify/functions/password`, 
       { password: password }
     ).catch(err => {
