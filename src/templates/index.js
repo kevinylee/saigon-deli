@@ -28,9 +28,9 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Saigon Deli - The Best Vietnamese Food in Seattle</title>
         <meta property="og:title" content="Saigon Deli - The Best Vietnamese Food in Seattle" />
-        <meta property="og:description" content="The best and most affordable Vietnamese food in the University District. We serve delicious banh mi, pho, and other rice dishes." />
+        <meta property="og:description" content="Serving delicious Vietnamese food in the University District. We serve banh mi, pho, bun bo hue, and other specialiy dishes all made in-house with love." />
         <meta property="og:url" content="https://www.saigondeliuw.com" />
-        <meta name="description" content="The best and most affordable Vietnamese food in the University District. We serve delicious banh mi, pho, and other rice dishes." />
+        <meta name="description" content="Serving delicious Vietnamese food in the University District. We serve banh mi, pho, bun bo hue, and other specialty dishes all made in-house with love." />
         <meta name="keywords" content="banh mi, pho, vietnamese, bun bo hue, pho seattle, vietnamese food" />
         <meta name="author" content="Kevin Lee" />
         <link rel="icon" type="image/png" href={WebsiteIcon} sizes="64x64" />

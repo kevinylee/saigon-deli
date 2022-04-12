@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     siteUrl: "https://www.saigondeliuw.com",
     title: "Saigon Deli",
-    description: "The best and most affordable Vietnamese food in Seattle. We serve delicious banh mi, pho, and other rice dishes."
+    description: "Serving delicious Vietnamese food in the University District. We serve banh mi, pho, bun bo hue, and other specialiy dishes all made in-house with love."
   },
   plugins: [`gatsby-plugin-react-helmet`, {
       resolve: `gatsby-plugin-google-gtag`,
