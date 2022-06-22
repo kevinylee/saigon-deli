@@ -5,6 +5,7 @@ import Yelp from "../images/Yelp_Logo.svg"
 import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
 import "@fontsource/ruda/400.css"
+import { StaticImage } from "gatsby-plugin-image"
 import "./index.css"
 import Appetizers from "../components/appetizers"
 import Pho from "../components/pho"
@@ -49,37 +50,51 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
             </div>
           )
         }
-        <div className="title-info">
-          <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
-          <p className="number">{restaurant.Phone}</p>
-          <p className="address">4142 Brooklyn Ave NE Seattle, WA 98105</p>
-          <span className="horizontal-line"></span>
-          <p className="weekdays">Mon - Fri: {restaurant.Weekdays}</p>
-          <p className="weekends">Sat - Sun: {restaurant.Weekends}</p>
-          <div className="categories">
-            <div className="top-categories">
-              <a href="#appetizers">Appetizers</a>
-              <span className="seperator"></span>
-              <a href="#pho">Pho</a>
-              <span className="seperator"></span>
-              <a href="#bun">Rice Vermicelli</a>
-              <span className="seperator"></span>
-              <a href="#vegetarian">Vegetarian</a>
-              <span className="seperator"></span>
-              <a href="#banhcanh">Banh Canh</a>
-              <span className="seperator"></span>
-              <a href="#noodlesoup">Noodle Soup</a>
-            </div>
-            <div className="bottom-categories">
-              <a href="#stirfried">Stir Fried Noodles</a>
-              <span className="seperator"></span>
-              <a href="#ricedishes">Rice Dishes</a>
-              <span className="seperator"></span>
-              <a href="#friedrice">Fried Rice</a>
-              <span className="seperator"></span>
-              <a href="#hotsoursoups">Soup</a>
-              <span className="seperator"></span>
-              <a href="#beverages">Beverage</a>
+        <div className="title-container">
+          <StaticImage
+            className="backdrop"
+            placeholder="blurred"
+            src="../images/background_large.jpeg" 
+            alt="Backdrop with food"
+            layout="fullWidth"
+            quality={100}
+          />
+          <div className="contents">
+            <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
+            <p className="number">{restaurant.Phone}</p>
+            <p className="address">4142 Brooklyn Ave NE Seattle, WA 98105</p>
+            <hr className="divider" />
+            <p className="times">
+            Mon - Fri: {restaurant.Weekdays}
+            <br />
+            Sat - Sun: {restaurant.Weekends}</p>
+            <div className="anchor">
+              <div className="categories">
+                <div className="top-categories">
+                  <a href="#appetizers">Appetizers</a>
+                  <span className="seperator"></span>
+                  <a href="#pho">Pho</a>
+                  <span className="seperator"></span>
+                  <a href="#bun">Rice Vermicelli</a>
+                  <span className="seperator"></span>
+                  <a href="#vegetarian">Vegetarian</a>
+                  <span className="seperator"></span>
+                  <a href="#banhcanh">Banh Canh</a>
+                  <span className="seperator"></span>
+                  <a href="#noodlesoup">Noodle Soup</a>
+                </div>
+                <div className="bottom-categories">
+                  <a href="#stirfried">Stir Fried Noodles</a>
+                  <span className="seperator"></span>
+                  <a href="#ricedishes">Rice Dishes</a>
+                  <span className="seperator"></span>
+                  <a href="#friedrice">Fried Rice</a>
+                  <span className="seperator"></span>
+                  <a href="#hotsoursoups">Soup</a>
+                  <span className="seperator"></span>
+                  <a href="#beverages">Beverage</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

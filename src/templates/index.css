@@ -46,12 +46,12 @@ a {
     align-items: center;
 }
 
-.horizontal-line {
+.divider {
     background-color: white;
-    border-radius: 1px;
-    height: 1.5px;
+    height: 1px;
     width: 275px;
-    margin-top: 1%;
+    margin-bottom: 24px;
+    margin-top: 24px;
 }
 
 .seperator {
@@ -62,45 +62,56 @@ a {
     margin: 0px 10px;
 }
 
-.title-info {
+.title-container {
     margin-bottom: 25px;
-    padding-top: 40px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
     font-family: "Ruda", sans-serif;
     font-size: 20px;
-    background: url("../images/title_back.jpg");
+    height: 90vh;
+}
+
+.title-container .backdrop {
+    z-index: 0;
+    width: 100%;
+    height: 90%;
+    position: absolute;
+}
+
+.title-container .contents {
+    margin-top: 64px;
+    text-align: center;
+    z-index: 1;
+    position: relative;
     width: 100%;
 }
 
 .main-logo {
     width: 45%;
+    min-width: 300px;
 }
 
 .number {
     color: white;
-    margin-bottom: 0%;
+    margin-bottom: 24px;
     font-size: 120%;
 }
 
 .address {
     padding-bottom: 0px;
-    margin-top: 0px;
     color: white;
-    margin-bottom: -10px;
     font-size: 120%;
 }
 
-.weekdays {
+.times {
     color: white;
     margin-top: 0px;
-    margin-bottom: -35px;
+    line-height: 140%;
 }
 
-.weekends {
-    color: white;
+.anchor {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 .categories {
@@ -109,7 +120,8 @@ a {
     background-color: #354884;
     flex-direction: column;
     color: white;
-    width: 100%;
+    padding-right: 4px;
+    padding-left: 4px;
 }
 
 .top-categories {
@@ -135,6 +147,10 @@ a {
     margin-bottom: 0px;
     max-width: 450px;
     font-size: 14px;
+}
+
+.menu {
+    margin: 0px 12px 0px 12px;
 }
 
 .appetizers {
@@ -291,6 +307,7 @@ a {
     font-weight: bold;
     font-size: 40px;
     margin-bottom: 0px;
+    text-align: center;
 }
 
 .pho-img {
@@ -368,6 +385,10 @@ footer {
         width: 80%;
     }
 
+    .number {
+        font-size: 100%;
+    }
+
     .address {
         font-size: 80%;
     }
@@ -376,11 +397,7 @@ footer {
         width: 50%;
     }
     
-    .weekdays {
-        font-size: 80%;
-    }
-    
-    .weekends {
+    .times {
         font-size: 80%;
     }
 
