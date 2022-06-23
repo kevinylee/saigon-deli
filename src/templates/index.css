@@ -278,7 +278,7 @@ a {
 }
 
 #sixtwo {
-    margin-bottom: 8px;;
+    margin-bottom: 8px;
 }
 
 #sixtytwo-price {
@@ -514,7 +514,6 @@ footer {
 
     #hutieu-names {
         padding-top: 1.7%;
-        max-width: 81%;
         font-size: 92%;
     }
 
@@ -543,7 +542,6 @@ footer {
     #stirfried-names {
         padding-top: 2%;
         font-size: 92%;
-        width: 80%;
     }
 
     #stirfried-prices {
@@ -559,7 +557,6 @@ footer {
         padding-top: 0%;
         margin-top: 3.8%;
         font-size: 92%;
-        width: 80%;
     }
 
     #rice-names > p {
@@ -617,8 +614,6 @@ footer {
     }
 
     #beverage-names {
-        width: 80%;
-        font-size: 92%;
         padding-top: 0%;
     }
 
