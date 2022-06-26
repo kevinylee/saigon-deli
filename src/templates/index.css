@@ -8,6 +8,78 @@ a {
     color: white;
 }
 
+.menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1000px;
+}
+
+.menu-item {
+    max-width: 490px;
+    flex: 50%;
+}
+
+@media screen and (max-width: 900px) {
+    .pics {
+        flex-direction: column;
+        gap: 0px !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .menu-items {
+        justify-content: center;
+    }
+
+    .menu-item {
+        flex: 100%;
+    }
+
+    .menu-item .content {
+        padding: 18px !important;
+    }
+
+    .category-description {
+        text-align: center;
+    }
+}
+
+.menu-item .content {
+    margin: 0px 12px 0px 12px;
+    padding: 24px;
+}
+
+.menu-item h4 {
+    margin: 0px;
+    letter-spacing: 1px;
+    max-width: 90%;
+}
+
+.menu-item p {
+    color: #656565;
+}
+
+.menu-item .price {
+    float: right;
+    margin-left: 3px;
+}
+
+.menu-item .small-price {
+    float: right;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.menu-item .large-price {
+    float: right;
+}
+
+.category-description {
+    margin: 0px 0px 24px 0px;
+    max-width: 500px;
+    color: #656565;
+}
+
 .notice {
     text-align: center;
     background-color: #53939D;
@@ -24,7 +96,6 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-height: 30%;
 }
 
 .price {
@@ -120,8 +191,7 @@ a {
     background-color: #354884;
     flex-direction: column;
     color: white;
-    padding-right: 4px;
-    padding-left: 4px;
+    padding: 8px 12px;
 }
 
 .top-categories {
@@ -142,171 +212,34 @@ a {
     height: 60px;
 }
 
-.description {
-    color: #656565;
-    margin-bottom: 0px;
-    max-width: 450px;
-    font-size: 14px;
-}
-
 .menu {
-    margin: 0px 12px 0px 12px;
-}
-
-.appetizers {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0px 12px 0px 12px;
 }
 
-.appe-items {
+section {
     display: flex;
-    flex-direction: row;
-    margin-bottom: 24px;
-}
-
-.appename {
-    font-weight: bold;
+    flex-direction: column;
+    align-items: center;
 }
 
 .desc {
     font-size: 14px;
     max-width: 480px;
 }
+
 .desc-fade {
     color: #484848;
     font-size: 15px;
     font-weight: bold;
-}
-
-.appe-prices > p {
-    margin-bottom: 65px;
-}
-
-#second {
-    margin-bottom: 72px;
-}
-
-#third {
-    margin-bottom: 100px;
-}
-
-.pho {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.phoitems {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 12px;
-}
-
-.names {
-    font-weight: bold;
-    width: 450px;
-    margin-top: 3%;
-    padding-top: 16.7px;
-}
-
-.large {
-    margin-right: 2%;
-}
-
-.bun {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.bunitems {
-    display: flex;
-    flex-direction: row;
-}
-
-.shorten {
-    width: 380px;
-}
-
-.bunprices {
-    margin-top: 30px;
-}
-
-#bev-double {
-    margin-bottom: 36px;
-}
-
-.vegetarian {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.vegitems {
-    display: flex;
-    flex-direction: row;
-}
-
-.udon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hutieu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.stirfried {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.ricedishes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#rice-desc {
-    margin-top: 3px;
-    margin-bottom: 20px;
-}
-
-#sixtwo {
-    margin-bottom: 8px;
-}
-
-#sixtytwo-price {
-    margin-bottom: 47px;
-}
-
-.friedrice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hotsoup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.beverage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-bottom: 24px;
 }
 
 .category-name {
     font-weight: bold;
     font-size: 40px;
-    margin-bottom: 0px;
     text-align: center;
 }
 
@@ -358,22 +291,13 @@ a {
 
 footer {
     background-color: #53939D;
-    display: flex;
-    justify-content: space-around;
     color: white;
+    padding: 12px 64px;
 }
 
 #footer-saigon {
     font-size: 30px;
-}
-
-#yelp-link {
-    align-self: center;
-}
-
-#yelp-img {
-    max-width: 400px;
-    max-height: 100px;
+    margin: 0px;
 }
 
 @media screen and (max-width: 420px) {
@@ -403,7 +327,6 @@ footer {
 
     .top-categories {
         font-size: 72%;
-
     }
 
     .bottom-categories {
@@ -414,22 +337,6 @@ footer {
         font-size: 77%;
     }
 
-    #appe-first {
-        margin-bottom: 213%;
-    }
-
-    #second {
-        margin-bottom: 230%;
-    }
-
-    #third {
-        margin-bottom: 300%;
-    }
-
-    .pics {
-        gap: 20%;
-    }
-
     .pho-img {
         width: 80%;
     }
@@ -438,223 +345,16 @@ footer {
         margin-top: 5%;
     }
 
-    .description {
-        width: 77%;
-    }
-
-    .phoitems {
-        width: 85%;
-    }
-
-    .names {
-        margin-top: 1.88%;
-        padding-top: 9.5%;
-    }
-
-    #ten-price {
-        margin-top: 1%;
-    }
-
-    .large > p {
-        margin-bottom: 34.3%;
-    }
-
-    .small > p {
-        margin-bottom: 39.3%;
-        margin-left: 5%;
-    }
-
     .category-name {
         font-size: 30px;
     }
-
-    .bunitems {
-        width: 85%;
-    }
-
-    #bun-names {
-        margin-top: 0%;
-    }
-
-    .bunprices > p{
-        margin-bottom: 30%;
-    }
-
-    #bun-first-price {
-        margin-bottom: 80%;
-    }
-
-    .vegitems {
-        width: 86%;
-    }
-
-    #vegnames {
-        padding-top: 2%;
-    }
-
-    #vegprices {
-        margin-top: 4%;
-    }
-
-    #twentyeight-price {
-        margin-bottom: 78%;
-    }
-
-    #banhcanh {
-        font-size: 170%;
-    }
-
-    #udon-names {
-        padding-top: 2%;
-    }
-
-    #udon-prices {
-        margin-top: 3.75%;
-    }
-
-    #hutieu-names {
-        padding-top: 1.7%;
-        font-size: 92%;
-    }
-
-    #hutieu-prices {
-        margin-top: 8%;
-        margin-left: 6%;
-    }
-
-    #hutieu-prices > p {
-        margin-top: 0%;
-        margin-bottom: 26%;
-    }
-
-    #forty-price {
-        padding-bottom: 40%;
-    }
-
-    #fortyone-price {
-        padding-bottom: 40%;
-    }
-
-    #fifty-price {
-        padding-bottom: 44%;
-    }
-
-    #stirfried-names {
-        padding-top: 2%;
-        font-size: 92%;
-    }
-
-    #stirfried-prices {
-        margin-top: 3.75%;
-        margin-left: 6%;
-    }
-
-    #stirfried-prices > p {
-        padding-bottom: 30%;
-    }
-
-    #rice-names {
-        padding-top: 0%;
-        margin-top: 3.8%;
-        font-size: 92%;
-    }
-
-    #rice-names > p {
-        margin-left: 3%;
-        width: 85%;
-    }
-
-    #rice-prices {
-        margin-top: 3.75%;
-        margin-left: 5%;
-    }
-
-    #rice-prices > p {
-        margin-top: 28.5%;
-        margin-bottom: 0;
-    }
-
-    #fortynine-price {
-        margin-top: 13.5px;
-        padding-bottom: 35.75%;
-    }
-
-    #fiftytwo-price {
-        padding-bottom: 37%;
-    }
-
-    #fiftyseven-price {
-        padding-bottom: 45%;
-    }
-
-    #sixtytwo-price {
-        padding-bottom: 103%;
-    }
-    
-    #friedrice-names {
-        font-size: 92%;
-        padding-top: 0%;
-    }
-
-    #friedrice-prices {
-        margin-top: 1.2%;
-    }
-
-    #friedrice-prices > p {
-        margin-bottom: 0;
-        margin-top: 29.5%;
-    }
-
-    #hotsoup-names {
-        padding-top: 0%;
-    }
-
-    #hotsoup-prices {
-        margin-top: 1.5%;
-    }
-
-    #beverage-names {
-        padding-top: 0%;
-    }
-
-    #beverage-names > p {
-        width: 88%;
-        margin-left: 4%;
-    }
-
-    #beverage-prices {
-        margin-top: 1.2%;
-        margin-left: 5%;
-    }
-
-    #beverage-prices > p {
-        margin-top: 32.85%;
-    }
-
-    #bev-double {
-        padding-top: 9%;
-        padding-bottom: 30%;
-    }
-
-    .shorten-price {
-        padding-top: 0;
-        padding-bottom: 40%;
-    }
-
 
     .catering {
         margin-top: 10%;
         font-size: 124%;
     }
 
-    .footer-info {
-        margin-left: 5%;
-        width: 50%;
-        font-size: 90%;
-    }
-
-    #yelp-link {
-        margin-left: 7%;
-        width: 60%;
+    footer {
+        padding: 12px 24px;
     }
 }

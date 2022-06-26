@@ -1,23 +1,12 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
 import Logo from "../images/SDLogo1.svg"
-import Yelp from "../images/Yelp_Logo.svg"
 import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
 import "@fontsource/ruda/400.css"
 import { StaticImage } from "gatsby-plugin-image"
 import "./index.css"
-import Appetizers from "../components/appetizers"
-import Pho from "../components/pho"
-import Bun from "../components/bun"
-import Vegetarian from "../components/vegetarian"
-import BanhCanh from "../components/banhcanh"
-import HuTieu from "../components/hutieu"
-import StirFried from "../components/stirfried"
-import RiceDishes from "../components/ricedishes"
-import FriedRice from "../components/friedrice"
-import SourSoup from "../components/soursoup"
-import Beverage from "../components/beverage"
+import Section from "../components/Section"
 
 // markup
 const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
@@ -81,7 +70,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
                   <span className="seperator"></span>
                   <a href="#banhcanh">Banh Canh</a>
                   <span className="seperator"></span>
-                  <a href="#noodlesoup">Noodle Soup</a>
+                  <a href="#hutieu">Hu Tieu</a>
                 </div>
                 <div className="bottom-categories">
                   <a href="#stirfried">Stir Fried Noodles</a>
@@ -99,17 +88,119 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           </div>
         </div>
         <div className="menu">
-          <Appetizers a={ appetizers }/>
-          <Pho pho={ pho }/>
-          <Bun bun={ bun }/>
-          <Vegetarian vegetarian={ vegetarian }/>
-          <BanhCanh banhcanh={ banhcanh }/>
-          <HuTieu hutieu={ hutieu }/>
-          <StirFried stirfried={ stirfried }/>
-          <RiceDishes ricedishes={ ricedishes }/>
-          <FriedRice friedrice={ friedrice }/>
-          <SourSoup soursoup={ soursoup }/>
-          <Beverage beverage={ beverage }/>
+          <Section reference="appetizers" items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
+          
+          <div className="pics">
+          <div className="img-desc">
+            <StaticImage src="../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg" className="pho-img" alt="Spring Rolls" />
+            <p className="desc">1. Spring Rolls - Goi Cuon</p>
+          </div>
+          <div className="img-desc">
+            <StaticImage src="../images/saigonFoodPics/saigon_deli_Eggroll.jpg" className="pho-img" alt="Vegetarian Egg Rolls" />
+            <p className="desc">2. Vegetarian Egg Rolls</p>
+          </div>
+          </div>
+          <div className="pics">
+            <div className="img-desc">
+            <StaticImage src="../images/saigonFoodPics/saigon_deli_Combo_Sandwich_with_Wonton_soup.jpg" className="pho-img" alt="Banh Mi & Wonton Soup" />
+            <p className="desc">3A. COMBO: Sandwich & Wonton soup</p>
+            </div>
+          </div>
+
+          <Section reference="pho" items={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
+
+          <div className="pics">
+            <div className="img-desc">
+              <StaticImage src="../images/saigonFoodPics/saigon_deli_Pho_Beef.jpg" className="pho-img" alt="Special Pho (beef and meatballs)" />
+              <p className="desc">11. Special Pho (beef and meatballs)</p>
+            </div>
+          </div>
+
+          <Section reference="bun" items={bun} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" />
+
+          <div className="pics">
+          <div className="img-desc">
+            <StaticImage src="../images/saigonFoodPics/saigon_deli_Bun_with_charbroiled_Pork_and_eggroll.jpg" className="pho-img" alt="Bun with charbroiled pork & eggrolls" />
+            <p className="desc">12. Bun with charbroiled pork & eggrolls</p>
+          </div>
+          </div>
+
+          <Section reference="vegetarian" items={vegetarian} category="Vegetarian Dishes" />
+
+          <div className="pics">
+          <div className="img-desc">
+            <StaticImage src="../images/saigonFoodPics/saigon_deli_Chowfun_with_tofu_and_vegetables.jpg" className="pho-img" alt="Chowfun with tofu andvegetables" /> 
+            <p className="desc">25. Chowfun w/ tofu & vegetables</p>
+          </div>
+          </div>
+
+          <Section reference="banhcanh" items={banhcanh} category="Banh Canh (udon noodle soup)" description="Udon noodles served in a homemade broth with vegetables, green onions, cilantro and your choice of meat or seafood." />
+
+          <div className="pics">
+          <div className="img-desc">
+              <StaticImage src="../images/saigonFoodPics/saigon_deli_Banh_Canh_Soup.jpg" className="pho-img" alt="Banh canh w/ shrimp" />
+              <p className="desc">34. Banh canh w/ shrimp</p>
+          </div>
+          </div>
+
+          <Section reference="hutieu" items={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." />
+          <Section reference="stirfried" items={stirfried} category="Stir Fried Noodles" description="Rice or egg noodles stir fried with broccoli, carrot, and your choice of meat, seafood, or tofu. Served with a sprinkle of crushed peanut." />
+
+          <div className="pics">
+          <div className="img-desc">
+              <StaticImage src="../images/saigonFoodPics/saigon_deli_chowmein_with_chicken_and_vegetable.jpg" className="pho-img" alt="Chowmein with vegetables & chicken" />
+              <p className="desc">43. Chowmein with vegetables & chicken</p>
+          </div>
+          </div>
+
+          <Section reference="ricedishes" items={ricedishes} category="Rice Dishes" description="All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu. We cook the vegetables with our in-house special sauce." />
+
+          <div className="pics">
+            <div className="img-desc">
+                <StaticImage src="../images/saigonFoodPics/saigon_deli_Rice_with_Beef_and_Vegetables.jpg" className="pho-img" alt="Rice with beef & vegetables" />
+                <p className="desc">47. Rice with beef & vegetables</p>
+            </div>
+            <div className="img-desc">
+                <StaticImage src="../images/saigonFoodPics/saigon_deli_Pork_chop_with_rice.jpg" className="pho-img" alt="Rice with pork chop & egg" />
+                <p className="desc">58. Rice with pork chop & egg</p>
+            </div>
+          </div>
+          <div className="pics">
+              <div className="img-desc">
+                  <StaticImage src="../images/saigonFoodPics/saigon_deli_rice_with_short_ribs.jpg" className="pho-img" alt="Saigon Deli rice (short ribs)" />
+                  <p className="desc">61. Saigon Deli rice (short ribs)</p>
+              </div>
+              <div className="img-desc">
+                  <StaticImage src="../images/saigonFoodPics/saigon_deli_Special_rice_with_pork.jpg" className="pho-img" alt="Special rice w/ pork" />
+                  <p className="desc">62. Special rice w/ pork</p>
+              </div>
+          </div>
+          <div className="pics">
+              <div className="img-desc">
+                  <StaticImage src="../images/saigonFoodPics/saigon_deli_Bun_Bo_Hue.jpg" className="pho-img" alt="Spicy Beef Noodle Soup (Bun Bo Hue)" />
+                  <p className="desc">63. Spicy Beef Noodle Soup (Bun Bo Hue)</p>
+              </div>
+          </div>
+
+          <Section reference="friedrice" items={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." />
+
+          <div className="pics">
+          <div className="img-desc">
+              <StaticImage src="../images/saigonFoodPics/saigon_deli_Fried_rice_with_shrimp.jpg" className="pho-img" alt="Fried rice with shrimp" />
+              <p className="desc">65. Fried rice with shrimp</p>
+          </div>
+          </div>
+
+          <Section reference="hotsoursoups" items={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." />
+
+          <div className="pics">
+          <div className="img-desc">
+              <StaticImage src="../images/saigonFoodPics/saigon_deli_Bo_Kho.jpg" className="pho-img" alt="Beef Stew Noodle Soup (Hu Tieu Bo Kho)" />
+              <p className="desc">Beef Stew Noodle Soup (Hu Tieu Bo Kho)</p>
+          </div>
+          </div>
+
+          <Section reference="beverages" items={beverage} category="Beverages" description="Refreshing drinks to accompany your meal." />
         </div>
         <div className="catering-box">
           <div className="catering">
@@ -120,15 +211,23 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
       <footer>
         <div className="footer-info">
           <p id="footer-saigon">Saigon Deli</p>
+          <a style={{ display: 'block', marginBottom: 12, marginTop: 6 }}href="https://www.yelp.com/biz/saigon-deli-seattle-2" target="_blank" rel="noreferrer">
+            <StaticImage 
+              height={30} 
+              quality={100}
+              src="../images/Yelp_Logo.svg" 
+              layout="fixed" 
+              alt="Yelp logo"/>
+          </a>
           <a href="https://www.google.com/maps/place/4142+Brooklyn+Ave+NE,+Seattle,+WA+98105/@47.6581627,-122.3161964,17z/data=!3m1!4b1!4m5!3m4!1s0x549014f4a024abe1:0x1738ed6050774b05!8m2!3d47.6581627!4d-122.3140077" target="_blank" rel="noreferrer">
             4142 Brooklyn Ave NE Seattle, WA 98105
           </a>
-          <p id="footer-hours">Mon - Fri: {restaurant.Weekdays}</p>
-          <p id="footer-hours">Sat - Sun: {restaurant.Weekends}</p>
+          <p id="footer-hours">
+            Mon - Fri: {restaurant.Weekdays}
+            <br />
+            Sat - Sun: {restaurant.Weekends}
+          </p>
         </div>
-        <a id="yelp-link" href="https://www.yelp.com/biz/saigon-deli-seattle-2?osq=saigon+deli" target="_blank" rel="noreferrer">
-          <img src={Yelp} className="pho-img" id="yelp-img" alt="Yelp logo"></img>
-        </a>
       </footer>
     </div>
   )
