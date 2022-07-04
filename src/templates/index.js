@@ -46,7 +46,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
             src="../images/background_large.jpeg" 
             alt="Backdrop with food"
             layout="fullWidth"
-            quality={100}
+            quality={85}
           />
           <div className="contents">
             <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
