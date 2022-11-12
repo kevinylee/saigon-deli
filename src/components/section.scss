@@ -1,0 +1,130 @@
+.quantities-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.select-options-button {
+  padding: 7px 12px 7px 12px;
+  border-style: solid;
+  border-color: #354884;
+  border-width: 1px;
+  background-color: #354884;
+  border-radius: 3px;
+  color: white;
+  font-family: "Ruda", sans-serif;
+
+  box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+  font-size: 1.15rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.modal-selection {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      padding: 12px 18px;
+      border-style: solid;
+      border-color: #354884;
+      border-width: 1px;
+      background-color: #354884;
+      border-radius: 3px;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: bold;
+  
+      box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+      font-size: 1.15rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid rgb(113, 113, 113);
+    width: 85%; /* Could be more or less, depending on screen size */
+    max-width: 450px;
+    border-radius: 5px;
+    line-height: 150%;
+
+    p {
+      font-size: 1.1em;
+    }
+
+    .quantity-selection {
+      margin-bottom: 6px;
+    }
+
+    .submission-section {
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+      
+      .add-cart-button {
+        padding: 14px 24px 14px 24px;
+        border-style: solid;
+        border-color: #354884;
+        border-width: 1px;
+        background-color: #354884;
+        border-radius: 3px;
+        color: white;
+        font-family: "Ruda", sans-serif;
+    
+        box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+        font-size: 1.15rem;
+  
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.quantity-selection {
+  button {
+    padding: 7px 12px 7px 12px;
+    border-style: solid;
+    border-color: #354884;
+    border-width: 1px;
+    background-color: #354884;
+    border-radius: 3px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+
+    box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+    font-size: 1.15rem;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  input { 
+    padding: 9px 12px 9px 12px;
+    margin: 0px 3px;
+  }
+}

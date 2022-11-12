@@ -1,15 +1,109 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { Helmet } from "react-helmet"
-import Logo from "../images/SDLogo1.svg"
 import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
 import "@fontsource/ruda/400.css"
 import { StaticImage } from "gatsby-plugin-image"
-import "./index.css"
+import "./index.scss"
 import Section from "../components/Section"
+import Navigation from "../components/Navigation"
+import { loadStripe } from '@stripe/stripe-js'
+import axios from "axios"
+import { DateTime } from 'luxon'
+
+const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 // markup
 const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
+
+  const [cart, updateCart] = useState([]);
+  const [allowCheckout, updateAllowCheckout] = useState(false);
+
+// Create dates assuming default time zone is UST
+const restrictedRanges = [
+  [DateTime.fromISO("2022-09-05T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-09-07T00:00:00Z", { zone: 'America/Los_Angeles' })],
+  [DateTime.fromISO("2022-09-30T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-10-03T00:00:00Z", { zone: 'America/Los_Angeles' })]
+];
+
+const canOrder = () => {
+
+  if (process.env.GATSBY_ENV !== 'prod') {
+    return true;
+  }
+  
+  const now = DateTime.now().setZone('America/Los_Angeles')
+
+  const withinRestrictions = restrictedRanges.some(([start, end]) => { 
+    return now <= end && now >= start;
+  });
+
+  // 11am to 7pm
+  const withinHours = now.hour >= 11 && now.hour <= 19;
+
+  if (!withinHours) { 
+    return false;
+  }
+
+  return !withinRestrictions;
+}
+
+  async function handleCheckout(_) {
+    console.log(process.env.GATSBY_STRIPE_PUBLIC_KEY)
+    const stripe = await loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY);
+    // TODO: add canOrder?
+
+    if(cart.length > 0 && canOrder()) {
+      const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
+        lineItems: cart
+      })
+
+      console.log(response.data)
+      if(response.data) {
+        // When the customer clicks on the button, redirect them to Checkout.
+        const result = await stripe.redirectToCheckout({
+          sessionId: response.data.sessionId
+        });
+    
+        if (result.error) {
+          console.log(result.error.message);
+          alert(result.error.message)
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer
+          // using `result.error.message`.
+        }
+      }
+    }else{
+      // TODO: Update this. 
+      alert("Error: Please check your order and that Saigon Deli is open at this time.");
+    }
+  }
+
+  function handleQuantityUpdate(itemId) {
+    // itemId is the priceId!
+    return (event) => {
+      const quantity = parseInt(event.target.value);
+
+      const isTracked = cart.some(item => item.itemId === itemId);
+
+      if(quantity === 0 && isTracked) {
+        // remove item from cart
+        const updated = cart.reduce((prev, current) => {
+          return current.itemId !== itemId ? [...prev, current] : prev;
+        }, []);
+
+        updateCart(updated);
+      }else if (quantity > 0 && !isTracked) {
+
+        // append item to the cart
+        updateCart([...cart, { itemId: itemId, quantity }])
+      }else if (quantity > 0 && isTracked) {
+
+        // update item quantity in the cart
+        updateCart(cart.map(lineItem => lineItem.itemId === itemId ? { itemId: itemId, quantity } : lineItem))
+      }
+    };
+  }
+
   return (
     <div className="main">
       <Helmet>
@@ -48,47 +142,10 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
             layout="fullWidth"
             quality={85}
           />
-          <div className="contents">
-            <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
-            <p className="number">{restaurant.Phone}</p>
-            <p className="address">4142 Brooklyn Ave NE Seattle, WA 98105</p>
-            <hr className="divider" />
-            <p className="times">
-            Mon - Fri: {restaurant.Weekdays}
-            <br />
-            Sat - Sun: {restaurant.Weekends}</p>
-            <div className="anchor">
-              <div className="categories">
-                <div className="top-categories">
-                  <a href="#appetizers">Appetizers</a>
-                  <span className="seperator"></span>
-                  <a href="#pho">Pho</a>
-                  <span className="seperator"></span>
-                  <a href="#bun">Rice Vermicelli</a>
-                  <span className="seperator"></span>
-                  <a href="#vegetarian">Vegetarian</a>
-                  <span className="seperator"></span>
-                  <a href="#banhcanh">Banh Canh</a>
-                  <span className="seperator"></span>
-                  <a href="#hutieu">Hu Tieu</a>
-                </div>
-                <div className="bottom-categories">
-                  <a href="#stirfried">Stir Fried Noodles</a>
-                  <span className="seperator"></span>
-                  <a href="#ricedishes">Rice Dishes</a>
-                  <span className="seperator"></span>
-                  <a href="#friedrice">Fried Rice</a>
-                  <span className="seperator"></span>
-                  <a href="#hotsoursoups">Soup</a>
-                  <span className="seperator"></span>
-                  <a href="#beverages">Beverage</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Navigation restaurant={restaurant} />
         </div>
         <div className="menu">
-          <Section reference="appetizers" items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
+          <Section reference="appetizers" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
           
           <div className="pics">
           <div className="img-desc">
@@ -107,7 +164,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
             </div>
           </div>
 
-          <Section reference="pho" items={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
+          <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
 
           <div className="pics">
             <div className="img-desc">
@@ -116,7 +173,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
             </div>
           </div>
 
-          <Section reference="bun" items={bun} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" />
+          <Section reference="bun" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={bun} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" />
 
           <div className="pics">
           <div className="img-desc">
@@ -125,7 +182,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           </div>
           </div>
 
-          <Section reference="vegetarian" items={vegetarian} category="Vegetarian Dishes" />
+          <Section reference="vegetarian" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={vegetarian} category="Vegetarian Dishes" />
 
           <div className="pics">
           <div className="img-desc">
@@ -134,7 +191,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           </div>
           </div>
 
-          <Section reference="banhcanh" items={banhcanh} category="Banh Canh (udon noodle soup)" description="Udon noodles served in a homemade broth with vegetables, green onions, cilantro and your choice of meat or seafood." />
+          <Section reference="banhcanh" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={banhcanh} category="Banh Canh (udon noodle soup)" description="Udon noodles served in a homemade broth with vegetables, green onions, cilantro and your choice of meat or seafood." />
 
           <div className="pics">
           <div className="img-desc">
@@ -143,8 +200,8 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           </div>
           </div>
 
-          <Section reference="hutieu" items={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." />
-          <Section reference="stirfried" items={stirfried} category="Stir Fried Noodles" description="Rice or egg noodles stir fried with broccoli, carrot, and your choice of meat, seafood, or tofu. Served with a sprinkle of crushed peanut." />
+          <Section reference="hutieu" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." />
+          <Section reference="stirfried" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={stirfried} category="Stir Fried Noodles" description="Rice or egg noodles stir fried with broccoli, carrot, and your choice of meat, seafood, or tofu. Served with a sprinkle of crushed peanut." />
 
           <div className="pics">
           <div className="img-desc">
@@ -153,7 +210,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           </div>
           </div>
 
-          <Section reference="ricedishes" items={ricedishes} category="Rice Dishes" description="All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu. We cook the vegetables with our in-house special sauce." />
+          <Section reference="ricedishes" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={ricedishes} category="Rice Dishes" description="All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu. We cook the vegetables with our in-house special sauce." />
 
           <div className="pics">
             <div className="img-desc">
@@ -182,7 +239,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
               </div>
           </div>
 
-          <Section reference="friedrice" items={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." />
+          <Section reference="friedrice" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." />
 
           <div className="pics">
           <div className="img-desc">
@@ -191,7 +248,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           </div>
           </div>
 
-          <Section reference="hotsoursoups" items={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." />
+          <Section reference="hotsoursoups" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." />
 
           <div className="pics">
           <div className="img-desc">
@@ -200,7 +257,9 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
           </div>
           </div>
 
-          <Section reference="beverages" items={beverage} category="Beverages" description="Refreshing drinks to accompany your meal." />
+          <Section reference="beverages" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={beverage} category="Beverages" description="Refreshing drinks to accompany your meal." />
+          <br />
+          {allowCheckout && <button id="checkout" onClick={handleCheckout}>Checkout</button>}
         </div>
         <div className="catering-box">
           <div className="catering">

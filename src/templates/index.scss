@@ -3,6 +3,32 @@ body {
     margin: 0px 0px 0px 0px;
 }
 
+#checkout {
+    padding: 18px 36px 18px 36px;
+    border-style: solid;
+    border-color: #354884;
+    border-width: 1px;
+    background-color: #354884;
+    border-radius: 3px;
+    color: white;
+    font-family: "Ruda", sans-serif;
+
+    box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+}
+
+.real-menu-link {
+    display: inline-block;
+    margin-top: 18px;
+    color: white;
+    background-color: #0000006a;
+    padding: 8px 18px;
+    border-radius: 2px;
+}
+
+#checkout:hover {
+    cursor: pointer;
+}
+
 a {
     text-decoration: none;
     color: white;
@@ -42,6 +68,12 @@ a {
     .category-description {
         text-align: center;
     }
+
+    #checkout {
+        margin-bottom: 12px;
+        width: 100%;
+        padding: 16px 24px;
+    }
 }
 
 .menu-item .content {
@@ -50,12 +82,13 @@ a {
 }
 
 .menu-item h4 {
-    margin: 0px;
+    margin: 0px 0px 8px 0px;
     letter-spacing: 1px;
     max-width: 90%;
 }
 
 .menu-item p {
+    margin: 0px 0px 6px 0px;
     color: #656565;
 }
 
@@ -138,13 +171,13 @@ a {
     display: flex;
     font-family: "Ruda", sans-serif;
     font-size: 20px;
-    height: 90vh;
+    height: 100vh; // 90vh;
 }
 
 .title-container .backdrop {
     z-index: 0;
     width: 100%;
-    height: 90%;
+    height: 100%; // 90%;
     position: absolute;
 }
 
@@ -171,6 +204,7 @@ a {
     padding-bottom: 0px;
     color: white;
     font-size: 120%;
+    display: inline-block;
 }
 
 .times {
@@ -185,10 +219,24 @@ a {
     width: 100%;
 }
 
-.categories {
+.navigation-categories {
+    .online-order-header {
+        background-color: rgba(0,0,0,.1);
+        color: white;
+
+        h2 {
+            font-weight: 400;
+            padding: 8px 18px;
+            border-radius: 3px;
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.links {
     display: flex;
     flex-wrap: wrap;
-    background-color: #354884;
+    background-color: #354884b2;
     flex-direction: column;
     color: white;
     padding: 8px 12px;
@@ -276,7 +324,7 @@ section {
 .catering {
     max-width: 600px;
     text-align: center;
-    width: 90%;
+    width: 100%; // 90%
 }
 
 .catering p {

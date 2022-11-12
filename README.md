@@ -9,8 +9,11 @@
 
 ## 🚀 Running Locally
 
+(Make sure you're running a _nice_ Node version ie. 14.15.0+ or the `lts` version from `nvm`)
+
 1. Run the Netlify functions separately: `netlify functions:serve`
 2. Run the website: `gatsby develop`
+3. Run the webhooks: `stripe listen --forward-to http://localhost:9999/.netlify/functions/webhook`
 
 ## Deploying to Production
 
