@@ -1,5 +1,4 @@
 import { Handler } from "@netlify/functions";
-import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from 'google-spreadsheet';
 import Stripe from 'stripe';
 
 // Spring rolls
@@ -72,35 +71,6 @@ interface ResponseItemOption {
 }
 
 const handler: Handler = async (event, context) => {
-  // // Initialize the sheet - doc ID is the long id in the sheets URL
-  const doc = new GoogleSpreadsheet('1GneLscLi_f5Xc4moIaIQm5DdDALuP1JtFqOtUhy9yAo');
-
-  // // Formatting of the newlines in the private key gets morphed when Netlify passes it down
-  const formattedKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/gm, "\n")
-
-  await doc.useServiceAccountAuth({
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL!,
-    private_key: formattedKey!,
-  });
-
-  const restaurantRow = await doc.loadInfo().then(async () => {
-    const restaurantSheet: GoogleSpreadsheetWorksheet =  doc.sheetsByIndex[1];
-    const rows = await restaurantSheet.getRows();
-
-    return rows;
-  }).catch((error: any) => {
-    console.log(error);
-  })
-
-  if (!restaurantRow) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        message: "Unable to connect to Google Sheets."
-      })
-    }
-  }
-
   let productsResponse = await stripe.products.list({
     expand: ["data.default_price"],
     active: true
@@ -243,11 +213,11 @@ const handler: Handler = async (event, context) => {
         SourSoup: soursoup, 
         Beverage: beverage, 
         Restaurant: {
-          Weekdays: restaurantRow[0]['Weekdays'],
-          Weekends: restaurantRow[0]['Weekends'],
-          Phone: restaurantRow[0]['Phone Number'],
-          Notice: restaurantRow[0]['Special Notice'],
-          Catering: restaurantRow[0]['Catering Description']
+          Weekdays: "11am-8pm",
+          Weekends: "11:30am-8pm",
+          Phone: "(206) 634-2866",
+          Notice: "",
+          Catering: "Don't forget to ask us about our catering service for your event or party."
         }
       })
     };
