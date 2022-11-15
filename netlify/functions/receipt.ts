@@ -26,6 +26,8 @@ const handler: Handler = async (event, context) => {
     }
   }
 
+  console.log('HELLO!')
+
   if (!event.queryStringParameters) {
     return {
       statusCode: 500,

@@ -19,6 +19,8 @@ const headers = {
 const handler: Handler = async (_, __) => {
   const { data, error } = await supabase.from('Orders').select('*').order('created_at', { ascending: false })
 
+  console.log('HELLO!')
+
   if (error) {
     return {
       statusCode: 500,

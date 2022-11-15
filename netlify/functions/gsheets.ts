@@ -87,6 +87,8 @@ const handler: Handler = async (event, context) => {
     products = products.concat(productsResponse.data)
   }
 
+    console.log('HELLO!')
+
     const merged: ResponseItem[] = [];
 
     // Combining Stripe products into something readable for the frontend

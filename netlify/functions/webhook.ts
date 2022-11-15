@@ -37,6 +37,8 @@ const handler: Handler = async (event, context) => {
     }
   }
 
+  console.log('HELLO!')
+
   const payload = event.body!;
   const sig = event.headers['stripe-signature']!;
 

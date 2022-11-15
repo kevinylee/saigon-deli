@@ -25,6 +25,8 @@ const handler: Handler = async (event, context) => {
     }
   }
 
+  console.log('HELLO!')
+
   if (!event.body) {
     console.log(event)
     throw "No request body attached.";
