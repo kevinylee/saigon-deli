@@ -41,13 +41,13 @@ import Stripe from 'stripe';
 
 const DOMAIN = process.env.BASE_URL;
 
-if (!process.env.STRIPE_SECRET || !DOMAIN) {
-  throw "No Stripe API key or base URL founded.";
-}
+// if (!process.env.STRIPE_SECRET || !DOMAIN) {
+//   throw "No Stripe API key or base URL founded.";
+// }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET, { 
-  apiVersion: "2022-08-01"
-});
+// const stripe = new Stripe(process.env.STRIPE_SECRET, { 
+//   apiVersion: "2022-08-01"
+// });
 
 interface ResponseItem {
     ProductId: string;
