@@ -39,7 +39,7 @@ const Section = (props) => {
                         <QuantitySelection title="Large" id={item.LargePriceId} onQuantityUpdate={(a) => onQuantityUpdate(a)}/>
                       </div>
                       : 
-                      item.ProductOptions.length == 0 ?
+                      item.ProductOptions.length === 0 ?
                        <QuantitySelection id={item.PriceId} onQuantityUpdate={(a) => onQuantityUpdate(a)}/>
                        :
                        <SelectOptionsButton productOptions={item.ProductOptions} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
