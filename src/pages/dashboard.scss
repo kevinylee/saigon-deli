@@ -6,6 +6,26 @@ li::marker {
   content: '';
 }
 
+.test-button {
+  display: block;
+  margin: 0 auto;
+  letter-spacing: 1px;
+  padding: 5px 25px;
+  border-color: #009B58;
+  border-style: solid;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #009B58;
+  transition: 200ms background-color;
+  margin-top: 5px;
+
+  &:hover, &:active {
+    background-color: #009B58;
+    color: white;
+  }
+}
+
 .orders {
   list-style-type: none;
   padding: 0px;

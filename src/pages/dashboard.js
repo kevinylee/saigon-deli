@@ -70,6 +70,9 @@ const DashboardPage = () => {
 
   return (
     <div>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <button className="test-button" onClick={playNotification}>Test Sound</button>
+    </div>
       {
         orders.length === 0 ? 
         <p className="noOrders">No orders.</p> :
