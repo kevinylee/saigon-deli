@@ -8,8 +8,25 @@ const BASE_SOUND_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli
 
 const playNotification = () => {
   const audio = new Audio(`${BASE_SOUND_URL}/notify_order.mp3`);
-  audio.play();
+
+  // Play three times
+  setIntervalX(() => {
+    audio.play();
+  }, 2500, 3);
 };
+
+// Some stackoverflow method
+function setIntervalX(callback, delay, repetitions) {
+  var x = 0;
+  var intervalID = window.setInterval(function () {
+
+     callback();
+
+     if (++x === repetitions) {
+         window.clearInterval(intervalID);
+     }
+  }, delay);
+}
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
