@@ -26,6 +26,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 const handler: Handler = async (event, context) => {
+  console.log("We out here!")
+
   if (event.httpMethod !== 'POST') {
     console.log(event);
 
@@ -48,13 +50,14 @@ const handler: Handler = async (event, context) => {
     return {
       statusCode: 400,
       body: JSON.stringify({
-        message: "`Webhook Error: ${err.message}`"
+        message: `Webhook Error: ${err.message}`
       })
     }    
   }
 
     // Handle the checkout.session.completed event
     if (stripeEvent.type === 'checkout.session.completed') {
+      console.log('Getting session completed!')
       const session = stripeEvent.data.object as Stripe.Checkout.Session;
 
       let customer = session.customer_details?.name;
