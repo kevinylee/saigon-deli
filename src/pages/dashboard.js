@@ -4,9 +4,10 @@ import axios from "axios"
 import "./dashboard.scss"
 
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
+const BASE_SOUND_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:8000");
 
 const playNotification = () => {
-  const audio = new Audio('notify_order.mp3');
+  const audio = new Audio(`${BASE_SOUND_URL}/notify_order.mp3`);
   audio.play();
 };
 
