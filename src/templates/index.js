@@ -22,7 +22,8 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
 // Create dates assuming default time zone is UST
 const restrictedRanges = [
   [DateTime.fromISO("2022-09-05T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-09-07T00:00:00Z", { zone: 'America/Los_Angeles' })],
-  [DateTime.fromISO("2022-09-30T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-10-03T00:00:00Z", { zone: 'America/Los_Angeles' })]
+  [DateTime.fromISO("2022-09-30T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-10-03T00:00:00Z", { zone: 'America/Los_Angeles' })],
+  [DateTime.fromISO("2022-11-24T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-11-25T00:00:00Z", { zone: 'America/Los_Angeles' })]
 ];
 
 const canOrder = () => {
