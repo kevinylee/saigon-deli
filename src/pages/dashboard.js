@@ -94,11 +94,15 @@ const DashboardPage = () => {
       {
         orders.length === 0 ? 
         <p className="noOrders">No orders.</p> :
-        orders.slice(0, 100).map(order => 
-          <li key={order.id} className="card">
-            <Order {...order} />
-          </li>
-      )}
+        <ul style={{ listStyleType: "none", padding: 0 }}>
+          {
+          orders.slice(0, 100).map(order => 
+            <li key={order.id}>
+              <Order {...order} />
+            </li>
+          )}
+        </ul>
+      }
       <div ref={modalRef} className="modal">
         <div className="content">
           <h1>Turn On Sound</h1>
@@ -110,31 +114,58 @@ const DashboardPage = () => {
   );
 }
 
-function Order({ id, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt }) {
+function Order({ id, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged }) {
+
+  const [isRead, markAsRead] = useState(acknowledged);
+
+  const isAcknowledged = () => {
+    return isRead ? "acknowledged" : "alert"
+  };
+
+  const onCheck = async (event) => {
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      markAsRead(true);
+
+      const res = await axios.post(`${BASE_URL}/.netlify/functions/orders`, {
+        id: id
+      });
+
+      console.log(res);
+    }
+  }
+
   return (
-    <div className="order">
-      <div className="timestamp">
-        <p className="date">{formatDate(createdAt).toLocaleDateString('en-US')}</p>
-        <p className="time">{formatDate(createdAt).toLocaleTimeString('en-US')}</p>
+    <div className={`card-${isAcknowledged()}`}>
+      <div className="order">
+        <div className="timestamp">
+          <p className="date">{formatDate(createdAt).toLocaleDateString('en-US')}</p>
+          <p className="time">{formatDate(createdAt).toLocaleTimeString('en-US')}</p>
+        </div>
+        {
+          title && <p className="orderTitle">{title}</p>
+        }
+        <label htmlFor="read">
+        <input onChange={onCheck} type="checkbox" name="read" checked={isRead} />
+        Mark as Read
+        </label>
+        <br />
+        <br />
+        <ul>
+          {lineItems.map(lineItem =>  (
+            <li key={`${lineItem.quantity}-${lineItem.title}`}>
+              <p><b>{lineItem.quantity}</b> {formatItemTitle(lineItem.title)}</p>
+            </li>))}
+          <li key="price" className="price">
+            <p>${(total_amount / 100).toFixed(2)}</p>
+          </li>
+        </ul>
+        <br />
+        <p className="badge">
+          AUTHORIZED
+        </p>
       </div>
-      {
-        title && <p className="orderTitle">{title}</p>
-      }
-      <br />
-      <br />
-      <ul>
-        {lineItems.map(lineItem =>  (
-          <li key={`${lineItem.quantity}-${lineItem.title}`}>
-            <p><b>{lineItem.quantity}</b> {formatItemTitle(lineItem.title)}</p>
-          </li>))}
-        <li key="price" className="price">
-          <p>${(total_amount / 100).toFixed(2)}</p>
-        </li>
-      </ul>
-      <br />
-      <p className="badge">
-        AUTHORIZED
-      </p>
     </div>
   )
 }

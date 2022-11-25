@@ -16,7 +16,31 @@ const headers = {
   'Access-Control-Allow-Methods': 'GET'
 }
 
-const handler: Handler = async (_, __) => {
+const handler: Handler = async (event, _) => {
+  if (event.httpMethod === 'POST') {
+
+    if (!event.body) {
+      console.log(event)  
+      throw "No request body attached.";
+    }
+
+    const { id } = JSON.parse(event.body);
+
+    const { data, error } = await supabase.from('Orders').update({
+      acknowledged: true
+    }).eq('id', id)
+
+    if (error) {
+      console.log(error);
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+      headers: headers
+    }
+  }
+
   const { data, error } = await supabase.from('Orders').select('*').order('created_at', { ascending: false })
 
   if (error) {
