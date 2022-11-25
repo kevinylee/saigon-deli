@@ -23,7 +23,7 @@ const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian
 const restrictedRanges = [
   [DateTime.fromISO("2022-09-05T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-09-07T00:00:00Z", { zone: 'America/Los_Angeles' })],
   [DateTime.fromISO("2022-09-30T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-10-03T00:00:00Z", { zone: 'America/Los_Angeles' })],
-  [DateTime.fromISO("2022-11-24T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-11-25T00:00:00Z", { zone: 'America/Los_Angeles' })]
+  [DateTime.fromISO("2022-11-24T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-11-28T00:00:00Z", { zone: 'America/Los_Angeles' })]
 ];
 
 const canOrder = () => {
@@ -75,7 +75,7 @@ const canOrder = () => {
       }
     }else{
       // TODO: Update this. 
-      alert("Error: Please check your order and that Saigon Deli is open at this time.");
+      alert("Error: Please check your order and that Saigon Deli is open at this time. We are closed 11/24 to 11/27.");
     }
   }
 
