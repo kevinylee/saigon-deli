@@ -26,12 +26,7 @@ const restrictedRanges = [
   [DateTime.fromISO("2022-11-24T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-11-28T00:00:00Z", { zone: 'America/Los_Angeles' })]
 ];
 
-const canOrder = () => {
-
-  if (process.env.GATSBY_ENV !== 'prod') {
-    return true;
-  }
-  
+const canOrder = () => {  
   const now = DateTime.now().setZone('America/Los_Angeles')
 
   const withinRestrictions = restrictedRanges.some(([start, end]) => { 
@@ -48,8 +43,7 @@ const canOrder = () => {
   return !withinRestrictions;
 }
 
-  async function handleCheckout(_) {
-    console.log(process.env.GATSBY_STRIPE_PUBLIC_KEY)
+  async function handleCheckout(_) {    
     const stripe = await loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY);
     // TODO: add canOrder?
 
@@ -58,7 +52,6 @@ const canOrder = () => {
         lineItems: cart
       })
 
-      console.log(response.data)
       if(response.data) {
         // When the customer clicks on the button, redirect them to Checkout.
         const result = await stripe.redirectToCheckout({
@@ -145,9 +138,15 @@ const canOrder = () => {
           />
           <Navigation restaurant={restaurant} />
         </div>
+        <div className="callout">
+          <div className="content">
+            <p>Thank you for supporting us directly!</p>
+            <p>Saigon Deli is currently {canOrder() ? <span style={{ color: "green", fontWeight: "bold" }}>open</span> : <span style={{ color: "red", fontWeight: "bold" }}>closed</span>}.</p>
+            {allowCheckout && <button className="checkout-button" onClick={handleCheckout} disabled={!canOrder()} style={{ width: "100%" }}>Checkout</button>}
+          </div>
+        </div>
         <div className="menu">
           <Section reference="appetizers" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
-          
           <div className="pics">
           <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg" className="pho-img" alt="Spring Rolls" />
@@ -260,7 +259,7 @@ const canOrder = () => {
 
           <Section reference="beverages" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={beverage} category="Beverages" description="Refreshing drinks to accompany your meal." />
           <br />
-          {allowCheckout && <button id="checkout" onClick={handleCheckout}>Checkout</button>}
+          {allowCheckout && <button className="checkout-button" onClick={handleCheckout} disabled={!canOrder()}>Checkout</button>}
         </div>
         <div className="catering-box">
           <div className="catering">
