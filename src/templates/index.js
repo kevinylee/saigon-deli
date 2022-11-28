@@ -142,7 +142,7 @@ const canOrder = () => {
           <div className="content">
             <p>Thank you for supporting us directly!</p>
             <p>Saigon Deli is currently {canOrder() ? <span style={{ color: "green", fontWeight: "bold" }}>open</span> : <span style={{ color: "red", fontWeight: "bold" }}>closed</span>}.</p>
-            {allowCheckout && <button className="checkout-button" onClick={handleCheckout} disabled={!canOrder()} style={{ width: "100%" }}>Checkout</button>}
+            {allowCheckout && <button className="checkout-button" onClick={handleCheckout} style={{ width: "100%" }}>Checkout</button>}
           </div>
         </div>
         <div className="menu">
@@ -259,7 +259,7 @@ const canOrder = () => {
 
           <Section reference="beverages" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={beverage} category="Beverages" description="Refreshing drinks to accompany your meal." />
           <br />
-          {allowCheckout && <button className="checkout-button" onClick={handleCheckout} disabled={!canOrder()}>Checkout</button>}
+          {allowCheckout && <button className="checkout-button" onClick={handleCheckout}>Checkout</button>}
         </div>
         <div className="catering-box">
           <div className="catering">
