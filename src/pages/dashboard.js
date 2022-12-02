@@ -144,7 +144,7 @@ function Order({ id, customer_name: title, array_line_items: lineItems, total_am
           <p className="time">{formatDate(createdAt).toLocaleTimeString('en-US')}</p>
         </div>
         {
-          title && <p className="orderTitle">{title}</p>
+          title && <p className="orderTitle">{title} ({totalNumItems(lineItems)} items)</p>
         }
         <label htmlFor="read">
         <input onChange={onCheck} type="checkbox" name="read" checked={isRead} />
@@ -180,6 +180,9 @@ function formatItemTitle(title) {
   }
 }
 
+function totalNumItems(lineItems) {
+  return lineItems.reduce((curr, item) => curr + item.quantity, 0)
+}
 
 const formatDate = (timestamp) => (new Date(timestamp));
 
