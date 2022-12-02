@@ -38,7 +38,8 @@ li::marker {
   flex-wrap: wrap;
 }
 
-$color: rgb(255, 214, 139);
+$color: #fcb714;
+
 label {
   display: flex;
   align-items: center;
@@ -62,7 +63,7 @@ label {
   text-decoration: none;
   border: 1px solid $color;
   border-radius: 10px;
-  animation: blink 4s infinite;
+  animation: blink 3s infinite;
   
   .order {
     .badge {

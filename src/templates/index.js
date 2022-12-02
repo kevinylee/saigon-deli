@@ -35,7 +35,7 @@ const canOrder = () => {
     return now <= end && now >= start;
   });
 
-  // 11am to 7pm
+  // 11am to 8pm
   const withinHours = now.hour >= 11 && now.hour <= 19;
 
   if (!withinHours) { 
@@ -50,24 +50,24 @@ const canOrder = () => {
     // TODO: add canOrder?
 
     if(cart.length > 0 && canOrder()) {
-      const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
-        lineItems: cart
-      })
+      // const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
+      //   lineItems: cart
+      // })
 
-      if(response.data) {
-        // When the customer clicks on the button, redirect them to Checkout.
-        const result = await stripe.redirectToCheckout({
-          sessionId: response.data.sessionId
-        });
+      // if(response.data) {
+      //   // When the customer clicks on the button, redirect them to Checkout.
+      //   const result = await stripe.redirectToCheckout({
+      //     sessionId: response.data.sessionId
+      //   });
     
-        if (result.error) {
-          console.log(result.error.message);
-          alert(result.error.message)
-          // If `redirectToCheckout` fails due to a browser or network
-          // error, display the localized error message to your customer
-          // using `result.error.message`.
-        }
-      }
+      //   if (result.error) {
+      //     console.log(result.error.message);
+      //     alert(result.error.message)
+      //     // If `redirectToCheckout` fails due to a browser or network
+      //     // error, display the localized error message to your customer
+      //     // using `result.error.message`.
+      //   }
+      // }
     }else{
       // TODO: Update this. 
       alert("Error: Please check your order and that Saigon Deli is open at this time. We are closed 11/24 to 11/27.");
