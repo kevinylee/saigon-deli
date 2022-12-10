@@ -85,6 +85,14 @@ const DashboardPage = () => {
     }
   }, 30000);
 
+  useEffect(() => {
+    async function initialFetch() {
+      await fetch();
+    }
+
+    initialFetch();
+  }, []);
+
   const handleClick = () => {
     if(modalRef) {
       // Hide the modal and voila!
