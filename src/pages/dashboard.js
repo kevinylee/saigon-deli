@@ -77,7 +77,7 @@ const DashboardPage = () => {
 
   useInterval(async () => {
     await fetch();
-  }, 3000);
+  }, 30000);
 
   const handleClick = () => {
     if(modalRef) {
