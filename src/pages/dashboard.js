@@ -76,7 +76,12 @@ const DashboardPage = () => {
   }
 
   useInterval(async () => {
-    await fetch();
+    const now = DateTime.now().setZone('America/Los_Angeles')
+    const withinHours = now.hour >= 11 && now.hour <= 19;
+
+    if (withinHours) {
+      await fetch();
+    }
   }, 30000);
 
   const handleClick = () => {
