@@ -143,7 +143,7 @@ const canOrder = () => {
         <div className="callout">
           <div className="content">
             <p>Thank you for supporting us directly!</p>
-            <p>Saigon Deli is currently {canOrder() ? <span style={{ color: "green", fontWeight: "bold" }}>open</span> : <span style={{ color: "red", fontWeight: "bold" }}>closed</span>}.</p>
+            <p>Saigon Deli is currently {(canOrder() && allowCheckout)? <span style={{ color: "green", fontWeight: "bold" }}>open</span> : <span style={{ color: "red", fontWeight: "bold" }}>closed</span>}.</p>
             {allowCheckout && <button className="checkout-button" onClick={handleCheckout} style={{ width: "100%" }}>Checkout</button>}
           </div>
         </div>
