@@ -17,7 +17,7 @@ const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netli
 const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
 
   const [cart, updateCart] = useState([]);
-  const [allowCheckout, updateAllowCheckout] = useState(true);
+  const [allowCheckout, updateAllowCheckout] = useState(false);
 
 // Create dates assuming default time zone is UST
 const restrictedRanges = [
