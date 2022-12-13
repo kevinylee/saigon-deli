@@ -14,12 +14,13 @@ import { DateTime } from 'luxon'
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 // markup
-const IndexPage = ({ pageContext: { restaurant, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
+const IndexPage = ({ pageContext: { restaurant, open, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
 
   const [cart, updateCart] = useState([]);
   const [allowCheckout, updateAllowCheckout] = useState(true);
 
 // Create dates assuming default time zone is UST
+// Unused.
 const restrictedRanges = [
   [DateTime.fromISO("2022-09-05T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-09-07T00:00:00Z", { zone: 'America/Los_Angeles' })],
   [DateTime.fromISO("2022-09-30T00:00:00Z", { zone: 'America/Los_Angeles' }), DateTime.fromISO("2022-10-03T00:00:00Z", { zone: 'America/Los_Angeles' })],
@@ -30,10 +31,24 @@ const canOrder = () => {
   const now = DateTime.now().setZone('America/Los_Angeles')
   console.log(now)
 
-  const withinRestrictions = restrictedRanges.some(([start, end]) => {
-    console.log(now <= end && now >= start) 
-    return now <= end && now >= start;
+  // Early return if not open from button click
+  if (!open) {
+    return false;
+  }
+
+  const withinRestrictions = restaurant.Schedules.filter((sched) => sched.id !== -1).some(({ start_datetime, end_datetime, reason }) => {
+      const start = DateTime.fromISO(start_datetime, { zone: 'America/Los_Angeles' });
+      const end = DateTime.fromISO(end_datetime, { zone: 'America/Los_Angeles' });
+  
+      console.log(start);
+      console.log(end);
+      return now <= end && now >= start;
   });
+
+  // const withinRestrictions = restrictedRanges.some(([start, end]) => {
+  //   console.log(now <= end && now >= start) 
+  //   return now <= end && now >= start;
+  // });
 
   // 11am to 8pm
   const withinHours = now.hour >= 11 && now.hour <= 19;
@@ -69,8 +84,7 @@ const canOrder = () => {
         }
       }
     }else{
-      // TODO: Update this. 
-      alert("Error: Please check your order and that Saigon Deli is open at this time. We are closed 11/24 to 11/27.");
+      alert("Error: Please check your order and that Saigon Deli is open at this time. We may close early on some days.");
     }
   }
 

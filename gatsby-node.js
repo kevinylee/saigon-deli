@@ -27,9 +27,12 @@ exports.createPages = async ({ actions: { createPage } }) => {
       Weekdays: '',
       Weekends: '',
       Notice: '',
-      Catering: ''
+      Catering: '',
+      Schedules: []
     }
   }
+
+  const isOpen = restaurant.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
 
   // Create the index page & fill it with menu data
   createPage({
@@ -37,7 +40,17 @@ exports.createPages = async ({ actions: { createPage } }) => {
     component: require.resolve("./src/templates/index.js"), 
     context: { 
       appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
-      restaurant
+      restaurant,
+      open: isOpen
+    },
+  });
+
+  createPage({
+    path: `/dashboard`,
+    component: require.resolve("./src/templates/dashboard.js"), 
+    context: {
+      restaurant,
+      open: isOpen
     },
   });
 };

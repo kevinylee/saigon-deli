@@ -14,7 +14,11 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@fontsource/ruda": "^4.5.2",
+    "@mui/material": "^5.10.17",
+    "@mui/x-date-pickers": "^5.0.10",
     "@netlify/functions": "^1.2.0",
     "@stripe/stripe-js": "^1.35.0",
     "@supabase/supabase-js": "^1.35.7",

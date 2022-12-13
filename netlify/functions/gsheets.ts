@@ -1,5 +1,7 @@
 import { Handler } from "@netlify/functions";
 import Stripe from 'stripe';
+import { createClient } from "@supabase/supabase-js"
+import { DateTime } from 'luxon'
 
 // Spring rolls
 // Spring rolls with Shrimp
@@ -44,6 +46,15 @@ const DOMAIN = process.env.BASE_URL;
 if (!process.env.STRIPE_SECRET || !DOMAIN) {
   throw "No Stripe API key or base URL founded.";
 }
+
+if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
+  throw "No Supabase credentials founded.";
+}
+
+const supabase = createClient(
+  process.env.SUPABASE_API_URL,
+  process.env.SUPABASE_PRIVATE_KEY
+)
 
 const stripe = new Stripe(process.env.STRIPE_SECRET, { 
   apiVersion: "2022-08-01"
@@ -198,6 +209,11 @@ const handler: Handler = async (event, context) => {
     const soursoup = merged.filter(item => item.Category === "Sour Soup");
     const beverage = merged.filter(item => item.Category === "Beverage");
 
+    // Fetch only schedules that are in the future
+    // const { data, error } = await supabase.from('Schedules').select().gte('start_datetime', DateTime.now());
+    const { data, error } = await supabase.from('Schedules').select().or(`start_datetime.gte.${DateTime.now()},id.eq.-1`)
+    // order('created_at', { ascending: false })
+
     return {
       statusCode: 200,
       body: JSON.stringify({ 
@@ -217,7 +233,8 @@ const handler: Handler = async (event, context) => {
           Weekends: "11:30am-8pm",
           Phone: "(206) 634-2866",
           Notice: "",
-          Catering: "Don't forget to ask us about our catering service for your event or party."
+          Catering: "Don't forget to ask us about our catering service for your event or party.",
+          Schedules: data
         }
       })
     };
