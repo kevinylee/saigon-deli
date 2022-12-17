@@ -47,6 +47,8 @@ const canOrder = () => {
       console.log(end);
       return now <= end && now >= start;
     });
+  } else {
+    throw new Error('Yikes! Not valid')
   }
 
   // const withinRestrictions = restrictedRanges.some(([start, end]) => {
