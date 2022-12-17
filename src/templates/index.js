@@ -36,14 +36,18 @@ const canOrder = () => {
     return false;
   }
 
-  const withinRestrictions = restaurant.Schedules.filter((sched) => sched.id !== -1).some(({ start_datetime, end_datetime, reason }) => {
+  let withinRestrictions = false;
+  
+  if (restaurant.Schedules) {
+    withinRestrictions = restaurant.Schedules.filter((sched) => sched.id !== -1).some(({ start_datetime, end_datetime, reason }) => {
       const start = DateTime.fromISO(start_datetime, { zone: 'America/Los_Angeles' });
       const end = DateTime.fromISO(end_datetime, { zone: 'America/Los_Angeles' });
   
       console.log(start);
       console.log(end);
       return now <= end && now >= start;
-  });
+    });
+  }
 
   // const withinRestrictions = restrictedRanges.some(([start, end]) => {
   //   console.log(now <= end && now >= start) 
