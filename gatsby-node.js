@@ -20,6 +20,9 @@ exports.createPages = async ({ actions: { createPage } }) => {
   const soursoup = formatResponse(response.data.SourSoup);
   const beverage = formatResponse(response.data.Beverage);
   let restaurant = formatResponse(response.data.Restaurant);
+  let tips = formatResponse(response.data.Tips);
+
+  console.log(tips);
 
   if (restaurant === null) {
     restaurant = {
@@ -34,13 +37,15 @@ exports.createPages = async ({ actions: { createPage } }) => {
 
   const isOpen = restaurant.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
 
+  console.log(isOpen);
+
   // Create the index page & fill it with menu data
   createPage({
     path: `/`,
     component: require.resolve("./src/templates/index.js"), 
     context: { 
       appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage,
-      restaurant,
+      restaurant, tips,
       open: isOpen
     },
   });

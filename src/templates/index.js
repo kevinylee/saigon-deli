@@ -10,11 +10,12 @@ import Navigation from "../components/Navigation"
 import { loadStripe } from '@stripe/stripe-js'
 import axios from "axios"
 import { DateTime } from 'luxon'
+import StickyCheckout from "../components/StickyCheckout"
 
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 // markup
-const IndexPage = ({ pageContext: { restaurant, open, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
+const IndexPage = ({ pageContext: { tips, restaurant, open, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
 
   const [cart, updateCart] = useState([]);
   const [allowCheckout, updateAllowCheckout] = useState(true);
@@ -29,7 +30,6 @@ const restrictedRanges = [
 
 const canOrder = () => {  
   const now = DateTime.now().setZone('America/Los_Angeles')
-  console.log(now)
 
   // Early return if not open from button click
   if (!open) {
@@ -120,6 +120,16 @@ const canOrder = () => {
     };
   }
 
+  const RestaurantStatus = () => {
+    const renderOpen = (canOrder() && allowCheckout);
+
+    if (renderOpen) {
+      return (<div className="status-open"><p>OPEN FOR ORDERS</p></div>)
+    } else {
+      return (<div className="status-closed"><p>CLOSED FOR ORDERS</p></div>)
+    }
+  };
+
   return (
     <div className="main">
       <Helmet>
@@ -160,13 +170,11 @@ const canOrder = () => {
           />
           <Navigation restaurant={restaurant} />
         </div>
-        <div className="callout">
-          <div className="content">
-            <p>Thank you for supporting us directly!</p>
-            <p>Saigon Deli is currently {(canOrder() && allowCheckout)? <span style={{ color: "green", fontWeight: "bold" }}>open</span> : <span style={{ color: "red", fontWeight: "bold" }}>closed</span>}.</p>
-            {allowCheckout && <button className="checkout-button" onClick={handleCheckout} style={{ width: "100%" }}>Checkout</button>}
-          </div>
+        <StickyCheckout onQuantityUpdate={handleQuantityUpdate} tips={tips} cart={cart} canOrder={canOrder()} allowCheckout={allowCheckout} handleCheckout={handleCheckout}  />
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
+          <RestaurantStatus />        
         </div>
+        <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
         <div className="menu">
           <Section reference="appetizers" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
           <div className="pics">

@@ -102,6 +102,7 @@ const handler: Handler = async (event, context) => {
 
     // Combining Stripe products into something readable for the frontend
     products.forEach(product => {
+      console.log(product.name);
       if (!product.metadata['isOption']) {
         let Title = product.name;
         // console.log(Title);
@@ -208,6 +209,7 @@ const handler: Handler = async (event, context) => {
     const friedrice = merged.filter(item => item.Category === "Fried Rice");
     const soursoup = merged.filter(item => item.Category === "Sour Soup");
     const beverage = merged.filter(item => item.Category === "Beverage");
+    const tips = merged.filter(item => item.Category === "Tips");
 
     // Fetch only schedules that are in the future
     // const { data, error } = await supabase.from('Schedules').select().gte('start_datetime', DateTime.now());
@@ -228,6 +230,7 @@ const handler: Handler = async (event, context) => {
         FriedRice: friedrice, 
         SourSoup: soursoup, 
         Beverage: beverage, 
+        Tips: tips,
         Restaurant: {
           Weekdays: "11am-8pm",
           Weekends: "11:30am-8pm",
