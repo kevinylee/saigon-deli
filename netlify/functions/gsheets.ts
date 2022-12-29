@@ -102,7 +102,6 @@ const handler: Handler = async (event, context) => {
 
     // Combining Stripe products into something readable for the frontend
     products.forEach(product => {
-      console.log(product.name);
       if (!product.metadata['isOption']) {
         let Title = product.name;
         // console.log(Title);
