@@ -43,6 +43,9 @@ const handler: Handler = async (event, context) => {
     mode: 'payment',
     success_url: `${DOMAIN}/receipt?success=true&id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${DOMAIN}`,
+    phone_number_collection: {
+      enabled: true
+    },
   });
 
   return {

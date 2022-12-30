@@ -60,10 +60,11 @@ const handler: Handler = async (event, context) => {
       console.log('Getting session completed!')
       const session = stripeEvent.data.object as Stripe.Checkout.Session;
 
-      let customer = session.customer_details?.name;
+      let { name, phone } = session.customer_details!;
 
-      if (!customer) {
-        customer = "No customer name."
+      if (!name || !phone) {
+        name = "No customer name."
+        phone = "No phone number."
       }
 
       const stripe_line_items_response = await stripe.checkout.sessions.listLineItems(session.id)
@@ -87,7 +88,13 @@ const handler: Handler = async (event, context) => {
 
       // Fulfill the purchase...
       const { data, error } = await supabase.from('Orders').insert([
-        { line_items: line_items, total_amount: session.amount_total, customer_name: customer, array_line_items: array_line_items }
+        { 
+          line_items: line_items, 
+          total_amount: session.amount_total, 
+          customer_name: name, 
+          array_line_items: array_line_items,
+          phone_number: phone
+        }
       ]);
 
       console.log(data);

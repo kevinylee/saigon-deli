@@ -218,7 +218,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
   );
 }
 
-function Order({ id, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged }) {
+function Order({ id, phone_number: phoneNumber, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged }) {
 
   const [isRead, markAsRead] = useState(acknowledged);
 
@@ -250,9 +250,12 @@ function Order({ id, customer_name: title, array_line_items: lineItems, total_am
         {
           title && <p className="orderTitle">{title} ({totalNumItems(lineItems)} items)</p>
         }
+        {
+          phoneNumber && <p style={{ fontSize: "1.75rem" }}>{phoneNumber}</p>
+        }
         <label htmlFor="read">
-        <input onChange={onCheck} type="checkbox" name="read" checked={isRead} />
-        Mark as Read
+          <input onChange={onCheck} type="checkbox" name="read" checked={isRead} />
+          Mark as Read
         </label>
         <br />
         <br />

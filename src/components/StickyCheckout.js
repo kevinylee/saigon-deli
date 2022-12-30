@@ -7,7 +7,6 @@ function StickyCheckout({ tips, cart, canOrder, allowCheckout, handleCheckout, o
   const tipObject = tips[0];
 
   const cartSize = () => {
-    console.log(cart);
     return cart.reduce((acc, curr) => { 
       if (curr && curr.itemId && curr.quantity > 0 && curr.itemId !== tipObject.PriceId) {
         return acc += curr.quantity;
