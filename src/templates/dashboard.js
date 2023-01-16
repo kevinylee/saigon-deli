@@ -240,6 +240,16 @@ function Order({ id, phone_number: phoneNumber, customer_name: title, array_line
     }
   }
 
+  const getTipAmount = () => {
+    const found = lineItems.find((item) => item.title == 'Tip Jar');
+
+    if (!found) {
+      return -1;
+    }
+
+    return found.quantity;
+  };
+
   return (
     <div className={`card-${isAcknowledged()}`}>
       <div className="order">
@@ -262,10 +272,16 @@ function Order({ id, phone_number: phoneNumber, customer_name: title, array_line
         <ul>
           {lineItems.map(lineItem =>  (
             <li key={`${lineItem.quantity}-${lineItem.title}`}>
-              <p><b>{lineItem.quantity}</b> {formatItemTitle(lineItem.title)}</p>
+            {
+              !lineItem.title.includes('Tip Jar') && 
+                <p><b>{lineItem.quantity}</b> {formatItemTitle(lineItem.title)}</p>
+            }
             </li>))}
           <li key="price" className="price">
-            <p>${(total_amount / 100).toFixed(2)}</p>
+            <p>
+              {(getTipAmount() > 0) && <span>Tip: ${getTipAmount()}<br/></span>}
+              Total: ${(total_amount / 100).toFixed(2)}
+            </p>
           </li>
         </ul>
         <br />

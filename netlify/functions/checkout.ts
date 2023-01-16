@@ -45,7 +45,7 @@ const handler: Handler = async (event, context) => {
     cancel_url: `${DOMAIN}`,
     phone_number_collection: {
       enabled: true
-    },
+    }
   });
 
   return {
