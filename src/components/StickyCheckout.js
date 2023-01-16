@@ -25,7 +25,7 @@ function StickyCheckout({ tips, cart, canOrder, allowCheckout, handleCheckout, o
             <QuantitySelection id={tipObject.PriceId} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
           </span>
           {allowCheckout && 
-            <button disabled={!canOrder} className="checkout-button" onClick={handleCheckout}>Checkout (<b>{cartSize()} items</b>)</button>
+            <button className="checkout-button" onClick={handleCheckout}>Checkout (<b>{cartSize()} items</b>)</button>
           }
         </div>
       </div>
