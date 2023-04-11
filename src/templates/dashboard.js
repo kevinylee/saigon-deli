@@ -304,7 +304,7 @@ function formatItemTitle(title) {
 }
 
 function totalNumItems(lineItems) {
-  return lineItems.reduce((curr, item) => curr + item.quantity, 0)
+  return lineItems.reduce((curr, item) => curr + (item.title.includes('Tip Jar') ? 0 : item.quantity), 0)
 }
 
 const formatDate = (timestamp) => (new Date(timestamp));
