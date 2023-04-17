@@ -34,7 +34,6 @@ const IndexPage = ({ pageContext: { tips, restaurant, open, appetizers, pho, bun
   };
 
   useEffect(() => {
-    console.log(process.env);
     fetchRestaurantStatus();
   });
 
