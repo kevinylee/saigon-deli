@@ -63,8 +63,13 @@ function Success({ order }) {
   return (
     <React.Fragment>
       <h1 className="summaryTitle">Thank you for supporting!</h1>
+      <p style={{ color: "rgb(137 137 137)", textAlign: "center" }}>Please check your email for a receipt of your payment.</p>
       <hr />
-      <p className="restaurantNote">We <b>sincerely</b> appreciate you taking the time to order from us. <br /> Instructions for picking up your order can be found below.</p>
+      <p className="restaurantNote">
+        We <b>sincerely</b> appreciate you taking the time to order from us. 
+        <br /> 
+        Instructions for picking up your order can be found below.
+      </p>
       <div className="receipt">
         <h2>Order Summary</h2>
         <table>
@@ -85,7 +90,7 @@ function Success({ order }) {
             }
           </tbody>
           <tfoot>
-            <tr>
+            <tr style={{ backgroundColor: (order.length % 2 == 0 ? "white" : "#f2f2f2") }}>
               <td><b>Total:</b></td>
               <td className="amountTotal"><b>${(totalPrice / 100).toFixed(2)}</b></td>
             </tr>
