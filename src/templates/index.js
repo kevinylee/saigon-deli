@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Helmet } from "react-helmet"
 import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
@@ -11,14 +11,31 @@ import { loadStripe } from '@stripe/stripe-js'
 import axios from "axios"
 import { DateTime } from 'luxon'
 import StickyCheckout from "../components/StickyCheckout"
+import { createClient } from '@supabase/supabase-js'
 
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 // markup
 const IndexPage = ({ pageContext: { tips, restaurant, open, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
+  const supabase = createClient(process.env.GATSBY_SUPABASE_API_URL, process.env.GATSBY_SUPABASE_PUBLIC_KEY)
 
   const [cart, updateCart] = useState([]);
   const [allowCheckout, updateAllowCheckout] = useState(true);
+  const [restaurantOpen, setRestaurantOpen] = useState(false);
+
+  const fetchRestaurantStatus = async () => {
+    const { data, error } = await supabase.from('Schedules').select("*").eq('id', -1).limit(1)
+
+    if (error || !data) {
+      setRestaurantOpen(false);
+    }
+
+    setRestaurantOpen(data[0]["reason"] === 'true')
+  };
+
+  useEffect(() => {
+    fetchRestaurantStatus();
+  });
 
 // Create dates assuming default time zone is UST
 // Unused.
@@ -32,7 +49,7 @@ const canOrder = () => {
   const now = DateTime.now().setZone('America/Los_Angeles')
 
   // Early return if not open from button click
-  if (!open) {
+  if (!restaurantOpen) {
     return false;
   }
 
@@ -124,9 +141,13 @@ const canOrder = () => {
     const renderOpen = (canOrder() && allowCheckout);
 
     if (renderOpen) {
-      return (<div className="status-open"><p>OPEN FOR ORDERS</p></div>)
+      return (
+        <div className="status-open">
+          <h3>OPEN FOR ORDERS</h3>
+          <p>AS OF {DateTime.now().setZone('America/Los_Angeles').toLocaleString(DateTime.TIME_SIMPLE)}</p>
+        </div>)
     } else {
-      return (<div className="status-closed"><p>CLOSED FOR ORDERS</p></div>)
+      return (<div className="status-closed"><h3>CLOSED FOR ORDERS</h3></div>)
     }
   };
 
@@ -149,7 +170,7 @@ const canOrder = () => {
               <div className="small-info">
                   <p>takeout & dine-in</p>
                   <span className="seperator"></span>
-                  <p>for cater: {restaurant.Phone}</p>
+                  <p>for catering: {restaurant.Phone}</p>
               </div>
         </header>
         {

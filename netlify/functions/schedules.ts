@@ -25,13 +25,6 @@ const handler: Handler = async (event, context) => {
     }
   }
 
-  if (event.httpMethod != 'POST') {
-    return {
-      statusCode: 500,
-      headers
-    }
-  }
-
   // check against inability to parse out `password`
   const payload = JSON.parse(event.body as any);
 
