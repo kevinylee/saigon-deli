@@ -48,6 +48,7 @@ if (!process.env.STRIPE_SECRET || !DOMAIN) {
 }
 
 if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
+  console.log("Woah this is new! What?!?!")
   throw "No Supabase credentials founded.";
 }
 
