@@ -47,12 +47,12 @@ if (!process.env.STRIPE_SECRET || !DOMAIN) {
   throw "No Stripe API key or base URL founded.";
 }
 
-if (!process.env.GATSBY_SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
+if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
   throw "No Supabase credentials founded.";
 }
 
 const supabase = createClient(
-  process.env.GATSBY_SUPABASE_API_URL,
+  process.env.SUPABASE_API_URL,
   process.env.SUPABASE_PRIVATE_KEY
 )
 

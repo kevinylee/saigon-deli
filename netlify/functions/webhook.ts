@@ -6,11 +6,11 @@ if (!process.env.STRIPE_SECRET) {
   throw "No Stripe API key or base URL found.";
 }
 
-if (!process.env.GATSBY_SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
+if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
   throw "No Supabase credentials founded.";
 }
 
-const supabaseUrl = process.env.GATSBY_SUPABASE_API_URL
+const supabaseUrl = process.env.SUPABASE_API_URL
 const supabaseKey = process.env.SUPABASE_PRIVATE_KEY
 
 const ENDPOINT_SECRET = process.env.WEBHOOK_ENDPOINT_SECRET;
