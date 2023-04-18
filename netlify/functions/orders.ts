@@ -1,12 +1,12 @@
 import { Handler } from "@netlify/functions";
 import { createClient } from "@supabase/supabase-js"
 
-if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
+if (!process.env.GATSBY_SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
   throw "No Supabase credentials founded.";
 }
 
 const supabase = createClient(
-  process.env.SUPABASE_API_URL,
+  process.env.GATSBY_SUPABASE_API_URL,
   process.env.SUPABASE_PRIVATE_KEY
 )
 
