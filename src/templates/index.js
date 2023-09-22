@@ -197,7 +197,7 @@ const canOrder = () => {
         </div>
         <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
         <div className="menu">
-          <Section reference="appetizers" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={false} items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
+          <Section reference="appetizers" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
           <div className="pics">
           <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg" className="pho-img" alt="Spring Rolls" />
