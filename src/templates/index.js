@@ -89,7 +89,8 @@ const canOrder = () => {
 
     if(cart.length > 0 && canOrder()) {
       const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
-        lineItems: cart
+        lineItems: cart,
+        pickupAt: null
       })
 
       if(response.data) {

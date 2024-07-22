@@ -30,7 +30,7 @@ const handler: Handler = async (event, context) => {
     throw "No request body attached.";
   }
 
-  const { lineItems } = JSON.parse(event.body);
+  const { lineItems, pickupAt } = JSON.parse(event.body);
 
   const stripeRequest = lineItems.map(lineItem => (
     {
@@ -45,6 +45,9 @@ const handler: Handler = async (event, context) => {
     cancel_url: `${DOMAIN}`,
     phone_number_collection: {
       enabled: true
+    },
+    metadata: {
+      pickup_at: pickupAt
     }
   });
 

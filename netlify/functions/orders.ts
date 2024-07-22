@@ -16,6 +16,8 @@ const headers = {
   'Access-Control-Allow-Methods': 'GET'
 }
 
+const DEFAULT_LIMIT = 100;
+
 const handler: Handler = async (event, _) => {
   if (event.httpMethod === 'POST') {
 
@@ -41,13 +43,15 @@ const handler: Handler = async (event, _) => {
     }
   }
 
-  const { data, error } = await supabase.from('Orders').select('*').order('created_at', { ascending: false })
+  const take = event.queryStringParameters?.limit ? parseInt(event.queryStringParameters?.limit) : null;
+
+  const { data, error } = await supabase.from('Orders').select('*').limit(take || DEFAULT_LIMIT).order('created_at', { ascending: false })
 
   if (error) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        message: `Invalid DB response. ${error}`
+        message: error.message
       }),
       headers: headers
     }
