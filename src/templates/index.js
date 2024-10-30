@@ -215,7 +215,7 @@ const canOrder = () => {
             </div>
           </div>
 
-          <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={false} items={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
+          <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
 
           <div className="pics">
             <div className="img-desc">
