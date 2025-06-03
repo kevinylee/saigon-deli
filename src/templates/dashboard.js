@@ -83,7 +83,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
         setOrders(res.data);
 
         if (!loadedBefore) {
-          playNotification();
+          
           setLoadedBefore(true);
           console.log('Set loaded before to: ' + loadedBefore)
         }
