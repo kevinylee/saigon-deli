@@ -76,7 +76,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
       const res = await axios.get(`${BASE_URL}/.netlify/functions/orders`);
 
       if (res) {
-        if (orders.length < res.data.length && loadedBefore) {
+        if (orders.length && res.data.length && orders[0].id != res.data[0].id && loadedBefore) {
           playNotification();
         }
 
