@@ -80,10 +80,10 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
           playNotification();
         }
 
-        setOrders(res.data);
+        setOrders(res.data.slice(0,75));
 
         if (!loadedBefore) {
-          playNotification();
+        
           setLoadedBefore(true);
           console.log('Set loaded before to: ' + loadedBefore)
         }
@@ -160,7 +160,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
           <p className="noOrders">No orders.</p> :
           <ul style={{ listStyleType: "none", padding: 0 }}>
             {
-            orders.slice(0, 100).map(order => 
+            orders.map(order => 
               <li key={order.id}>
                 <Order {...order} />
               </li>
