@@ -70,6 +70,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
 
   const [isOpen, setIsOpen] = useState(open);
 
+  
   async function fetch() {
     try {
       const res = await axios.get(`${BASE_URL}/.netlify/functions/orders`);
@@ -211,6 +212,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
                 <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> : 
                 <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
             }
+            <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
           </div>
         </div>
       </LocalizationProvider>
