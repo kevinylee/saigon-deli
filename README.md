@@ -1,10 +1,5 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
 <h1 align="center">
-  Saigon Deli Website
+  Saigon Deli
 </h1>
 
 ## Prerequisites
@@ -28,6 +23,13 @@ Make sure you have Homebrew, Stripe CLI, and Gatsby CLI installed:
 ## Deploying to Production
 
 All hooked up via Netlify.
+
+## Todo
+
+- [ ] Migrate to JSON file for menu items
+- [ ] Deprecate use of Stripe Products and use inline prices
+- [ ] Add "Order later" time
+- [ ] Add per-item availability and updates in the dashboard
 
 ## Notes
 

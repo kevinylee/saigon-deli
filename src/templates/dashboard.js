@@ -70,18 +70,20 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
 
   const [isOpen, setIsOpen] = useState(open);
 
+  
   async function fetch() {
     try {
       const res = await axios.get(`${BASE_URL}/.netlify/functions/orders`);
 
       if (res) {
-        if (orders.length < res.data.length && loadedBefore) {
+        if (orders.length && res.data.length && orders[0].id != res.data[0].id && loadedBefore) {
           playNotification();
         }
 
         setOrders(res.data);
 
         if (!loadedBefore) {
+          
           setLoadedBefore(true);
           console.log('Set loaded before to: ' + loadedBefore)
         }
@@ -211,6 +213,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
                 <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> : 
                 <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
             }
+            <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
           </div>
         </div>
       </LocalizationProvider>
