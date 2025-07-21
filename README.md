@@ -1,10 +1,5 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
 <h1 align="center">
-  Saigon Deli Website
+  Saigon Deli
 </h1>
 
 ## 🚀 Running Locally
@@ -20,9 +15,11 @@
 All hooked up via Netlify.
 
 ## Todo
-- [ ] Integrate `gatsby-image`
-- [ ] Fix mobile view
-- [ ] Refactor code structure
+
+- [ ] Migrate to JSON file for menu items
+- [ ] Deprecate use of Stripe Products and use inline prices
+- [ ] Add "Order later" time
+- [ ] Add per-item availability and updates in the dashboard
 
 ## Notes
 
