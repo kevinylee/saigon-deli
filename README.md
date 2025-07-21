@@ -7,22 +7,27 @@
   Saigon Deli Website
 </h1>
 
+## Prerequisites
+
+Make sure you have Homebrew, Stripe CLI, and Gatsby CLI installed:
+- https://brew.sh/
+- https://docs.stripe.com/stripe-cli
+
+1. Run `npm install`
+2. Create your own `.env.development` file in the project root
+3. Copy over the specific environment variables you would like to load.
+
 ## 🚀 Running Locally
 
 (Make sure you're running a _nice_ Node version ie. 14.15.0+ or the `lts` version from `nvm`)
 
-1. Run the Netlify functions separately: `netlify functions:serve`
-2. Run the website: `gatsby develop`
+1. Run the Netlify functions separately: `npx netlify functions:serve`
+2. Run the website: `npx gatsby develop`
 3. Run the webhooks: `stripe listen --forward-to http://localhost:9999/.netlify/functions/webhook`
 
 ## Deploying to Production
 
 All hooked up via Netlify.
-
-## Todo
-- [ ] Integrate `gatsby-image`
-- [ ] Fix mobile view
-- [ ] Refactor code structure
 
 ## Notes
 
