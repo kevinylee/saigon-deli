@@ -7,7 +7,7 @@ function StickyCheckout({ tips, cart, canOrder, allowCheckout, handleCheckout, o
   const tipObject = tips[0];
 
   const cartSize = () => {
-    return cart.reduce((acc, curr) => { 
+    return cart.reduce((acc, curr) => {
       if (curr && curr.itemId && curr.quantity > 0 && curr.itemId !== tipObject.PriceId) {
         return acc += curr.quantity;
       }
@@ -24,7 +24,7 @@ function StickyCheckout({ tips, cart, canOrder, allowCheckout, handleCheckout, o
             <p>Tip Jar <span style={{ color: "#656565" }}>(in $)</span>: </p>
             <QuantitySelection id={tipObject.PriceId} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
           </span>
-          {allowCheckout && 
+          {allowCheckout &&
             <button className="checkout-button" onClick={handleCheckout}>Checkout (<b>{cartSize()} items</b>)</button>
           }
         </div>

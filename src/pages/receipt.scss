@@ -17,9 +17,9 @@
 .container .order .logo {
   display: flex;
 
- a {
-  display: contents;
- }
+  a {
+    display: contents;
+  }
 
   .main-logo {
     margin: auto;
@@ -44,7 +44,7 @@
   margin-bottom: 100px;
 
 
-  h2 { 
+  h2 {
     font-family: 'Ruda', sans-serif;
   }
 
@@ -58,18 +58,26 @@
       background-color: #f2f2f2;
     }
 
-    td, th {
+    td,
+    th {
       padding: 6px 4px;
     }
   }
 
   .itemName {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
     text-align: left;
 
     .quantity {
-      margin-right: 2px;
+      margin-right: 8px;
       font-size: 1.15em;
       font-family: 'Courier New', Courier, monospace;
+    }
+
+    .bottom-item-desc {
+      margin-left: 16px;
     }
   }
 

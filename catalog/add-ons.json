@@ -1,0 +1,14 @@
+[
+    {
+        "id": "add-egg",
+        "title": "Add Egg",
+        "price": 100,
+        "available": true
+    },
+    {
+        "id": "extra-meat",
+        "title": "Add extra meat",
+        "price": 100,
+        "available": true
+    }
+]

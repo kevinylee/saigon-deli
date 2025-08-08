@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 
-const QuantitySelection = ({ id, onQuantityUpdate, title }) => {
+const QuantitySelection = ({ id, onQuantityUpdate, title, disabled }) => {
   /*: MutableRefObject<HTMLInputElement>*/
   const inputEl = useRef(null);
 
   function handleIncreaseQuantity() {
-    if(inputEl) {
+    if (inputEl) {
       inputEl.current.stepUp();
       onQuantityUpdate(id)({
-        target: { 
+        target: {
           value: inputEl.current.value
         }
       });
@@ -16,10 +16,10 @@ const QuantitySelection = ({ id, onQuantityUpdate, title }) => {
   }
 
   function handleDecreaseQuantity() {
-    if(inputEl) {
+    if (inputEl) {
       inputEl.current.stepDown();
       onQuantityUpdate(id)({
-        target: { 
+        target: {
           value: inputEl.current.value
         }
       });
@@ -28,10 +28,10 @@ const QuantitySelection = ({ id, onQuantityUpdate, title }) => {
 
   return (
     <div className="quantity-selection">
-      {title && <p>{title}:</p>}
-      <button onClick={handleDecreaseQuantity}>-</button>
-      <input ref={inputEl} className="quantity-input" type="number" id={`${id}-quantity`} min={0} max={10} step={1} defaultValue={0} onChange={onQuantityUpdate(id)} />
-      <button onClick={handleIncreaseQuantity}>+</button>
+      {title && <p>{title}{disabled && " (Unavailable)"}:</p>}
+      <button disabled={disabled} onClick={handleDecreaseQuantity}>-</button>
+      <input disabled={disabled} ref={inputEl} className="quantity-input" type="number" id={`${id}-quantity`} min={0} max={10} step={1} defaultValue={0} onChange={onQuantityUpdate(id)} />
+      <button disabled={disabled} onClick={handleIncreaseQuantity}>+</button>
     </div>
   )
 };

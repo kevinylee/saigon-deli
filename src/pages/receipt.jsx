@@ -6,7 +6,7 @@ import "./receipt.scss";
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 const ReceiptPage = (props) => {
-  const [order, setOrder] = useState({ lineItems: [], loading: true });
+  const [order, setOrder] = useState({ lineItems: [], loading: true, pickupTime: null });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -14,23 +14,25 @@ const ReceiptPage = (props) => {
     async function fetch() {
       const sessionId = params.get('id');
 
-      if(sessionId) {
+      if (sessionId) {
         try {
           const response = await axios.get(`${BASE_URL}/.netlify/functions/receipt?sessionId=${sessionId}`)
 
           setOrder({
             lineItems: response.data.lineItems,
+            pickupTime: response.data.pickupTime,
             loading: false
           });
 
-        }catch(err) {
+        } catch (err) {
           console.log(err)
 
           setOrder({
             lineItems: [],
+            pickupTime: null,
             loading: false
           });
-        } 
+        }
       }
     }
 
@@ -45,9 +47,9 @@ const ReceiptPage = (props) => {
             <img src={Logo} className="main-logo" alt="Saigon Deli Logo"></img>
           </a>
         </div>
-        { 
-          order.loading ? 
-            <Loading /> : 
+        {
+          order.loading ?
+            <Loading /> :
             (order.lineItems.length === 0 ? <Error /> : <Success order={order.lineItems} />)
         }
       </div>
@@ -66,8 +68,8 @@ function Success({ order }) {
       <p style={{ color: "rgb(137 137 137)", textAlign: "center" }}>Please check your email for a receipt of your payment.</p>
       <hr />
       <p className="restaurantNote">
-        We <b>sincerely</b> appreciate you taking the time to order from us. 
-        <br /> 
+        We <b>sincerely</b> appreciate you taking the time to order from us.
+        <br />
         Instructions for picking up your order can be found below.
       </p>
       <div className="receipt">
@@ -81,9 +83,12 @@ function Success({ order }) {
           </thead>
           <tbody>
             {
-              order.length > 0 && order.map((el, i) =>  
+              order.length > 0 && order.map((el, i) =>
                 <tr key={i}>
-                  <td className="itemName"><span className="quantity"><b>{el.quantity}</b></span> {formatItemTitle(el.description)}</td>
+                  <td className="itemName">
+                    <span className="quantity"><b>{el.quantity}</b></span>
+                    <span>{formatItemTitle(el.description)}<br />{el.price.product.description}</span>
+                  </td>
                   <td className="amountTotal">${(el.amount_total / 100).toFixed(2)}</td>
                 </tr>
               )
@@ -105,7 +110,7 @@ function Success({ order }) {
 function formatItemTitle(title) {
   if (title.indexOf(".") !== -1) {
     const parts = title.split(".");
-  
+
     return parts[1];
   } else {
     return title;
@@ -134,7 +139,7 @@ function Instructions() {
   return (
     <div className="instructions">
       <h1>Instructions:</h1>
-      <p>Orders are approximately finished in <b>15</b> minutes. <br /> <br /> Please pick up your order at Saigon Deli.</p> 
+      <p>Orders are approximately finished in <b>15</b> minutes. <br /> <br /> Please pick up your order at Saigon Deli.</p>
       <div className="contactRow">
         <a href="https://goo.gl/maps/g3WZGRRgnPMeJ6rz7" target="_blank" rel="noopener noreferrer">4142 Brooklyn Ave NE Seattle, WA 98105</a>
       </div>

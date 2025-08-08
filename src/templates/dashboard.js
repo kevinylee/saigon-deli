@@ -3,9 +3,6 @@ import { useState } from "react"
 import axios from "axios"
 import "./dashboard.scss"
 import { DateTime } from 'luxon'
-import TextField from '@mui/material/TextField';
-import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 const BASE_SOUND_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:8000");
@@ -26,11 +23,11 @@ function setIntervalX(callback, delay, repetitions) {
   var x = 0;
   var intervalID = window.setInterval(function () {
 
-     callback();
+    callback();
 
-     if (++x === repetitions) {
-         window.clearInterval(intervalID);
-     }
+    if (++x === repetitions) {
+      window.clearInterval(intervalID);
+    }
   }, delay);
 }
 
@@ -54,7 +51,7 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
-const DashboardPage = ({ pageContext: { restaurant, open } }) => {
+const DashboardPage = ({ pageContext: { business_details, open } }) => {
   const now = DateTime.now().setZone('America/Los_Angeles');
 
   const modalRef = useRef(null);
@@ -70,7 +67,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
 
   const [isOpen, setIsOpen] = useState(open);
 
-  
+
   async function fetch() {
     try {
       const res = await axios.get(`${BASE_URL}/.netlify/functions/orders`);
@@ -83,7 +80,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
         setOrders(res.data);
 
         if (!loadedBefore) {
-          
+
           setLoadedBefore(true);
           console.log('Set loaded before to: ' + loadedBefore)
         }
@@ -112,7 +109,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
   }, []);
 
   const handleClick = () => {
-    if(modalRef) {
+    if (modalRef) {
       // Hide the modal and voila!
       modalRef.current.style.display = 'none';
     }
@@ -142,7 +139,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
       console.log(err);
       return;
     });
-  
+
     if (response.status === 200) {
       console.log("Successfully building the website!");
     }
@@ -150,37 +147,36 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
 
   return (
     <div>
-    <LocalizationProvider dateAdapter={AdapterLuxon}>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
         <p>WEBSITE IS <b className={`store-status-${isOpen ? "open" : "closed"}`}>{isOpen ? "OPEN" : "CLOSED"}</b></p>
         <button className="default-button test-button" onClick={toggleModal}>Settings</button>
       </div>
-        {
-          orders.length === 0 ? 
+      {
+        orders.length === 0 ?
           <p className="noOrders">No orders.</p> :
           <ul style={{ listStyleType: "none", padding: 0 }}>
             {
-            orders.slice(0, 100).map(order => 
-              <li key={order.id}>
-                <Order {...order} />
-              </li>
-            )}
+              orders.slice(0, 100).map(order =>
+                <li key={order.id}>
+                  <Order {...order} />
+                </li>
+              )}
           </ul>
-        }
-        <div ref={modalRef} className="modal-initial-open modal">
-          <div className="content" style={{ maxWidth: 500 }}>
-            <h1>Turn On Sound</h1>
-            <p>Please turn on sound so you can receive alerts with new orders by clicking <b>OK</b>.</p>
-            <button className="default-button" onClick={handleClick}><b>OK</b></button>
-          </div>
+      }
+      <div ref={modalRef} className="modal-initial-open modal">
+        <div className="content" style={{ maxWidth: 500 }}>
+          <h1>Turn On Sound</h1>
+          <p>Please turn on sound so you can receive alerts with new orders by clicking <b>OK</b>.</p>
+          <button className="default-button" onClick={handleClick}><b>OK</b></button>
         </div>
-        <div ref={settingsModalRef} className="modal-initial-closed modal">
-          <div className="content">
-            <div className="header-bar">
-              <h1>Settings</h1>
-              <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
-            </div>
-            {/*
+      </div>
+      <div ref={settingsModalRef} className="modal-initial-closed modal">
+        <div className="content">
+          <div className="header-bar">
+            <h1>Settings</h1>
+            <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
+          </div>
+          {/*
             <DatePicker
               className="date-picker"
               label="Start Date"
@@ -208,15 +204,14 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
                 </li>
               )}
             </ul>*/}
-            {
-              isOpen ? 
-                <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> : 
-                <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
-            }
-            <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
-          </div>
+          {
+            isOpen ?
+              <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
+              <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
+          }
+          <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
         </div>
-      </LocalizationProvider>
+      </div>
     </div>
   );
 }
@@ -273,16 +268,16 @@ function Order({ id, phone_number: phoneNumber, customer_name: title, array_line
         <br />
         <br />
         <ul>
-          {lineItems.map(lineItem =>  (
+          {lineItems.map(lineItem => (
             <li key={`${lineItem.quantity}-${lineItem.title}`}>
-            {
-              !lineItem.title.includes('Tip Jar') && 
+              {
+                !lineItem.title.includes('Tip Jar') &&
                 <p><b>{lineItem.quantity}</b> {formatItemTitle(lineItem.title)}</p>
-            }
+              }
             </li>))}
           <li key="price" className="price">
             <p>
-              {(getTipAmount() > 0) && <span>Tip: ${getTipAmount()}<br/></span>}
+              {(getTipAmount() > 0) && <span>Tip: ${getTipAmount()}<br /></span>}
               Total: ${(total_amount / 100).toFixed(2)}
             </p>
           </li>
@@ -299,7 +294,7 @@ function Order({ id, phone_number: phoneNumber, customer_name: title, array_line
 function formatItemTitle(title) {
   if (title.indexOf(".") !== -1) {
     const parts = title.split(".");
-  
+
     return parts[1];
   } else {
     return title;
