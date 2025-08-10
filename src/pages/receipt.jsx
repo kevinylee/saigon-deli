@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Logo from "../images/SDLogo1.svg"
 import "./receipt.scss";
+import { DateTime, DATETIME_MED_WITH_WEEKDAY } from 'luxon';
 
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
@@ -50,14 +51,14 @@ const ReceiptPage = (props) => {
         {
           order.loading ?
             <Loading /> :
-            (order.lineItems.length === 0 ? <Error /> : <Success order={order.lineItems} />)
+            (order.lineItems.length === 0 ? <Error /> : <Success order={order.lineItems} pickupTime={order.pickupTime} />)
         }
       </div>
     </div>
   )
 }
 
-function Success({ order }) {
+function Success({ order, pickupTime }) {
   const totalPrice = order.reduce((prev, cur) => {
     return prev + (cur.amount_total);
   }, 0);
@@ -102,7 +103,7 @@ function Success({ order }) {
           </tfoot>
         </table>
       </div>
-      <Instructions />
+      <Instructions pickupTime={pickupTime} />
     </React.Fragment>
   )
 }
@@ -135,11 +136,15 @@ function Loading() {
   );
 }
 
-function Instructions() {
+function Instructions({ pickupTime }) {
+  const prettyTime = DateTime.fromISO(pickupTime).toLocaleString({ ...DateTime.DATETIME_MED_WITH_WEEKDAY, year: undefined });
+
   return (
     <div className="instructions">
       <h1>Instructions:</h1>
-      <p>Orders are approximately finished in <b>15</b> minutes. <br /> <br /> Please pick up your order at Saigon Deli.</p>
+      <p>Please pick up your order at Saigon Deli around:</p>
+      <p><b>{prettyTime}</b></p>
+      <p>A receipt will be sent to your email. If your order is scheduled for a separate day, feel free to take a picture of this for record as well.</p>
       <div className="contactRow">
         <a href="https://goo.gl/maps/g3WZGRRgnPMeJ6rz7" target="_blank" rel="noopener noreferrer">4142 Brooklyn Ave NE Seattle, WA 98105</a>
       </div>

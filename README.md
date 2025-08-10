@@ -37,7 +37,8 @@ Sticky header with: tip, view cart or "checkout". Modal then shows items and che
 - [x] Support Pick up at time in the checkout modal
 - [x] Remove line item from cart functionality
 - [x] Show add ons properly in the receipt page
-- [ ] Show pickup time in the receipt page
+- [x] Show pickup time in the receipt page
+- [ ] Sort by uncompleted orders or sort by delivery dates
 - [ ] Update dashboard to show add ons
 - [ ] Update dashbaord to show pickup time
 - [ ] Migrate to JSON file for menu items
