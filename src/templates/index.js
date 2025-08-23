@@ -193,8 +193,10 @@ const canOrder = () => {
         </div>
         <StickyCheckout onQuantityUpdate={handleQuantityUpdate} tips={tips} cart={cart} canOrder={canOrder()} allowCheckout={allowCheckout} handleCheckout={handleCheckout}  />
         <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
+          <span>WE ARE OUT OF SANDWICHES</span>
           <RestaurantStatus />        
         </div>
+
         <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
         <div className="menu">
           <Section reference="appetizers" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} items={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
