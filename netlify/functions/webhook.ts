@@ -60,6 +60,8 @@ const handler: Handler = async (event, context) => {
       console.log('Getting session completed!')
       const session = stripeEvent.data.object as Stripe.Checkout.Session;
 
+      const { metadata } = session;
+
       let { name, phone } = session.customer_details!;
 
       if (!name || !phone) {
@@ -93,7 +95,8 @@ const handler: Handler = async (event, context) => {
           total_amount: session.amount_total, 
           customer_name: name, 
           array_line_items: array_line_items,
-          phone_number: phone
+          phone_number: phone,
+          pickup_at: metadata ? metadata["pickup_at"] : null
         }
       ]);
 

@@ -48,7 +48,6 @@ if (!process.env.STRIPE_SECRET || !DOMAIN) {
 }
 
 if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
-  console.log("Woah this is new! What?!?!")
   throw "No Supabase credentials founded.";
 }
 
@@ -212,9 +211,7 @@ const handler: Handler = async (event, context) => {
     const tips = merged.filter(item => item.Category === "Tips");
 
     // Fetch only schedules that are in the future
-    // const { data, error } = await supabase.from('Schedules').select().gte('start_datetime', DateTime.now());
     const { data, error } = await supabase.from('Schedules').select().or(`start_datetime.gte.${DateTime.now()},id.eq.-1`)
-    // order('created_at', { ascending: false })
 
     return {
       statusCode: 200,

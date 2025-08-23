@@ -221,7 +221,7 @@ const DashboardPage = ({ pageContext: { restaurant, open } }) => {
   );
 }
 
-function Order({ id, phone_number: phoneNumber, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged }) {
+function Order({ id, pickup_at: pickupAt, phone_number: phoneNumber, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged }) {
 
   const [isRead, markAsRead] = useState(acknowledged);
 
@@ -244,7 +244,7 @@ function Order({ id, phone_number: phoneNumber, customer_name: title, array_line
   }
 
   const getTipAmount = () => {
-    const found = lineItems.find((item) => item.title == 'Tip Jar');
+    const found = lineItems.find((item) => item.title === 'Tip Jar');
 
     if (!found) {
       return -1;
@@ -262,6 +262,9 @@ function Order({ id, phone_number: phoneNumber, customer_name: title, array_line
         </div>
         {
           title && <p className="orderTitle">{title} ({totalNumItems(lineItems)} items)</p>
+        }
+        {
+          pickupAt && <p style={{ fontSize: "1.75rem" }}>{pickupAt}</p>
         }
         {
           phoneNumber && <p style={{ fontSize: "1.75rem" }}>{phoneNumber}</p>
