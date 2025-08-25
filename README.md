@@ -26,11 +26,6 @@ All hooked up via Netlify.
 
 ## Todo
 
-Next: see cart and remove from cart functionality
-Remember: Pick up at time should also be set here too
-Sticky header with: tip, checkout button, total price and total items, AND view cart
-Sticky header with: tip, view cart or "checkout". Modal then shows items and checkout button 
-
 - [x] Show variant option in the add item modal
 - [x] Valid client checkout payload with server products
 - [ ] Migrate to JSON file for menu items
