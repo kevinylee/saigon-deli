@@ -3,6 +3,7 @@ import axios from "axios";
 import Logo from "../images/SDLogo1.svg"
 import "./receipt.scss";
 import { DateTime, DATETIME_MED_WITH_WEEKDAY } from 'luxon';
+import { toPrice } from '../components/utilities';
 
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
@@ -90,7 +91,7 @@ function Success({ order, pickupTime }) {
                     <span className="quantity"><b>{el.quantity}</b></span>
                     <span>{formatItemTitle(el.description)}<br />{el.price.product.description}</span>
                   </td>
-                  <td className="amountTotal">${(el.amount_total / 100).toFixed(2)}</td>
+                  <td className="amountTotal">{toPrice(el.amount_total)}</td>
                 </tr>
               )
             }
@@ -98,7 +99,7 @@ function Success({ order, pickupTime }) {
           <tfoot>
             <tr style={{ backgroundColor: (order.length % 2 == 0 ? "white" : "#f2f2f2") }}>
               <td><b>Total:</b></td>
-              <td className="amountTotal"><b>${(totalPrice / 100).toFixed(2)}</b></td>
+              <td className="amountTotal"><b>{toPrice(totalPrice)}</b></td>
             </tr>
           </tfoot>
         </table>

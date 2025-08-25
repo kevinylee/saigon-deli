@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { DateTime, Duration } from 'luxon';
-import { toPrice, PRETTY } from './utilities';
+import { toPrice, PRETTY, BASE_URL } from './utilities';
 import PickupAt from './PickupAt';
-
-const IS_PROD = process.env.GATSBY_ENV === "prod";
-const BASE_URL = (IS_PROD ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 function LineItemPreview({ lineItem, onRemove }) {
     const { variant, unitPrice, addOns, size, sizeId } = lineItem.purchaseable;
@@ -44,7 +41,7 @@ export default function CheckoutModal({ cart, tip, canOrder = true, onClose, onL
     }
 
     const isValidTime = () => {
-        const luxonPickupTime = DateTime.fromISO(pickupTime);
+        const luxonPickupTime = DateTime.fromISO(pickupTime, { zone: "America/Los_Angeles" });
 
         // If it's in the future and within the default working hours.
         return luxonPickupTime > DateTime.now() && luxonPickupTime.hour >= 11 && luxonPickupTime.hour <= 20;

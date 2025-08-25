@@ -31,26 +31,32 @@ Remember: Pick up at time should also be set here too
 Sticky header with: tip, checkout button, total price and total items, AND view cart
 Sticky header with: tip, view cart or "checkout". Modal then shows items and checkout button 
 
-- [x] Add "View Cart" before going to checkout
+- [x] Show variant option in the add item modal
+- [x] Valid client checkout payload with server products
+- [ ] Migrate to JSON file for menu items
+- [ ] Grab the add-on price and size price according to the item
 
+- [ ] Sort by uncompleted orders or sort by delivery dates
+- [ ] Allow you to edit availability in the dashboard
+- [ ] Non-online form version of the menu
+- [ ] Show "2 hours from now ..." text in the dashboard
+
+- [x] Add "View Cart" before going to checkout
 - [x] Support tips in the view cart modal
 - [x] Support Pick up at time in the checkout modal
 - [x] Remove line item from cart functionality
 - [x] Show add ons properly in the receipt page
 - [x] Show pickup time in the receipt page
-- [ ] Sort by uncompleted orders or sort by delivery dates
-- [ ] Update dashboard to show add ons
-- [ ] Update dashbaord to show pickup time
-- [ ] Migrate to JSON file for menu items
+- [x] Update dashboard to show add ons
+- [x] Update dashboard to show pickup time
 
 - [x] Handle small & large variant items in order modal
 - [x] Handle add ons in order modal
 - [x] Use inline prices on checkout session creation
 - [x] Deprecate use of Stripe Products and use inline prices
 - [x] Add per-item availability in the website
-- [ ] Allow you to edit availability in the dashboard
-- [ ] Non-online form version of the menu
 - [x] Remove dependency on Supabase in Gatsby
+
 
 ## Development Notes
 
@@ -58,14 +64,17 @@ When testing out branch deployments, make sure your `BASE_URL` is set correctly.
 
 ## Product Notes
 
-A menu item has many variants and add-ons. Each menu item will have at least one variant.
-An add-on can be applied with other add-ons onto a variant. A variant is a line item on the orderbook. 
-You cannot merge two variants as a single line item.
+A menu item has many variants, add-ons, and size options. Each menu item will have at least one variant.
+A variant is a menu item with a specific set of ingredients. An add-on can be applied with other add-ons onto a variant.
+A variant is a line item on the receipt. You cannot merge two variants as a single line item.
+
+On the menu, you will see items first. Clicking into an item means you're now selecting for a specific variant.
+You can then pick a variant, any add-ons for the variant, the size, and the quantity for this purchaseable group.
 
 Technical Decisions:
 - Availability is on the variant level, not item or per-size level
 - Variants of one size will have the field `null`
-- Items with a single variant will inherit the item title
+- Items with a single variant will define their own title, even if it's the same as the item title.
 - Add-on prices are not per-item customizable
 - Sizes add on to the base price, they are not a replacement for it
 - You can have one item, many variants or the other way: many items, each with one variant depending on the UX priority.

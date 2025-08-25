@@ -62,7 +62,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
 
   createPage({
     path: `/dashboard`,
-    component: require.resolve("./src/templates/dashboard.js"),
+    component: require.resolve("./src/templates/dashboard.jsx"),
     context: {
       business_details,
       open: true

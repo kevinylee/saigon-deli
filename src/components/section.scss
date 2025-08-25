@@ -4,6 +4,10 @@
   gap: 8px;
 }
 
+.unavailable {
+  text-decoration: line-through;
+}
+
 .select-options-button {
   padding: 7px 12px 7px 12px;
   border-style: solid;

@@ -1,0 +1,14 @@
+[
+    {
+        "id": "one-size",
+        "add_price": 0
+    },
+    {
+        "id": "small",
+        "add_price": 100
+    },
+    {
+        "id": "large",
+        "add_price": 200
+    }
+]

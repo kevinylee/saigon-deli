@@ -8,12 +8,10 @@ import "./index.scss"
 import Section from "../components/Section"
 import Navigation from "../components/Navigation"
 import { DateTime } from 'luxon'
-import StickyCheckout from "../components/StickyCheckout"
 import CheckoutModal from "../components/CheckoutModal"
 import NewStickyCheckoutHeader from '../components/NewStickyCheckoutHeader'
 
 const IS_PROD = process.env.GATSBY_ENV === "prod";
-const BASE_URL = (IS_PROD ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
   const [cart, updateCart] = useState([]);
@@ -23,6 +21,10 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
 
   const canOrder = () => {
     const now = DateTime.now().setZone('America/Los_Angeles')
+
+    if (!IS_PROD) {
+      return true;
+    }
 
     if (!restaurantOpen) {
       return false;
@@ -45,7 +47,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
     }
 
     // 11am to 8pm
-    const withinHours = (now.hour >= 11 && now.hour <= 19) || !IS_PROD;
+    const withinHours = (now.hour >= 11 && now.hour <= 19);
 
     if (!withinHours) {
       return false;
@@ -201,7 +203,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
+        <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
 
         <div className="pics">
           <div className="img-desc">

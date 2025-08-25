@@ -3,9 +3,9 @@ export default class Variant {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.sizeOptions = sizeOptions ?? [];
-        this.addOnOptions = addOnOptions ?? [];
+        this.sizes = sizeOptions ?? [];
+        this.add_ons = addOnOptions ?? [];
         this.available = available;
-        this.basePrice = basePrice;
+        this.base_price = basePrice;
     }
 }

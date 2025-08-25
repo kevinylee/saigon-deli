@@ -1,0 +1,50 @@
+[
+    {
+        "id": "variant-spring-rolls-with-shrimp",
+        "title": "Spring Rolls with Shrimp",
+        "base_price": 100,
+        "available": false
+    },
+    {
+        "id": "variant-spring-rolls-with-chicken",
+        "title": "Spring Rolls with Chicken",
+        "base_price": 100,
+        "available": true
+    },
+    {
+        "id": "variant-spring-rolls-with-tofu",
+        "title": "Spring Rolls with Tofu",
+        "base_price": 100,
+        "available": true
+    },
+    {
+        "id": "variant-vegetarian-egg-rolls",
+        "title": null,
+        "base_price": 100,
+        "available": false
+    },
+    {
+        "id": "variant-banh-mi-with-pork",
+        "title": "Banh Mi with BBQ Pork",
+        "base_price": 100,
+        "available": true
+    },
+    {
+        "id": "variant-banh-mi-with-chicken",
+        "title": "Banh Mi with Chicken",
+        "base_price": 100,
+        "available": true
+    },
+    {
+        "id": "variant-banh-mi-with-tofu",
+        "title": "Banh Mi with Tofu",
+        "base_price": 100,
+        "available": true
+    },
+    {
+        "id": "variant-pho-with-beef",
+        "title": null,
+        "base_price": 100,
+        "availabe": true
+    }
+]

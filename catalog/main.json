@@ -10,32 +10,31 @@
                     "description": "Rice vermicelli & lettuce rolled in fresh rice paper with your choice of Shrimp, Chicken, or Tofu. Served with peanut sauce.",
                     "variants": [
                         {
-                            "id": "spring-rolls-with-shrimp",
+                            "id": "variant-spring-rolls-with-shrimp",
                             "title": "Spring Rolls with Shrimp",
                             "base_price": 100,
-                            "available": false,
-                            "sizes": null
+                            "available": true
                         },
                         {
-                            "id": "spring-rolls-with-chicken",
+                            "id": "variant-spring-rolls-with-chicken",
                             "title": "Spring Rolls with Chicken",
                             "base_price": 100,
-                            "available": true,
-                            "sizes": null
+                            "available": true
                         },
                         {
-                            "id": "spring-rolls-with-tofu",
+                            "id": "variant-spring-rolls-with-tofu",
                             "title": "Spring Rolls with Tofu",
                             "base_price": 100,
-                            "available": true,
-                            "sizes": null
+                            "available": true
                         }
                     ],
                     "add_ons": [
                         {
-                            "id": "add-egg"
+                            "id": "add-egg",
+                            "add_price": 100
                         }
-                    ]
+                    ],
+                    "sizes": null
                 },
                 {
                     "id": "item-vegetarian-egg-rolls",
@@ -43,13 +42,13 @@
                     "description": "Deep fried roll filled with tofu, noodles, onions, carrots, and taro. Served with fish sauce.",
                     "variants": [
                         {
-                            "id": "vegetarian-egg-rolls",
-                            "title": null,
+                            "id": "variant-vegetarian-egg-rolls",
+                            "title": "Vegetarian Egg Rolls",
                             "base_price": 100,
-                            "available": false,
-                            "sizes": null
+                            "available": true
                         }
-                    ]
+                    ],
+                    "sizes": null
                 },
                 {
                     "id": "item-banh-mi",
@@ -57,25 +56,22 @@
                     "description": "Fresh baguette filled with shredded carrots, cucumbers, cilantro, and your choice of BBQ Pork, Chicken, or Tofu.",
                     "variants": [
                         {
-                            "id": "banh-mi-with-pork",
+                            "id": "variant-banh-mi-with-pork",
                             "title": "Banh Mi with BBQ Pork",
                             "base_price": 100,
-                            "available": true,
-                            "sizes": null
+                            "available": true
                         },
                         {
-                            "id": "banh-mi-with-chicken",
+                            "id": "variant-banh-mi-with-chicken",
                             "title": "Banh Mi with Chicken",
                             "base_price": 100,
-                            "available": true,
-                            "sizes": null
+                            "available": true
                         },
                         {
-                            "id": "banh-mi-with-tofu",
+                            "id": "variant-banh-mi-with-tofu",
                             "title": "Banh Mi with Tofu",
                             "base_price": 100,
-                            "available": true,
-                            "sizes": null
+                            "available": true
                         }
                     ],
                     "add_ons": [
@@ -87,7 +83,8 @@
                             "id": "extra-meat",
                             "add_price": 100
                         }
-                    ]
+                    ],
+                    "sizes": null
                 }
             ]
         },
@@ -100,25 +97,26 @@
                     "title": "Pho with Beef",
                     "variants": [
                         {
-                            "id": "pho-with-beef",
-                            "title": null,
+                            "id": "variant-pho-with-beef",
+                            "title": "Pho with Beef",
                             "base_price": 100,
-                            "availabe": true,
-                            "sizes": [
-                                {
-                                    "id": "small",
-                                    "add_price": 100
-                                },
-                                {
-                                    "id": "large",
-                                    "add_price": 200
-                                }
-                            ]
+                            "available": true
                         }
                     ],
                     "add_ons": [
                         {
-                            "id": "extra-meat"
+                            "id": "extra-meat",
+                            "add_price": 100
+                        }
+                    ],
+                    "sizes": [
+                        {
+                            "id": "small",
+                            "add_price": 100
+                        },
+                        {
+                            "id": "large",
+                            "add_price": 200
                         }
                     ]
                 }

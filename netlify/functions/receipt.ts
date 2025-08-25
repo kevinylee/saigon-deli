@@ -39,7 +39,7 @@ const handler: Handler = async (event, context) => {
   const sessionId = event.queryStringParameters['sessionId'] as string
 
   const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId)
-  const lineItemPayload = await stripe.checkout.sessions.listLineItems(sessionId, { limit: 30, expand: ["data.price.product"] })
+  const lineItemPayload = await stripe.checkout.sessions.listLineItems(sessionId, { limit: 100, expand: ["data.price.product"] })
 
   console.log(checkoutSession)
 

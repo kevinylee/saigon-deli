@@ -3,11 +3,8 @@ import { useState } from "react"
 import axios from "axios"
 import "./dashboard.scss"
 import { DateTime } from 'luxon'
-
-const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
-const BASE_SOUND_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:8000");
-
-const BUILD_HOOK_URL = "https://api.netlify.com/build_hooks/622d646f7dc132426ac0f0ee?trigger_branch=main&trigger_title=triggered+by+store+status+change";
+import Order from "../components/dashboard/Order"
+import { BASE_URL, BASE_SOUND_URL, BUILD_HOOK_URL, IS_PROD } from "../components/utilities";
 
 const playNotification = () => {
   const audio = new Audio(`${BASE_SOUND_URL}/notify_order.mp3`);
@@ -67,13 +64,12 @@ const DashboardPage = ({ pageContext: { business_details, open } }) => {
 
   const [isOpen, setIsOpen] = useState(open);
 
-
   async function fetch() {
     try {
       const res = await axios.get(`${BASE_URL}/.netlify/functions/orders`);
 
       if (res) {
-        if (orders.length && res.data.length && orders[0].id != res.data[0].id && loadedBefore) {
+        if (orders.length && res.data.length && orders[0].id !== res.data[0].id && loadedBefore) {
           playNotification();
         }
 
@@ -82,7 +78,6 @@ const DashboardPage = ({ pageContext: { business_details, open } }) => {
         if (!loadedBefore) {
 
           setLoadedBefore(true);
-          console.log('Set loaded before to: ' + loadedBefore)
         }
       }
     } catch (e) {
@@ -125,6 +120,13 @@ const DashboardPage = ({ pageContext: { business_details, open } }) => {
     }
   };
 
+  const triggerRebuild = async () => {
+    const response = await axios.post(BUILD_HOOK_URL).catch(err => {
+      console.log(err);
+      return;
+    });
+  }
+
   const toggleStoreOpening = async () => {
     const openStatus = isOpen;
 
@@ -135,13 +137,8 @@ const DashboardPage = ({ pageContext: { business_details, open } }) => {
       open: !openStatus
     });
 
-    const response = await axios.post(BUILD_HOOK_URL).catch(err => {
-      console.log(err);
-      return;
-    });
-
-    if (response.status === 200) {
-      console.log("Successfully building the website!");
+    if (IS_PROD) {
+      await triggerRebuild();
     }
   }
 
@@ -176,34 +173,6 @@ const DashboardPage = ({ pageContext: { business_details, open } }) => {
             <h1>Settings</h1>
             <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
           </div>
-          {/*
-            <DatePicker
-              className="date-picker"
-              label="Start Date"
-              value={startDate}
-              onChange={(newValue) => {
-                setStartDate(newValue)
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <span>to</span>
-            <DatePicker
-              className="date-picker"
-              label="End Date"
-              value={endDate}
-              onChange={(newValue) => {
-                setEndDate(newValue)
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <h2>Date</h2>
-            <ul>
-              {restaurant.Schedules.map((schedule) => 
-                <li key={schedule.id}>
-                  {DateTime.fromISO(schedule.start_datetime).toLocaleString(DateTime.DATE_FULL)} → {DateTime.fromISO(schedule.end_datetime).toLocaleString(DateTime.DATE_FULL)}
-                </li>
-              )}
-            </ul>*/}
           {
             isOpen ?
               <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
@@ -215,97 +184,5 @@ const DashboardPage = ({ pageContext: { business_details, open } }) => {
     </div>
   );
 }
-
-function Order({ id, phone_number: phoneNumber, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged }) {
-
-  const [isRead, markAsRead] = useState(acknowledged);
-
-  const isAcknowledged = () => {
-    return isRead ? "acknowledged" : "alert"
-  };
-
-  const onCheck = async (event) => {
-    const isChecked = event.target.checked;
-
-    if (isChecked) {
-      markAsRead(true);
-
-      const res = await axios.post(`${BASE_URL}/.netlify/functions/orders`, {
-        id: id
-      });
-
-      console.log(res);
-    }
-  }
-
-  const getTipAmount = () => {
-    const found = lineItems.find((item) => item.title == 'Tip Jar');
-
-    if (!found) {
-      return -1;
-    }
-
-    return found.quantity;
-  };
-
-  return (
-    <div className={`card-${isAcknowledged()}`}>
-      <div className="order">
-        <div className="timestamp">
-          <p className="date">{formatDate(createdAt).toLocaleDateString('en-US')}</p>
-          <p className="time">{formatDate(createdAt).toLocaleTimeString('en-US')}</p>
-        </div>
-        {
-          title && <p className="orderTitle">{title} ({totalNumItems(lineItems)} items)</p>
-        }
-        {
-          phoneNumber && <p style={{ fontSize: "1.75rem" }}>{phoneNumber}</p>
-        }
-        <label htmlFor="read">
-          <input onChange={onCheck} type="checkbox" name="read" checked={isRead} />
-          Mark as Read
-        </label>
-        <br />
-        <br />
-        <ul>
-          {lineItems.map(lineItem => (
-            <li key={`${lineItem.quantity}-${lineItem.title}`}>
-              {
-                !lineItem.title.includes('Tip Jar') &&
-                <p><b>{lineItem.quantity}</b> {formatItemTitle(lineItem.title)}</p>
-              }
-            </li>))}
-          <li key="price" className="price">
-            <p>
-              {(getTipAmount() > 0) && <span>Tip: ${getTipAmount()}<br /></span>}
-              Total: ${(total_amount / 100).toFixed(2)}
-            </p>
-          </li>
-        </ul>
-        <br />
-        <p className="badge">
-          AUTHORIZED
-        </p>
-      </div>
-    </div>
-  )
-}
-
-function formatItemTitle(title) {
-  if (title.indexOf(".") !== -1) {
-    const parts = title.split(".");
-
-    return parts[1];
-  } else {
-    return title;
-  }
-}
-
-function totalNumItems(lineItems) {
-  return lineItems.reduce((curr, item) => curr + (item.title.includes('Tip Jar') ? 0 : item.quantity), 0)
-}
-
-const formatDate = (timestamp) => (new Date(timestamp));
-
 
 export default DashboardPage;

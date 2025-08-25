@@ -1,5 +1,9 @@
 import { Handler } from "@netlify/functions";
 import Stripe from 'stripe';
+import Variants from '../../catalog/variants.json';
+import AddOns from '../../catalog/add-ons.json';
+import Sizes from '../../catalog/sizes.json';
+import Purchaseable from '../../src/models/Purchaseable';
 
 const DOMAIN = process.env.BASE_URL;
 
@@ -17,13 +21,66 @@ const headers = {
   'Access-Control-Allow-Methods': 'POST'
 }
 
-const PRETTY = {
-  "extra-meat": "Extra Meat",
-  "add-egg": "Add Egg",
-  "small": "Small",
-  "large": "Large",
-  "one-size": ""
+enum SizeType {
+  OneSize = "one-size",
+  Small = "small",
+  Large = "large"
 }
+
+enum AddOnType {
+  ExtraMeat = "extra-meat",
+  AddEgg = "add-egg"
+}
+
+// Add-ons and sizes are modifications to the order 
+interface Size {
+  id: SizeType;
+  extraCost: number | null;
+}
+
+interface AddOn {
+  id: AddOnType;
+  extraCost: number | null;
+}
+
+// interface Variant {
+//   id: string;
+//   title: string;
+//   description: string;
+//   sizeOptions: SizeType[]
+//   addOnOptions: AddOnType[];
+//   available: boolean;
+//   basePrice: boolean;
+// }
+
+// interface Purchaseable {
+//   variant: Variant;
+//   size: Size;
+//   addOns: AddOn[];
+// }
+
+interface LineItem {
+  purchaseable: Purchaseable;
+  quantity: number;
+}
+
+const PRETTY = {
+  [AddOnType.ExtraMeat]: "Extra Meat",
+  [AddOnType.AddEgg]: "Add Egg",
+  [SizeType.Small]: "Small",
+  [SizeType.Large]: "Large",
+  [SizeType.OneSize]: ""
+}
+
+const validatePurchaseable = (purchaseable: Purchaseable) => {
+  const variant = Variants.find((variant) => variant.id === purchaseable.variant.id);
+  const addOns = purchaseable.addOns.map((proposedAddOn) => AddOns.find((addOn) => proposedAddOn.id === addOn.id)).filter(Object);
+  const size = Sizes.find((size) => size.id === purchaseable.size.id)
+
+  // TODO: Grab the add-on price and size price according to the item
+
+  return new Purchaseable(variant, size, addOns, null);
+};
 
 const handler: Handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
@@ -40,23 +97,21 @@ const handler: Handler = async (event, context) => {
 
   const { lineItems, pickupTime } = JSON.parse(event.body);
 
-  console.log(pickupTime);
+  const stripePayload = lineItems.map((lineItem: LineItem) => {
+    const purchaseable = validatePurchaseable(lineItem.purchaseable);
 
-  const stripePayload = lineItems.map((lineItem) => {
-    // FIND THE RIGHT LINE ITEM IN OUR MENU
-    // Get the unit amount there
-    const sizeId = lineItem.purchaseable.size?.id || 'one-size';
-    const description = lineItem.purchaseable.addOns.length > 0 ? lineItem.purchaseable.addOns.map((addOn) => PRETTY[addOn.id]).join(', ') : undefined;
+    const sizeId = purchaseable.size?.id || SizeType.OneSize;
+    const description = purchaseable.addOns.length > 0 ? purchaseable.addOns.map((addOn) => PRETTY[addOn.id]).join(', ') : undefined;
 
     const obj = {
       price_data: {
         currency: 'USD',
-        unit_amount: lineItem.unitPrice,
+        unit_amount: purchaseable.unitPrice,
         product_data: {
-          name: `${PRETTY[sizeId]} ${lineItem.purchaseable.variant.title}`,
+          name: `${PRETTY[sizeId]} ${purchaseable.variant.title}`,
           description: description,
           metadata: {
-            add_ons: lineItem.purchaseable.addOns.toString()
+            add_ons: purchaseable.addOns.toString()
           }
         }
       },
@@ -65,48 +120,6 @@ const handler: Handler = async (event, context) => {
 
     return obj;
   })
-
-  // Look up item by itemID
-  // Apply everything onto the base price
-
-  // const stripeRequest = lineItems.map(lineItem => (
-  //   {
-  //     price: lineItem.itemId, // itemId is the priceId
-  //     quantity: lineItem.quantity
-  //   }));
-
-  const stripeRequest = [
-    {
-      price_data: {
-        currency: 'USD',
-        unit_amount: 100,
-        product_data: {
-          name: "Banh Mi with Beef",
-          description: "Extra Meat, Add Egg",
-          metadata: {
-            add_ons: "blah"
-          }
-        }
-      },
-      quantity: 1,
-    },
-    {
-      price_data: {
-        currency: 'USD',
-        unit_amount: 100,
-        product_data: {
-          name: "Pho with Tofu",
-          description: "Extra Meat, Add Egg",
-          metadata: {
-            add_ons: "blah"
-          }
-        }
-      },
-      quantity: 4,
-    }
-  ]
-
-  // TRACK pickup time in metadata?
 
   const session = await stripe.checkout.sessions.create({
     line_items: stripePayload,

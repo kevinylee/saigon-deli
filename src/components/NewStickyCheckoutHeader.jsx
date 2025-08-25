@@ -1,13 +1,9 @@
 import React, { useRef } from 'react';
-import { loadStripe } from '@stripe/stripe-js'
-import axios from "axios"
 import NewQuantitySelection from './NewQuantitySelection';
 import Purchaseable from '../models/Purchaseable';
 import LineItem from '../models/LineItem';
 import Variant from '../models/Variant';
-
-const IS_PROD = process.env.GATSBY_ENV === "prod";
-const BASE_URL = (IS_PROD ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
+import './checkout.scss';
 
 const TipVariant = new Variant("tip", "Tip", undefined, 100, null, null, true);
 

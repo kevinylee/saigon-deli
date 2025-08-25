@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import QuantitySelection from './QuantitySelection';
 import AddItemModal from './AddItemModal';
 import Variant from '../models/Variant';
+import Item from '../models/Item';
 import "./section.scss";
 
 // A two-column desktop view that collapses into a single column on mobile
@@ -18,6 +19,8 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
       <div className="menu-items">
         {
           items.map((item, index) => {
+            const realItem = new Item().from(item);
+
             return (
               <div key={`${index}-${item.title}`} className="menu-item">
                 <div className="content">
@@ -26,7 +29,7 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
                     item.description && <p>{item.description}</p>
                   }
                   {
-                    JSON.stringify(item)
+                    JSON.stringify(realItem, null, 2)
                   }
                   {/* {
                     orderOnline && !item.available && (item.SmallPriceId ?
@@ -41,8 +44,6 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
                         <SelectOptionsButton productOptions={item.ProductOptions} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
                     )
                   } */}
-                  {/* How do we update size selection and keep the existing UI? By updating the cart logic */}
-                  {/* What does it look like to use add-ons? It would probably be an additional modal */}
                   {/* {
                     item.variants.length === 1 ?
                       (<QuantitySelection id={item.variants[0].id} disabled={!item.variants[0].available} onQuantityUpdate={(a) => onQuantityUpdate(a)} />) :
@@ -51,7 +52,7 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
                   {
                     orderOnline && item.available && <p style={{ color: "#CCC" }}>Unavailable.</p>
                   } */}
-                  <NewSelectModalButton addToCart={(lineItem) => {
+                  <NewSelectModalButton item={realItem} addToCart={(lineItem) => {
                     onLineItemAdd(lineItem)
                   }} />
                 </div>
@@ -64,7 +65,7 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
   )
 };
 
-const NewSelectModalButton = ({ addToCart, disabled }) => {
+const NewSelectModalButton = ({ item, addToCart, disabled }) => {
   const modalRef = useRef(null);
 
   const handleAdd = (lineItem) => {
@@ -97,72 +98,19 @@ const NewSelectModalButton = ({ addToCart, disabled }) => {
     "add_price": 100
   }]
 
-  const item = new Variant('test-id', 'Pho with Beef', 'Flavorful food', 100, sizeOptions, addOnOptions, true);
+  // const shrimp = new Variant('variant-spring-rolls-with-shrimp', 'Spring Roll with Shrimp', 'Flavorful food', 100, sizeOptions, addOnOptions, true);
+  // const chicken = new Variant('variant-spring-rolls-with-chicken', 'Spring Roll with Chicken', 'Flavorful food', 100, sizeOptions, addOnOptions, true);
+  // const tofu = new Variant('variant-spring-rolls-with-tofu', 'Spring Roll with Tofu', 'Flavorful food', 100, sizeOptions, addOnOptions, true);
+
+  // const item = new Item('item-test-id', 'Spring Roll', 'Delicious spring rolls', [shrimp, chicken, tofu], addOnOptions, null);
 
   return (
     <div>
-      <button className="select-options-button" onClick={handleOpen} disabled={disabled || !item.available} >New Select +</button>
+      {item.available}
+      <button className="select-options-button" onClick={handleOpen} disabled={!item.available} >New Select +</button>
       <AddItemModal item={item} modalRef={modalRef} handleClose={handleClose} handleAdd={handleAdd} />
     </div>
   );
 }
-
-const SelectOptionsButton = ({ variants, onQuantityUpdate }) => {
-  const modalRef = useRef(null);
-
-  const handleSubmit = () => {
-    handleClose();
-  }
-
-  const handleClose = () => {
-    if (modalRef) {
-      // Hide the modal and voila!
-      modalRef.current.style.display = 'none';
-    }
-  }
-
-  const handleOpen = () => {
-    if (modalRef) {
-      // Open the modal and voila!
-      modalRef.current.style.display = 'block';
-    }
-  };
-
-  return (
-    <div>
-      <button className="select-options-button" onClick={handleOpen}>Select +</button>
-      <div ref={modalRef} className="add-item-modal modal-selection">
-        <div className="content">
-          <div className="header">
-            <h1>Select options</h1>
-            <button onClick={handleClose}><b>X</b></button>
-          </div>
-          {
-            variants.map(variant => <QuantitySelection title={variant.title} disabled={!variant.available} id={variant.id} onQuantityUpdate={onQuantityUpdate} />)
-          }
-          <div className="submission-section">
-            <button className="add-cart-button" onClick={handleSubmit}><b>Add to cart</b></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const PriceColumn = ({ twoColumn = false, price, smallPrice, largePrice }) => {
-
-  if (twoColumn) {
-    return (
-      <React.Fragment>
-        <span className="large-price"> <span style={{ color: '#CCC' }}>/</span> <b><u>L</u></b> {largePrice}</span>
-        <span className="small-price"><b><u>S</u></b> {smallPrice}</span>
-      </React.Fragment>
-    )
-  }
-
-  return (
-    <span className="price">{price}</span>
-  )
-};
 
 export default Section;
