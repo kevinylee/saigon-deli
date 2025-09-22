@@ -15,7 +15,6 @@ import { createClient } from '@supabase/supabase-js'
 
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
-// markup
 const IndexPage = ({ pageContext: { tips, restaurant, open, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
   const supabase = createClient(process.env.GATSBY_SUPABASE_API_URL, process.env.GATSBY_SUPABASE_PUBLIC_KEY)
 
