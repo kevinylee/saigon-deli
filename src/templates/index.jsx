@@ -178,7 +178,6 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
       </div>
       <NewStickyCheckoutHeader cart={cart} onOpenCheckoutModal={handleCheckoutModalOpen} onTipChange={handleUpdateLineItem} />
       {checkoutModalVisible && <CheckoutModal cart={cart} onClose={handleCheckoutModalClose} onLineItemRemove={handleLineItemRemove} />}
-      {/* <StickyCheckout onQuantityUpdate={handleQuantityUpdate} tips={tips} cart={cart} canOrder={canOrder()} allowCheckout={allowCheckout} handleCheckout={handleCheckout} /> */}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <RestaurantStatus />
       </div>

@@ -30,7 +30,7 @@ All hooked up via Netlify.
 - [x] Valid client checkout payload with server products
 - [x] By default, have a variant selected in the Add Item modal
 - [x] Show the total price via the size option. On the backend we calculate variant base price + size add price for the total and we show that.
-- [ ] Show lowest variant price on menu item selection
+- [x] Show lowest variant price on menu item selection
 - [ ] TEST OUT STRIPE FLOW. SEE IF IT WORKS
 - [ ] Migrate to JSON file for menu items!!!
 

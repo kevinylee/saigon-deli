@@ -1,9 +1,15 @@
 import React, { useRef } from 'react';
-import QuantitySelection from './QuantitySelection';
 import AddItemModal from './AddItemModal';
 import Variant from '../models/Variant';
 import Item from '../models/Item';
 import "./section.scss";
+import { toPrice } from './utilities';
+
+function displayPrice(item) {
+  const lowestValue = Math.min(...item.variants.map((variant) => variant.base_price))
+
+  return toPrice(lowestValue);
+}
 
 // A two-column desktop view that collapses into a single column on mobile
 const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, description, reference, category }) => {
@@ -24,7 +30,9 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
             return (
               <div key={`${index}-${item.title}`} className="menu-item">
                 <div className="content">
-                  <h4>{item.title}</h4>
+                  <h4 className="item-title">
+                    <span>{item.title}</span> <span>{displayPrice(item)}</span>
+                  </h4>
                   {
                     item.description && <p>{item.description}</p>
                   }
@@ -68,7 +76,7 @@ const NewSelectModalButton = ({ item, addToCart, disabled }) => {
 
   return (
     <div>
-      <button className="select-options-button" onClick={handleOpen} disabled={!item.available} >New Select +</button>
+      <button className="select-options-button" onClick={handleOpen} disabled={!item.available} >Add Item +</button>
       <AddItemModal item={item} modalRef={modalRef} handleClose={handleClose} handleAdd={handleAdd} />
     </div>
   );

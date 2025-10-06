@@ -144,6 +144,11 @@ a {
     position: absolute;
 }
 
+.item-title {
+    display: flex;
+    justify-content: space-between;
+}
+
 @media screen and (min-width: 601px) {
     .callout {
         .content {
