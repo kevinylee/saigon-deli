@@ -12,7 +12,7 @@ function LineItemPreview({ lineItem, onRemove }) {
         <li className="line-item-preview">
             <div className="line-item-text">
                 <div className="line-item-title"><b>{lineItem.quantity}</b> {PRETTY[sizeId]} {variant.title}: {toPrice(lineItem.quantity * unitPrice)}</div>
-                {addOns.length > 0 ? <div className="line-item-subtext">{addOns.map((addOn) => PRETTY[addOn.id]).join(', ')}</div> : <div className="line-item-subtext">N/A</div>}
+                {addOns.length > 0 ? <div className="line-item-subtext">{addOns.map((addOn) => PRETTY[addOn.id]).join(', ')}</div> : <div className="line-item-subtext">(No add-ons)</div>}
             </div>
             <button onClick={() => onRemove(lineItem)}>x</button>
         </li >
@@ -41,6 +41,10 @@ export default function CheckoutModal({ cart, tip, canOrder = true, onClose, onL
     }
 
     const isValidTime = () => {
+        if (process.env.NODE_ENV === 'development') {
+            return true;
+        }
+
         const luxonPickupTime = DateTime.fromISO(pickupTime, { zone: "America/Los_Angeles" });
 
         // If it's in the future and within the default working hours.
@@ -51,16 +55,12 @@ export default function CheckoutModal({ cart, tip, canOrder = true, onClose, onL
         const stripe = await loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY);
 
         if (cart.length > 0 && stripe && canOrder) {
-            console.log(cart);
-            console.log(pickupTime);
-
             const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
                 lineItems: cart,
                 pickupTime: pickupTime
             })
 
             if (response.data) {
-                // When the customer clicks on the button, redirect them to Checkout.
                 const result = await stripe.redirectToCheckout({
                     sessionId: response.data.sessionId
                 });

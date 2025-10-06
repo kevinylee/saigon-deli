@@ -28,9 +28,13 @@ All hooked up via Netlify.
 
 - [x] Show variant option in the add item modal
 - [x] Valid client checkout payload with server products
-- [ ] Migrate to JSON file for menu items
-- [ ] Grab the add-on price and size price according to the item
+- [x] By default, have a variant selected in the Add Item modal
+- [x] Show the total price via the size option. On the backend we calculate variant base price + size add price for the total and we show that.
+- [ ] Show lowest variant price on menu item selection
+- [ ] TEST OUT STRIPE FLOW. SEE IF IT WORKS
+- [ ] Migrate to JSON file for menu items!!!
 
+- [ ] Grab the add-on price and size price according to the item
 - [ ] Sort by uncompleted orders or sort by delivery dates
 - [ ] Allow you to edit availability in the dashboard
 - [ ] Non-online form version of the menu

@@ -31,27 +31,6 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
                   {
                     JSON.stringify(realItem, null, 2)
                   }
-                  {/* {
-                    orderOnline && !item.available && (item.SmallPriceId ?
-                      <div className="quantities-section">
-                        <QuantitySelection title="Small" id={item.SmallPriceId} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
-                        <QuantitySelection title="Large" id={item.LargePriceId} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
-                      </div>
-                      :
-                      item.ProductOptions.length === 0 ?
-                        <QuantitySelection id={item.PriceId} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
-                        :
-                        <SelectOptionsButton productOptions={item.ProductOptions} onQuantityUpdate={(a) => onQuantityUpdate(a)} />
-                    )
-                  } */}
-                  {/* {
-                    item.variants.length === 1 ?
-                      (<QuantitySelection id={item.variants[0].id} disabled={!item.variants[0].available} onQuantityUpdate={(a) => onQuantityUpdate(a)} />) :
-                      (<SelectOptionsButton variants={item.variants} onQuantityUpdate={(a) => onQuantityUpdate(a)} />)
-                  }
-                  {
-                    orderOnline && item.available && <p style={{ color: "#CCC" }}>Unavailable.</p>
-                  } */}
                   <NewSelectModalButton item={realItem} addToCart={(lineItem) => {
                     onLineItemAdd(lineItem)
                   }} />
@@ -87,26 +66,8 @@ const NewSelectModalButton = ({ item, addToCart, disabled }) => {
     }
   };
 
-  const sizeOptions = [{ id: "small", add_price: 100 }, { id: "large", add_price: 200 }];
-
-  const addOnOptions = [{
-    "id": "add-egg",
-    "add_price": 100
-  },
-  {
-    "id": "extra-meat",
-    "add_price": 100
-  }]
-
-  // const shrimp = new Variant('variant-spring-rolls-with-shrimp', 'Spring Roll with Shrimp', 'Flavorful food', 100, sizeOptions, addOnOptions, true);
-  // const chicken = new Variant('variant-spring-rolls-with-chicken', 'Spring Roll with Chicken', 'Flavorful food', 100, sizeOptions, addOnOptions, true);
-  // const tofu = new Variant('variant-spring-rolls-with-tofu', 'Spring Roll with Tofu', 'Flavorful food', 100, sizeOptions, addOnOptions, true);
-
-  // const item = new Item('item-test-id', 'Spring Roll', 'Delicious spring rolls', [shrimp, chicken, tofu], addOnOptions, null);
-
   return (
     <div>
-      {item.available}
       <button className="select-options-button" onClick={handleOpen} disabled={!item.available} >New Select +</button>
       <AddItemModal item={item} modalRef={modalRef} handleClose={handleClose} handleAdd={handleAdd} />
     </div>

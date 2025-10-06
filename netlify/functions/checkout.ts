@@ -1,5 +1,6 @@
 import { Handler } from "@netlify/functions";
 import Stripe from 'stripe';
+import Tip from '../../catalog/tip.json';
 import Variants from '../../catalog/variants.json';
 import AddOns from '../../catalog/add-ons.json';
 import Sizes from '../../catalog/sizes.json';
@@ -73,12 +74,19 @@ const PRETTY = {
 }
 
 const validatePurchaseable = (purchaseable: Purchaseable) => {
+  console.log("Validating...")
+  console.log(purchaseable);
+  if (purchaseable.variant.id === Tip.id) {
+    return new Purchaseable(purchaseable.variant, null, [], null);
+  }
+
+  // We designed variants to inherit title from the Item if it's a one-size scenario, though right now we copy over the title for now.
   const variant = Variants.find((variant) => variant.id === purchaseable.variant.id);
+
   const addOns = purchaseable.addOns.map((proposedAddOn) => AddOns.find((addOn) => proposedAddOn.id === addOn.id)).filter(Object);
-  const size = Sizes.find((size) => size.id === purchaseable.size.id)
+  const size = Sizes.find((size) => size.id === purchaseable.size?.id)
 
   // TODO: Grab the add-on price and size price according to the item
-
   return new Purchaseable(variant, size, addOns, null);
 };
 

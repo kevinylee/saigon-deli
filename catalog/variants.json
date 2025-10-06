@@ -19,7 +19,7 @@
     },
     {
         "id": "variant-vegetarian-egg-rolls",
-        "title": null,
+        "title": "Vegetarian Egg Rolls",
         "base_price": 100,
         "available": false
     },
@@ -43,7 +43,7 @@
     },
     {
         "id": "variant-pho-with-beef",
-        "title": null,
+        "title": "Pho with Beef",
         "base_price": 100,
         "availabe": true
     }

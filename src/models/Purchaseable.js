@@ -19,7 +19,6 @@ export default class Purchaseable {
     }
 
     get unitPrice() {
-        console.log(JSON.stringify(this));
         return this.variant.base_price + (this.size?.add_price || 0) + this.addOns.reduce((acc, addOn) => acc + addOn.add_price, 0);
     }
 }
