@@ -150,6 +150,10 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
         <meta name="keywords" content="banh mi, pho, vietnamese, bun bo hue, pho seattle, vietnamese food" />
         <meta name="author" content="Kevin Lee" />
         <link rel="icon" type="image/png" href={WebsiteIcon} sizes="64x64" />
+        <script
+          src="https://js.sentry-cdn.com/97d3ab25cb5d36ed52da3a3aaa75419e.min.js"
+          crossorigin="anonymous"
+        ></script>
       </Helmet>
       <header>
         <div className="small-info">

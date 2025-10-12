@@ -145,7 +145,7 @@ function Instructions({ pickupTime }) {
       <h1>Instructions:</h1>
       <p>Please pick up your order at Saigon Deli around:</p>
       <p><b>{prettyTime}</b></p>
-      <p>A receipt will be sent to your email. If your order is scheduled for a separate day, feel free to take a picture of this for record as well.</p>
+      <p>A receipt will be sent to your email. If your order is scheduled for a separate day, please show the cashier the email for your order.</p>
       <div className="contactRow">
         <a href="https://goo.gl/maps/g3WZGRRgnPMeJ6rz7" target="_blank" rel="noopener noreferrer">4142 Brooklyn Ave NE Seattle, WA 98105</a>
       </div>

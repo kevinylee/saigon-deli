@@ -55,9 +55,11 @@ export default function CheckoutModal({ cart, tip, canOrder = true, onClose, onL
         const stripe = await loadStripe(process.env.GATSBY_STRIPE_PUBLIC_KEY);
 
         if (cart.length > 0 && stripe && canOrder) {
+            const dateTime = DateTime.fromISO(pickupTime, { zone: "America/Los_Angeles" });
+
             const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
                 lineItems: cart,
-                pickupTime: pickupTime
+                pickupTime: dateTime.toISO().toString()
             })
 
             if (response.data) {

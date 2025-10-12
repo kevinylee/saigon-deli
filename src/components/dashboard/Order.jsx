@@ -33,8 +33,6 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
     const tipLineItem = lineItems.find((item) => item.title === 'Tip');
 
     const pickupAtIso = DateTime.fromISO(pickupAt, { zone: "America/Los_Angeles" });
-    console.log(pickupAt);
-    console.log(pickupAtIso.toString());
     const pickupFormatToday = pickupAtIso.toLocaleString(DateTime.TIME_SIMPLE);
     const pickupFormatAfterToday = pickupAtIso.toLocaleString({ ...DateTime.DATETIME_MED_WITH_WEEKDAY, year: undefined });
 
