@@ -31,14 +31,16 @@ All hooked up via Netlify.
 - [x] By default, have a variant selected in the Add Item modal
 - [x] Show the total price via the size option. On the backend we calculate variant base price + size add price for the total and we show that.
 - [x] Show lowest variant price on menu item selection
-- [ ] TEST OUT STRIPE FLOW. SEE IF IT WORKS
+- [x] Fix the dashboard time zone conversions by storing TZ in the database
+- [x] Add Sentry
+- [x] End-to-end flow testing
+- [x] Figure out spicy lemongrass add on price issue
 - [ ] Migrate to JSON file for menu items!!!
+- [ ] Grab the add-on price and size price according to the item, rather than centralized AddOn and Size objects
 
-- [ ] Grab the add-on price and size price according to the item
 - [ ] Sort by uncompleted orders or sort by delivery dates
 - [ ] Allow you to edit availability in the dashboard
 - [ ] Non-online form version of the menu
-- [ ] Show "2 hours from now ..." text in the dashboard
 
 - [x] Add "View Cart" before going to checkout
 - [x] Support tips in the view cart modal

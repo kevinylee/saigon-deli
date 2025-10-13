@@ -65,12 +65,21 @@ interface LineItem {
   quantity: number;
 }
 
+// Duplicative with utilities.ts on the frontend
+const createMappings = (data: Array<any>) => data.reduce((acc, cur) => {
+  if (!acc[cur.id]) {
+    acc[cur.id] = cur.title
+  }
+
+  return acc;
+}, {})
+
+const addOnMapping = createMappings(AddOns);
+const sizeMapping = createMappings(Sizes);
+
 const PRETTY = {
-  [AddOnType.ExtraMeat]: "Extra Meat",
-  [AddOnType.AddEgg]: "Add Egg",
-  [SizeType.Small]: "Small",
-  [SizeType.Large]: "Large",
-  [SizeType.OneSize]: ""
+  ...addOnMapping,
+  ...sizeMapping
 }
 
 const validatePurchaseable = (purchaseable: Purchaseable) => {

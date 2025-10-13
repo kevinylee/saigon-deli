@@ -7,7 +7,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     console.log(error);
   });
 
-  const { appetizers, pho, business_details } = response.data;
+  const { appetizers, pho, business_details, bun } = response.data;
 
   // const appetizers = response.data.Appetizers;
   // const pho = response.data.Pho;
@@ -45,7 +45,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     context: {
       appetizers,
       pho,
-      bun: null,
+      bun,
       vegetarian: null,
       banhcanh: null,
       hutieu: null,

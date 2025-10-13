@@ -206,7 +206,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={pho} twoColumn={true} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
+        <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={pho} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
 
         <div className="pics">
           <div className="img-desc">
@@ -215,7 +215,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="bun" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={bun} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" />
+        <Section reference="bun" onQuantityUpdate={handleQuantityUpdate} onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={bun} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" />
 
         <div className="pics">
           <div className="img-desc">

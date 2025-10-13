@@ -2,49 +2,139 @@
     {
         "id": "variant-spring-rolls-with-shrimp",
         "title": "Spring Rolls with Shrimp",
-        "base_price": 100,
-        "available": false
+        "base_price": 595,
+        "available": true
     },
     {
         "id": "variant-spring-rolls-with-chicken",
         "title": "Spring Rolls with Chicken",
-        "base_price": 100,
+        "base_price": 595,
         "available": true
     },
     {
         "id": "variant-spring-rolls-with-tofu",
         "title": "Spring Rolls with Tofu",
-        "base_price": 100,
+        "base_price": 595,
         "available": true
     },
     {
         "id": "variant-vegetarian-egg-rolls",
         "title": "Vegetarian Egg Rolls",
-        "base_price": 100,
-        "available": false
+        "base_price": 595,
+        "available": true
     },
     {
         "id": "variant-banh-mi-with-pork",
         "title": "Banh Mi with BBQ Pork",
-        "base_price": 100,
+        "base_price": 795,
         "available": true
     },
     {
         "id": "variant-banh-mi-with-chicken",
         "title": "Banh Mi with Chicken",
-        "base_price": 100,
+        "base_price": 795,
         "available": true
     },
     {
         "id": "variant-banh-mi-with-tofu",
         "title": "Banh Mi with Tofu",
-        "base_price": 100,
+        "base_price": 795,
+        "available": true
+    },
+    {
+        "id": "variant-pho-special",
+        "title": "Special Pho",
+        "base_price": 1550,
+        "available": true
+    },
+    {
+        "id": "variant-pho-with-tofu-and-vegetables",
+        "title": "Pho with Tofu and Vegetables",
+        "base_price": 1450,
         "available": true
     },
     {
         "id": "variant-pho-with-beef",
         "title": "Pho with Beef",
-        "base_price": 100,
-        "availabe": true
+        "base_price": 1395,
+        "available": true
+    },
+    {
+        "id": "variant-pho-with-wonton-and-beef",
+        "title": "Pho with Wonton and Beef",
+        "base_price": 1550,
+        "available": true
+    },
+    {
+        "id": "variant-pho-with-meatball",
+        "title": "Pho with Meatball",
+        "base_price": 1450,
+        "available": true
+    },
+    {
+        "id": "variant-pho-with-seafood",
+        "title": "Pho with Seafood",
+        "base_price": 1550,
+        "available": true
+    },
+    {
+        "id": "variant-pho-with-shrimp",
+        "title": "Pho with Shrimp",
+        "base_price": 1550,
+        "available": true
+    },
+    {
+        "id": "variant-pho-with-chicken",
+        "title": "Pho with Chicken",
+        "base_price": 1450,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-eggrolls",
+        "title": "Bun with Eggrolls",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-pork-and-eggrolls",
+        "title": "Bun with BBQ Pork and Eggrolls",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-chicken-and-eggrolls",
+        "title": "Bun with Chicken and Eggrolls",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-shrimp-and-eggrolls",
+        "title": "Bun with Shrimp and Eggrolls",
+        "base_price": 1695,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-seafood-and-eggrolls",
+        "title": "Bun with Seafood and Eggrolls",
+        "base_price": 1695,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-shrimp-pork-and-eggrolls",
+        "title": "Bun with Shrimp, Pork and Eggrolls",
+        "base_price": 1795,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-beef-and-eggrolls",
+        "title": "Bun with Beef and Eggrolls",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-bun-with-shrimp-tofu-and-eggrolls",
+        "title": "Bun with Shrimp, Tofu and Eggrolls",
+        "base_price": 1795,
+        "available": true
     }
 ]

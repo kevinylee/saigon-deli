@@ -4,50 +4,6 @@ import { toPrice, PRETTY } from './utilities';
 import Purchaseable from '../models/Purchaseable';
 import LineItem from '../models/LineItem';
 
-// class Variant {
-//     constructor(id, title, description, sizeOptions, addOnOptions) {
-//         this.id = id;
-//         this.title = title;
-//         this.description = description;
-//         this.sizeOptions = sizeOptions ?? [];
-//         this.addOnOptions = addOnOptions ?? [];
-//     }
-// }
-
-// An item for checkout
-// class Purchaseable {
-//     constructor(variant, size, addOns, additionalNote) {
-//         this.variant = variant;
-//         this.size = size;
-//         this.addOns = addOns;
-//         this.additionalNote = additionalNote;
-//     }
-
-//     get addOnIds() {
-//         return this.addOns.map((addOn) => addOn.id)
-//     }
-
-//     get hash() {
-//         return `${this.variant.id}-${this.size.id}-${this.addOnIds.toString()}-${this.additionalNote}`
-//     }
-
-//     get unitPrice() {
-//         return this.size.add_price + this.addOns.reduce((acc, addOn) => acc + addOn.add_price, 0);
-//     }
-// }
-
-// // An item & quantity in the checkout cart
-// class LineItem {
-//     constructor(purchaseable, quantity) {
-//         this.purchaseable = purchaseable;
-//         this.quantity = quantity;
-//     }
-
-//     set setQuantity(num) {
-//         this.quantity = num;
-//     }
-// }
-
 const ONE_SIZE_CODE = 'one-size';
 
 export default function AddItemModal({ item, modalRef, handleAdd, handleClose }) {
@@ -56,10 +12,6 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
 
     const defaultSize = item.sizes?.length > 0 ? item.sizes[0].id : ONE_SIZE_CODE;
     const formEl = useRef(null);
-
-    // Set the initial variant
-    // Track it
-    // On update
 
     function handleSubmit(submitEvent) {
         submitEvent.preventDefault();

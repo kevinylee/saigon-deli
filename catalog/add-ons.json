@@ -7,8 +7,14 @@
     },
     {
         "id": "extra-meat",
-        "title": "Add extra meat",
+        "title": "Extra Meat",
         "add_price": 100,
+        "available": true
+    },
+    {
+        "id": "spicy-lemongrass",
+        "title": "Spicy lemongrass",
+        "add_price": 75,
         "available": true
     }
 ]
