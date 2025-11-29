@@ -1,7 +1,5 @@
 import React, { useRef } from 'react';
 import AddItemModal from './AddItemModal';
-import Variant from '../models/Variant';
-import Item from '../models/Item';
 import "./section.scss";
 import { toPrice } from './utilities';
 
@@ -32,9 +30,6 @@ const Section = ({ section, onLineItemAdd, description, reference, category }) =
                   </h4>
                   {
                     item.description && <p>{item.description}</p>
-                  }
-                  {
-                    JSON.stringify(item, null, 2)
                   }
                   <NewSelectModalButton item={item} addToCart={(lineItem) => {
                     onLineItemAdd(lineItem)
