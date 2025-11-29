@@ -20,6 +20,8 @@ Make sure you have Homebrew, Stripe CLI, and Gatsby CLI installed:
 2. Run the website: `npx gatsby develop`
 3. Run the webhooks: `stripe listen --forward-to http://localhost:9999/.netlify/functions/webhook`
 
+To debug locally, you can run the node REPL with: `node --env-file=.env.development`
+
 ## Deploying to Production
 
 All hooked up via Netlify.
@@ -35,8 +37,14 @@ All hooked up via Netlify.
 - [x] Add Sentry
 - [x] End-to-end flow testing
 - [x] Figure out spicy lemongrass add on price issue
-- [ ] Migrate to JSON file for menu items!!!
-- [ ] Grab the add-on price and size price according to the item, rather than centralized AddOn and Size objects
+- [x] Run the script. Get everything in the DB.
+- [x] Add all ItemSizes (missing all the OS)
+- [x] Update gsheets to load from DB
+- [x] Go through checkout flow, fix bugs
+- [x] Update checkout to fetch data through DB
+- [x] Grab the add-on price and size price according to the item, rather than centralized AddOn and Size objects
+- [ ] Make the dashboard nicer please
+- [ ] Production rollout => Copy tables and rows, deploy current changes, yolo
 
 - [ ] Sort by uncompleted orders or sort by delivery dates
 - [ ] Allow you to edit availability in the dashboard

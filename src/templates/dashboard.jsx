@@ -48,7 +48,7 @@ function useInterval(callback, delay) {
   }, [delay]);
 }
 
-const DashboardPage = ({ pageContext: { business_details, open } }) => {
+const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
   const now = DateTime.now().setZone('America/Los_Angeles');
 
   const modalRef = useRef(null);

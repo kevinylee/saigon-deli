@@ -1,16 +1,16 @@
 import React, { useRef, useState } from 'react';
-import NewQuantitySelection from './NewQuantitySelection';
-import { toPrice, PRETTY } from './utilities';
+import NewQuantitySelection from './QuantitySelection';
+import { toPrice } from './utilities';
 import Purchaseable from '../models/Purchaseable';
 import LineItem from '../models/LineItem';
 
-const ONE_SIZE_CODE = 'one-size';
-
 export default function AddItemModal({ item, modalRef, handleAdd, handleClose }) {
-    const firstAvailableVariant = item.variants.filter((item) => item.available)[0];
+    const firstAvailableVariant = item.Variants.filter((item) => item.available)[0];
     const [selectedVariant, updateSelectedVariant] = useState(firstAvailableVariant);
 
-    const defaultSize = item.sizes?.length > 0 ? item.sizes[0].id : ONE_SIZE_CODE;
+    const oneSizeAvailable = item.ItemSizes.length === 1;
+    const defaultSizeId = item.ItemSizes[0].id;
+
     const formEl = useRef(null);
 
     function handleSubmit(submitEvent) {
@@ -25,7 +25,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
             throw new Error('Unable to add item to checkout. Please try again.');
         }
 
-        const addOns = item.add_ons.reduce((acc, option) => {
+        const addOns = item.ItemAddOns.reduce((acc, option) => {
             if (formData.get(option.id)) {
                 acc.push(option);
             }
@@ -33,12 +33,16 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
             return acc;
         }, []);
 
-        const size = item.sizes?.find((option) => option.id === formData.get('size'));
+        const size = item.ItemSizes.find((option) => option.id === formData.get('size'));
         const additionalNote = undefined;
         const quantity = Number(formData.get('quantity'));
 
+        console.log(size);
+
         const purchaseable = new Purchaseable(selectedVariant, size, addOns, additionalNote);
         const lineItem = new LineItem(purchaseable, quantity);
+
+        console.log(purchaseable.itemSize.id);
 
         submitEvent.target.reset();
         handleAdd(lineItem);
@@ -62,7 +66,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
                     <>
                         <fieldset>
                             <p>Choice</p>
-                            {item.variants.map((variant) => (
+                            {item.Variants.map((variant) => (
                                 <div>
                                     <input
                                         type="radio"
@@ -71,7 +75,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
                                         value={variant.id}
                                         defaultChecked={Boolean(selectedVariant.id === variant.id)}
                                         onChange={(e) => {
-                                            const variant = item.variants.find((variant) => variant.id === e.target.value)
+                                            const variant = item.Variants.find((variant) => variant.id === e.target.value)
                                             updateSelectedVariant(variant)
                                         }}
                                         disabled={!variant.available}
@@ -87,34 +91,33 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
                         <br />
                         <br />
                     </>
-                    <fieldset disabled={defaultSize === ONE_SIZE_CODE}>
+                    <fieldset>
                         <p>Size:</p>
-                        {defaultSize === ONE_SIZE_CODE ? (
+                        {oneSizeAvailable ? (
                             <>
-                                <input type="radio" id={ONE_SIZE_CODE} name="size" defaultChecked disabled />
-                                <label htmlFor={ONE_SIZE_CODE}>One Size {toPrice(selectedVariant.base_price)}</label>
+                                <input type="radio" id="one-size" name="size" value={defaultSizeId} defaultChecked readOnly />
+                                <label htmlFor="one-size">One Size {toPrice(selectedVariant.base_price)}</label>
                             </>
                         ) : (
-                            item.sizes.map((sizeOption) => (
+                            item.ItemSizes.map((itemSize) => (
                                 <>
-                                    <input type="radio" id={sizeOption.id} name="size" value={sizeOption.id} defaultChecked={sizeOption.id === defaultSize} />
-                                    <label htmlFor={sizeOption.id}>{PRETTY[sizeOption.id]} {toPrice(selectedVariant.base_price + sizeOption.add_price)}</label>
+                                    <input type="radio" id={itemSize.id} name="size" value={itemSize.id} defaultChecked={itemSize.id === defaultSizeId} />
+                                    <label htmlFor={itemSize.id}>{itemSize.Sizes.title} {toPrice(selectedVariant.base_price + itemSize.add_price)}</label>
                                 </>
                             ))
                         )}
                     </fieldset>
                     <br />
                     <br />
-                    {item.add_ons.length > 0 && <>
+                    {item.ItemAddOns.length > 0 && <>
                         <fieldset>
                             <p>Add-Ons</p>
-                            {item.add_ons.map((addOnOption) => (
+                            {item.ItemAddOns.map((itemAddOn) => (
                                 <>
-                                    <input type="checkbox" id={addOnOption.id} name={addOnOption.id} />
-                                    <label htmlFor={addOnOption.id}>{PRETTY[addOnOption.id]} {toPrice(addOnOption.add_price)}</label>
+                                    <input type="checkbox" id={itemAddOn.id} name={itemAddOn.id} />
+                                    <label htmlFor={itemAddOn.id}>{itemAddOn.AddOns.title} {toPrice(itemAddOn.add_price)}</label>
                                 </>
                             ))}
-
                         </fieldset>
                         <br />
                         <br />

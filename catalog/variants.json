@@ -136,5 +136,107 @@
         "title": "Bun with Shrimp, Tofu and Eggrolls",
         "base_price": 1795,
         "available": true
+    },
+    {
+        "id": "variant-rice-with-lemongrass-tofu",
+        "title": "Steamed Rice with lemongrass tofu",
+        "base_price": 1495,
+        "available": true
+    },
+    {
+        "id": "variant-rice-with-spicy-tofu",
+        "title": "Steamed Rice with spicy tofu",
+        "base_price": 1550,
+        "available": true
+    },
+    {
+        "id": "variant-rice-with-eggplant-and-tofu",
+        "title": "Steamed Rice with eggplant and tofu",
+        "base_price": 1495,
+        "available": true
+    },
+    {
+        "id": "variant-fried-rice-with-tofu-and-vegetables",
+        "title": "Steamed Rice with tofu and vegetables",
+        "base_price": 1550,
+        "available": true
+    },
+    {
+        "id": "variant-fried-rice-with-pork",
+        "title": "Fried Rice with vegetables and BBQ pork",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-fried-rice-with-chicken",
+        "title": "Fried Rice with vegetables and chicken",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-fried-rice-with-chicken",
+        "title": "Fried Rice with vegetables and beef",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-chowfun-with-pork",
+        "title": "Chowfun with vegetables and BBQ pork",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-chowfun-with-chicken",
+        "title": "Chowfun with vegetables and chicken",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-chowfun-with-beef",
+        "title": "Chowfun with vegetables and beef",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-chowfun-with-shrimp",
+        "title": "Chowfun with vegetables and shrimp",
+        "base_price": 1695,
+        "available": true
+    },
+    {
+        "id": "variant-chowfun-with-seafood",
+        "title": "Chowfun with vegetables and seafood",
+        "base_price": 1695,
+        "available": true
+    },
+    {
+        "id": "variant-chowmein-with-pork",
+        "title": "Chowmein with vegetables and BBQ pork",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-chowmein-with-chicken",
+        "title": "Chowmein with vegetables and chicken",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-chowmein-with-beef",
+        "title": "Chowmein with vegetables and beef",
+        "base_price": 1595,
+        "available": true
+    },
+    {
+        "id": "variant-chowmein-with-pork",
+        "title": "Chowmein with vegetables and shrimp",
+        "base_price": 1695,
+        "available": true
+    },
+    {
+        "id": "variant-chowmein-with-chicken",
+        "title": "Chowmein with vegetables and seafood",
+        "base_price": 1695,
+        "available": true
     }
 ]

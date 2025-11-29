@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState } from "react"
 import { Helmet } from "react-helmet"
 import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
@@ -9,11 +9,11 @@ import Section from "../components/Section"
 import Navigation from "../components/Navigation"
 import { DateTime } from 'luxon'
 import CheckoutModal from "../components/CheckoutModal"
-import NewStickyCheckoutHeader from '../components/NewStickyCheckoutHeader'
+import StickyCheckoutHeader from '../components/StickyCheckoutHeader'
 
 const IS_PROD = process.env.GATSBY_ENV === "prod";
 
-const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, pho, bun, vegetarian, banhcanh, hutieu, stirfried, ricedishes, friedrice, soursoup, beverage } }) => {
+const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVariant } }) => {
   const [cart, updateCart] = useState([]);
   const [allowCheckout, _] = useState(true);
   const [restaurantOpen, __] = useState(open);
@@ -32,9 +32,9 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
 
     let withinRestrictions = false;
 
-    if (business_details.Schedules) {
+    if (businessDetails.Schedules) {
       // Get all regular schedules, excluding -1.
-      withinRestrictions = business_details.Schedules.filter((sched) => sched.id !== -1).some(({ start_datetime, end_datetime, reason }) => {
+      withinRestrictions = businessDetails.Schedules.filter((sched) => sched.id !== -1).some(({ start_datetime, end_datetime, reason }) => {
         const start = DateTime.fromISO(start_datetime, { zone: 'America/Los_Angeles' });
         const end = DateTime.fromISO(end_datetime, { zone: 'America/Los_Angeles' });
 
@@ -159,13 +159,13 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
         <div className="small-info">
           <p>takeout & dine-in</p>
           <span className="seperator"></span>
-          <p>for catering: {business_details.Phone}</p>
+          <p>for catering: {businessDetails.Phone}</p>
         </div>
       </header>
       {
-        business_details.Notice && (
+        businessDetails.Notice && (
           <div className="notice">
-            <p>{business_details.Notice}</p>
+            <p>{businessDetails.Notice}</p>
           </div>
         )
       }
@@ -178,17 +178,17 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           layout="fullWidth"
           quality={85}
         />
-        <Navigation restaurant={business_details} />
+        <Navigation restaurant={businessDetails} />
       </div>
-      <NewStickyCheckoutHeader cart={cart} onOpenCheckoutModal={handleCheckoutModalOpen} onTipChange={handleUpdateLineItem} />
-      {checkoutModalVisible && <CheckoutModal cart={cart} onClose={handleCheckoutModalClose} onLineItemRemove={handleLineItemRemove} />}
+      <StickyCheckoutHeader tipVariant={tipVariant} cart={cart} onOpenCheckoutModal={handleCheckoutModalOpen} onTipChange={handleUpdateLineItem} />
+      {checkoutModalVisible && <CheckoutModal tipVariant={tipVariant} cart={cart} onClose={handleCheckoutModalClose} onLineItemRemove={handleLineItemRemove} />}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <RestaurantStatus />
       </div>
       <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
       <p><pre>{JSON.stringify(cart, null, 2)}</pre></p>
       <div className="menu">
-        <Section reference="appetizers" onQuantityUpdate={handleQuantityUpdate} onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={appetizers} category="Appetizers" description="Traditional Vietnamese small eats." />
+        <Section reference="appetizers" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" description="Traditional Vietnamese small eats." />
         <div className="pics">
           <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg" className="pho-img" alt="Spring Rolls" />
@@ -206,7 +206,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="pho" onQuantityUpdate={handleQuantityUpdate} onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={pho} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
+        <Section reference="pho" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Pho"]} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
 
         <div className="pics">
           <div className="img-desc">
@@ -215,7 +215,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="bun" onQuantityUpdate={handleQuantityUpdate} onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={bun} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" />
+        {/* <Section reference="bun" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Bun (Rice Vermicelli Noodles)"]} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -224,7 +224,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="vegetarian" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={vegetarian} category="Vegetarian Dishes" />
+        {/* <Section reference="vegetarian" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Vegetarian Dishes"]} category="Vegetarian Dishes" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -233,7 +233,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="banhcanh" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={banhcanh} category="Banh Canh (udon noodle soup)" description="Udon noodles served in a homemade broth with vegetables, green onions, cilantro and your choice of meat or seafood." />
+        {/* <Section reference="banhcanh" allowOrderOnline={allowCheckout} section={banhcanh} category="Banh Canh (udon noodle soup)" description="Udon noodles served in a homemade broth with vegetables, green onions, cilantro and your choice of meat or seafood." /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -242,8 +242,8 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="hutieu" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." />
-        <Section reference="stirfried" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={stirfried} category="Stir Fried Noodles" description="Rice or egg noodles stir fried with broccoli, carrot, and your choice of meat, seafood, or tofu. Served with a sprinkle of crushed peanut." />
+        {/* <Section reference="hutieu" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." /> */}
+        <Section reference="stirfried" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" description="Rice or egg noodles stir fried with broccoli, carrot, and your choice of meat, seafood, or tofu. Served with a sprinkle of crushed peanut." />
 
         <div className="pics">
           <div className="img-desc">
@@ -252,7 +252,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="ricedishes" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={ricedishes} category="Rice Dishes" description="All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu. We cook the vegetables with our in-house special sauce." />
+        {/* <Section reference="ricedishes" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={ricedishes} category="Rice Dishes" description="All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu. We cook the vegetables with our in-house special sauce." /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -281,7 +281,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="friedrice" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." />
+        {/* <Section reference="friedrice" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -290,7 +290,7 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="hotsoursoups" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." />
+        {/* <Section reference="hotsoursoups" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -299,15 +299,15 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
           </div>
         </div>
 
-        <Section reference="beverages" onQuantityUpdate={handleQuantityUpdate} allowOrderOnline={allowCheckout} section={beverage} category="Beverages" description="Refreshing drinks to accompany your meal." />
+        {/* <Section reference="beverages" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Beverages"]} category="Beverages" description="Refreshing drinks to accompany your meal." /> */}
         <br />
 
         {/*allowCheckout && <button className="checkout-button" onClick={handleCheckout}>Checkout</button>*/}
       </div>
       <div className="catering-box">
         <div className="catering">
-          <p>{business_details.Catering}</p>
-          <p id="catering3">{business_details.Phone}</p>
+          <p>{businessDetails.Catering}</p>
+          <p id="catering3">{businessDetails.Phone}</p>
         </div>
       </div>
       <footer>
@@ -325,9 +325,9 @@ const IndexPage = ({ pageContext: { tips, business_details, open, appetizers, ph
             4142 Brooklyn Ave NE Seattle, WA 98105
           </a>
           <p id="footer-hours">
-            Mon - Fri: {business_details.Weekdays}
+            Mon - Fri: {businessDetails.Weekdays}
             <br />
-            Sat - Sun: {business_details.Weekends}
+            Sat - Sun: {businessDetails.Weekends}
           </p>
         </div>
       </footer>

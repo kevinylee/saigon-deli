@@ -500,9 +500,177 @@
                 }
             ]
         },
-        "noodle_soup": {
-            "title": "Noodle Soup",
-            "description": "Vermicelli noodle bowl topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu.",
+        "vegetarian": {
+            "title": "Vegetarian Dishes",
+            "description": null,
+            "items": [
+                {
+                    "id": "item-steamed-rice-with-lemongrass-tofu",
+                    "title": "Steamed Rice with lemongrass tofu",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-rice-with-lemongrass-tofu",
+                            "title": "Steamed Rice with lemongrass tofu",
+                            "base_price": 1495,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                },
+                {
+                    "id": "item-steamed-rice-with-spicy-tofu",
+                    "title": "Steamed Rice with spicy tofu",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-rice-with-spicy-tofu",
+                            "title": "Steamed Rice with spicy tofu",
+                            "base_price": 1550,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                },
+                {
+                    "id": "item-steamed-rice-with-eggplant-and-tofu",
+                    "title": "Steamed Rice with eggplant and tofu",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-rice-with-eggplant-and-tofu",
+                            "title": "Steamed Rice with eggplant and tofu",
+                            "base_price": 1495,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                },
+                {
+                    "id": "item-fried-rice-with-tofu-and-vegetables",
+                    "title": "Fried Rice with tofu and vegetables",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-fried-rice-with-tofu-and-vegetables",
+                            "title": "Steamed Rice with tofu and vegetables",
+                            "base_price": 1550,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                }
+            ]
+        },
+        "stir_fry": {
+            "title": "Stir Fry Noodles",
+            "description": "Egg noodles (chowmein) or wide rice noodles (chowfun) stir fried with broccoli, carrot, and your choice of meat or seafood. Served with a sprinkle of crushed peanut.",
+            "items": [
+                {
+                    "id": "item-chowfun-noodles-meat",
+                    "title": "Chowfun with vegetables and chicken, beef, or BBQ pork",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-chowfun-with-pork",
+                            "title": "Chowfun with vegetables and BBQ pork",
+                            "base_price": 1595,
+                            "available": true
+                        },
+                        {
+                            "id": "variant-chowfun-with-chicken",
+                            "title": "Chowfun with vegetables and chicken",
+                            "base_price": 1595,
+                            "available": true
+                        },
+                        {
+                            "id": "variant-chowfun-with-beef",
+                            "title": "Chowfun with vegetables and beef",
+                            "base_price": 1595,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                },
+                {
+                    "id": "item-chowfun-noodles-seafood",
+                    "title": "Chowfun with vegetables and seafood or shrimp",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-chowfun-with-shrimp",
+                            "title": "Chowfun with vegetables and shrimp",
+                            "base_price": 1695,
+                            "available": true
+                        },
+                        {
+                            "id": "variant-chowfun-with-seafood",
+                            "title": "Chowfun with vegetables and seafood",
+                            "base_price": 1695,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                },
+                {
+                    "id": "item-chowmein-noodles-meat",
+                    "title": "Chowmein with vegetables and chicken, beef, or BBQ pork",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-chowmein-with-pork",
+                            "title": "Chowmein with vegetables and BBQ pork",
+                            "base_price": 1595,
+                            "available": true
+                        },
+                        {
+                            "id": "variant-chowmein-with-chicken",
+                            "title": "Chowmein with vegetables and chicken",
+                            "base_price": 1595,
+                            "available": true
+                        },
+                        {
+                            "id": "variant-chowmein-with-beef",
+                            "title": "Chowmein with vegetables and beef",
+                            "base_price": 1595,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                },
+                {
+                    "id": "item-chowmein-noodles-seafood",
+                    "title": "Chowmein with vegetables and seafood",
+                    "description": null,
+                    "variants": [
+                        {
+                            "id": "variant-chowmein-with-pork",
+                            "title": "Chowmein with vegetables and shrimp",
+                            "base_price": 1695,
+                            "available": true
+                        },
+                        {
+                            "id": "variant-chowmein-with-chicken",
+                            "title": "Chowmein with vegetables and seafood",
+                            "base_price": 1695,
+                            "available": true
+                        }
+                    ],
+                    "add_ons": [],
+                    "sizes": null
+                }
+            ]
+        },
+        "beverages": {
+            "title": "Beverages",
+            "description": "Refreshing drinks to accompany your meal.",
             "items": []
         }
     }

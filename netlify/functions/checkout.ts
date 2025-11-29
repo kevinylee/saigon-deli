@@ -1,20 +1,22 @@
 import { Handler } from "@netlify/functions";
 import Stripe from 'stripe';
-import Tip from '../../catalog/tip.json';
-import Variants from '../../catalog/variants.json';
-import AddOns from '../../catalog/add-ons.json';
-import Sizes from '../../catalog/sizes.json';
+import { createClient } from "@supabase/supabase-js"
 import Purchaseable from '../../src/models/Purchaseable';
 
 const DOMAIN = process.env.BASE_URL;
 
-if (!process.env.STRIPE_SECRET || !DOMAIN) {
-  throw "No Stripe API key or base URL founded.";
+if (!process.env.STRIPE_SECRET || !DOMAIN || !process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
+  throw "No API keys found for either Stripe or Supabase or no base URL founded.";
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: "2022-08-01"
 });
+
+const supabase = createClient(
+  process.env.SUPABASE_API_URL,
+  process.env.SUPABASE_PRIVATE_KEY
+)
 
 const headers = {
   'Access-Control-Allow-Origin': '*', // unsafe to allow any origin; fix this
@@ -22,80 +24,37 @@ const headers = {
   'Access-Control-Allow-Methods': 'POST'
 }
 
-enum SizeType {
-  OneSize = "one-size",
-  Small = "small",
-  Large = "large"
-}
-
-enum AddOnType {
-  ExtraMeat = "extra-meat",
-  AddEgg = "add-egg"
-}
-
-// Add-ons and sizes are modifications to the order 
-interface Size {
-  id: SizeType;
-  extraCost: number | null;
-}
-
-interface AddOn {
-  id: AddOnType;
-  extraCost: number | null;
-}
-
-// interface Variant {
-//   id: string;
-//   title: string;
-//   description: string;
-//   sizeOptions: SizeType[]
-//   addOnOptions: AddOnType[];
-//   available: boolean;
-//   basePrice: boolean;
-// }
-
-// interface Purchaseable {
-//   variant: Variant;
-//   size: Size;
-//   addOns: AddOn[];
-// }
-
 interface LineItem {
   purchaseable: Purchaseable;
   quantity: number;
 }
 
-// Duplicative with utilities.ts on the frontend
-const createMappings = (data: Array<any>) => data.reduce((acc, cur) => {
-  if (!acc[cur.id]) {
-    acc[cur.id] = cur.title
+const validatePurchaseable = async (purchaseable: Purchaseable) => {
+  const variantResponse = await supabase.from('Variants').select(`
+    *,
+    Items (
+     *,
+     ItemAddOns (*, AddOns (*)),
+     ItemSizes (*, Sizes (*))
+    )
+  `).eq('id', purchaseable.variant.id).limit(1).single();
+
+  if (!variantResponse) {
+    throw new Error('Invalid Variant!');
   }
 
-  return acc;
-}, {})
+  const variant = variantResponse.data;
+  const item = variant.Items;
 
-const addOnMapping = createMappings(AddOns);
-const sizeMapping = createMappings(Sizes);
+  const addOns = item.ItemAddOns.filter((dbAddOn) => purchaseable.itemAddOns.find((proposedAddOn) => proposedAddOn.id === dbAddOn.id));
+  const size = item.ItemSizes.find((dbSize) => dbSize.id === purchaseable.itemSize.id);
 
-const PRETTY = {
-  ...addOnMapping,
-  ...sizeMapping
-}
+  if (!size)
+    throw new Error('Invalid size provided');
 
-const validatePurchaseable = (purchaseable: Purchaseable) => {
-  console.log("Validating...")
-  console.log(purchaseable);
-  if (purchaseable.variant.id === Tip.id) {
-    return new Purchaseable(purchaseable.variant, null, [], null);
-  }
+  if (addOns.length !== purchaseable.itemAddOns.length)
+    throw new Error('Invalid add ons provided');
 
-  // We designed variants to inherit title from the Item if it's a one-size scenario, though right now we copy over the title for now.
-  const variant = Variants.find((variant) => variant.id === purchaseable.variant.id);
-
-  const addOns = purchaseable.addOns.map((proposedAddOn) => AddOns.find((addOn) => proposedAddOn.id === addOn.id)).filter(Object);
-  const size = Sizes.find((size) => size.id === purchaseable.size?.id)
-
-  // TODO: Grab the add-on price and size price according to the item
   return new Purchaseable(variant, size, addOns, null);
 };
 
@@ -114,21 +73,20 @@ const handler: Handler = async (event, context) => {
 
   const { lineItems, pickupTime } = JSON.parse(event.body);
 
-  const stripePayload = lineItems.map((lineItem: LineItem) => {
-    const purchaseable = validatePurchaseable(lineItem.purchaseable);
-
-    const sizeId = purchaseable.size?.id || SizeType.OneSize;
-    const description = purchaseable.addOns.length > 0 ? purchaseable.addOns.map((addOn) => PRETTY[addOn.id]).join(', ') : undefined;
+  const stripeLineItems = await Promise.all(lineItems.map(async (lineItem: LineItem) => {
+    const purchaseable = await validatePurchaseable(lineItem.purchaseable);
+    const sizePrefix = purchaseable.itemSize.Sizes.title !== 'One Size' ? purchaseable.itemSize.Sizes.title : "";
+    const description = purchaseable.itemAddOns.length > 0 ? purchaseable.itemAddOns.map((itemAddOn) => itemAddOn.AddOns.title).toString() : undefined;
 
     const obj = {
       price_data: {
         currency: 'USD',
         unit_amount: purchaseable.unitPrice,
         product_data: {
-          name: `${PRETTY[sizeId]} ${purchaseable.variant.title}`,
+          name: `${sizePrefix} ${purchaseable.variant.title}`,
           description: description,
           metadata: {
-            add_ons: purchaseable.addOns.toString()
+            hash: purchaseable.hash,
           }
         }
       },
@@ -136,10 +94,10 @@ const handler: Handler = async (event, context) => {
     };
 
     return obj;
-  })
+  }));
 
   const session = await stripe.checkout.sessions.create({
-    line_items: stripePayload,
+    line_items: stripeLineItems,
     metadata: {
       pickup_time: pickupTime
     },

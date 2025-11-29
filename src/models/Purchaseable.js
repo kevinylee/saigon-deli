@@ -1,24 +1,28 @@
 export default class Purchaseable {
-    constructor(variant, size, addOns, additionalNote) {
+    constructor(variant, itemSize, itemAddOns, additionalNote) {
         this.variant = variant;
-        this.size = size;
-        this.addOns = addOns ?? [];
+        this.itemSize = itemSize;
+        this.itemAddOns = itemAddOns ?? [];
         this.additionalNote = additionalNote;
     }
 
     get addOnIds() {
-        return this.addOns.map((addOn) => addOn.id)
+        return this.itemAddOns.map((addOn) => addOn.id)
     }
 
     get hash() {
-        return `${this.variant.id}-${this.sizeId}-${this.addOnIds.toString()}-${this.additionalNote}`
-    }
-
-    get sizeId() {
-        return this.size?.id || 'one-size';
+        return `${this.variant.id}-${this.itemSize.id}-${this.addOnIds.toString()}-${this.additionalNote}`
     }
 
     get unitPrice() {
-        return this.variant.base_price + (this.size?.add_price || 0) + this.addOns.reduce((acc, addOn) => acc + addOn.add_price, 0);
+        let price = this.variant.base_price;
+
+        if (this.variant.title !== 'Tip') {
+            const modifications = (this.itemSize.add_price || 0) + this.itemAddOns.reduce((acc, addOn) => acc + addOn.add_price, 0);
+
+            price += modifications;
+        }
+
+        return price;
     }
 }

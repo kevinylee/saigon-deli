@@ -2,36 +2,41 @@ import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { DateTime, Duration } from 'luxon';
-import { toPrice, PRETTY, BASE_URL } from './utilities';
+import { toPrice, BASE_URL } from './utilities';
 import PickupAt from './PickupAt';
 
 function LineItemPreview({ lineItem, onRemove }) {
-    const { variant, unitPrice, addOns, size, sizeId } = lineItem.purchaseable;
+    const { variant, unitPrice, itemAddOns, itemSize } = lineItem.purchaseable;
+
+    const displaySize = itemSize.Sizes.title === 'One Size' ? undefined : itemSize.Sizes.title;
 
     return (
         <li className="line-item-preview">
             <div className="line-item-text">
-                <div className="line-item-title"><b>{lineItem.quantity}</b> {PRETTY[sizeId]} {variant.title}: {toPrice(lineItem.quantity * unitPrice)}</div>
-                {addOns.length > 0 ? <div className="line-item-subtext">{addOns.map((addOn) => PRETTY[addOn.id]).join(', ')}</div> : <div className="line-item-subtext">(No add-ons)</div>}
+                <div className="line-item-title"><b>{lineItem.quantity}</b> {displaySize} {variant.title}: {toPrice(lineItem.quantity * unitPrice)}</div>
+                {itemAddOns.length > 0 ?
+                    <div className="line-item-subtext">{itemAddOns.map((itemAddOn) => itemAddOn.AddOns.title).join(', ')}</div> :
+                    <div className="line-item-subtext">(No add-ons)</div>
+                }
             </div>
             <button onClick={() => onRemove(lineItem)}>x</button>
         </li >
     );
 }
 
-export default function CheckoutModal({ cart, tip, canOrder = true, onClose, onLineItemRemove }) {
+export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClose, onLineItemRemove }) {
     const FIFTEEN_MINUTE_DURATION = Duration.fromObject({ minutes: 15 });
 
     // Fake ISO8601 without the timezone. Ugly!
     const DEFAULT_TIME = DateTime.now().plus(FIFTEEN_MINUTE_DURATION).toFormat("yyyy-MM-dd'T'HH:mm");
 
     const [pickupTime, setPickupTime] = useState(DEFAULT_TIME);
-    const cartWithoutTip = cart.filter((lineItem) => lineItem.variantId !== 'tip')
+    const cartWithoutTip = cart.filter((lineItem) => lineItem.variantId !== tipVariant.id)
     const totalPrice = cart.reduce((acc, lineItem) => acc + (lineItem.quantity * lineItem.purchaseable.unitPrice), 0)
 
-    // The tip separate
+    // Calculate the tip specifically to show as well.
     const totalTip = () => {
-        const tipItem = cart.find((lineItem) => lineItem.variantId === 'tip');
+        const tipItem = cart.find((lineItem) => lineItem.variantId === tipVariant.id);
 
         if (tipItem) {
             return tipItem.quantity * tipItem.purchaseable.unitPrice;

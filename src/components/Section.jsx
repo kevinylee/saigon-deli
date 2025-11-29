@@ -6,15 +6,14 @@ import "./section.scss";
 import { toPrice } from './utilities';
 
 function displayPrice(item) {
-  const lowestValue = Math.min(...item.variants.map((variant) => variant.base_price))
+  const lowestValue = Math.min(...item.Variants.map((variant) => variant.base_price))
 
   return toPrice(lowestValue);
 }
 
 // A two-column desktop view that collapses into a single column on mobile
-const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, description, reference, category }) => {
-
-  const items = section?.items ?? [];
+const Section = ({ section, onLineItemAdd, description, reference, category }) => {
+  const items = section.Items;
 
   return (
     <section id={`${reference}`}>
@@ -25,8 +24,6 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
       <div className="menu-items">
         {
           items.map((item, index) => {
-            const realItem = new Item().from(item);
-
             return (
               <div key={`${index}-${item.title}`} className="menu-item">
                 <div className="content">
@@ -37,9 +34,9 @@ const Section = ({ section, allowOrderOnline, onQuantityUpdate, onLineItemAdd, d
                     item.description && <p>{item.description}</p>
                   }
                   {
-                    JSON.stringify(realItem, null, 2)
+                    JSON.stringify(item, null, 2)
                   }
-                  <NewSelectModalButton item={realItem} addToCart={(lineItem) => {
+                  <NewSelectModalButton item={item} addToCart={(lineItem) => {
                     onLineItemAdd(lineItem)
                   }} />
                 </div>
@@ -76,7 +73,7 @@ const NewSelectModalButton = ({ item, addToCart, disabled }) => {
 
   return (
     <div>
-      <button className="select-options-button" onClick={handleOpen} disabled={!item.available} >Add Item +</button>
+      <button className="select-options-button" onClick={handleOpen} >Add Item +</button>
       <AddItemModal item={item} modalRef={modalRef} handleClose={handleClose} handleAdd={handleAdd} />
     </div>
   );
