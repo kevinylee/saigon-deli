@@ -23,6 +23,7 @@
     "@stripe/stripe-js": "^1.35.0",
     "@supabase/supabase-js": "^1.35.7",
     "axios": "^0.21.4",
+    "currency.js": "^2.0.4",
     "gatsby": "^4.24.1",
     "gatsby-plugin-google-analytics": "^4.7.0",
     "gatsby-plugin-google-gtag": "^4.7.0",
