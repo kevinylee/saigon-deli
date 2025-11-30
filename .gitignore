@@ -8,3 +8,4 @@ src/images/.DS_Store
 .env.development
 .netlify/
 parity.ts
+seed.js
