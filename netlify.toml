@@ -2,4 +2,4 @@
   directory = "netlify/functions"
 
 [build.environment]
-  NPM_VERSION = "8"
+  NPM_VERSION = "9"
