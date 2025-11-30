@@ -43,8 +43,5 @@
     "sharp": "^0.31.0",
     "stripe": "^10.7.0",
     "ts-node": "^10.9.1"
-  },
-  "devDependencies": {
-    "@types/google-spreadsheet": "^3.3.0"
   }
 }
