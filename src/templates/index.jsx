@@ -186,7 +186,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
         <RestaurantStatus />
       </div>
       <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
-      <p><pre>{JSON.stringify(cart, null, 2)}</pre></p>
+      {/* <p><pre>{JSON.stringify(cart, null, 2)}</pre></p> */}
       <div className="menu">
         <Section reference="appetizers" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" />
         <div className="pics">
