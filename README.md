@@ -43,7 +43,8 @@ All hooked up via Netlify.
 - [x] Go through checkout flow, fix bugs
 - [x] Update checkout to fetch data through DB
 - [x] Grab the add-on price and size price according to the item, rather than centralized AddOn and Size objects
-- [ ] Make the dashboard nicer please
+- [x] Add Rice dishes section
+- [x] Add Beverages
 - [ ] Production rollout => Copy tables and rows, deploy current changes, yolo
 
 - [ ] Sort by uncompleted orders or sort by delivery dates

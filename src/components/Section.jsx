@@ -10,14 +10,14 @@ function displayPrice(item) {
 }
 
 // A two-column desktop view that collapses into a single column on mobile
-const Section = ({ section, onLineItemAdd, description, reference, category }) => {
+const Section = ({ section, onLineItemAdd, reference, category }) => {
   const items = section.Items;
 
   return (
     <section id={`${reference}`}>
       <h2 className="category-name">{category}</h2>
       {
-        (description) && <p className="category-description">{`${description}`}</p>
+        section.description && <p className="category-description">{`${section.description}`}</p>
       }
       <div className="menu-items">
         {
@@ -25,13 +25,12 @@ const Section = ({ section, onLineItemAdd, description, reference, category }) =
             return (
               <div key={`${index}-${item.title}`} className="menu-item">
                 <div className="content">
-                  <h4 className="item-title">
-                    <span>{item.title}</span> <span>{displayPrice(item)}</span>
-                  </h4>
+                  <span className="price">{displayPrice(item)}</span>
+                  <h4>{item.title}</h4>
                   {
                     item.description && <p>{item.description}</p>
                   }
-                  <NewSelectModalButton item={item} addToCart={(lineItem) => {
+                  <SelectModalButton item={item} addToCart={(lineItem) => {
                     onLineItemAdd(lineItem)
                   }} />
                 </div>
@@ -44,7 +43,7 @@ const Section = ({ section, onLineItemAdd, description, reference, category }) =
   )
 };
 
-const NewSelectModalButton = ({ item, addToCart, disabled }) => {
+const SelectModalButton = ({ item, addToCart, disabled }) => {
   const modalRef = useRef(null);
 
   const handleAdd = (lineItem) => {

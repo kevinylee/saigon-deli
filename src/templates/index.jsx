@@ -188,7 +188,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
       <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
       <p><pre>{JSON.stringify(cart, null, 2)}</pre></p>
       <div className="menu">
-        <Section reference="appetizers" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" description="Traditional Vietnamese small eats." />
+        <Section reference="appetizers" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" />
         <div className="pics">
           <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg" className="pho-img" alt="Spring Rolls" />
@@ -206,7 +206,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="pho" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Pho"]} category="Pho (noodle soup)" description="Rice noodle soup with your choice of meat, seafood, or tofu. Served with beansprouts, basil, and lime. Size comes in small or large." />
+        <Section reference="pho" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Pho"]} category="Pho (noodle soup)" />
 
         <div className="pics">
           <div className="img-desc">
@@ -215,7 +215,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* <Section reference="bun" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Bun (Rice Vermicelli Noodles)"]} category="Bun (Rice Vermicelli)" description="Vermicelli noodles topped with lettuce, bean sprouts, pickled carrots, crushed peanuts, and your choice of meat, seafood, or tofu. (optional: can add spicy lemongrass)" /> */}
+        <Section reference="bun" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Bun (Rice Vermicelli Noodles)"]} category="Bun (Rice Vermicelli)" />
 
         <div className="pics">
           <div className="img-desc">
@@ -224,7 +224,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* <Section reference="vegetarian" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Vegetarian Dishes"]} category="Vegetarian Dishes" /> */}
+        <Section reference="vegetarian" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Vegetarian Dishes"]} category="Vegetarian Dishes" />
 
         <div className="pics">
           <div className="img-desc">
@@ -243,7 +243,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
         </div>
 
         {/* <Section reference="hutieu" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." /> */}
-        <Section reference="stirfried" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" description="Rice or egg noodles stir fried with broccoli, carrot, and your choice of meat, seafood, or tofu. Served with a sprinkle of crushed peanut." />
+        <Section reference="stirfried" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" />
 
         <div className="pics">
           <div className="img-desc">
@@ -252,7 +252,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* <Section reference="ricedishes" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={ricedishes} category="Rice Dishes" description="All of our rice dishes are served with steamed rice, vegetables, and your choice of meat, seafood, or tofu. We cook the vegetables with our in-house special sauce." /> */}
+        <Section reference="ricedishes" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Rice Dishes"]} category="Rice Dishes" />
 
         <div className="pics">
           <div className="img-desc">
@@ -276,30 +276,36 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
         </div>
         <div className="pics">
           <div className="img-desc">
-            <StaticImage src="../images/saigonFoodPics/saigon_deli_Bun_Bo_Hue.jpg" className="pho-img" alt="Spicy Beef Noodle Soup (Bun Bo Hue)" />
-            <p className="desc">63. Spicy Beef Noodle Soup (Bun Bo Hue)</p>
-          </div>
-        </div>
-
-        {/* <Section reference="friedrice" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." /> */}
-
-        <div className="pics">
-          <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_Fried_rice_with_shrimp.jpg" className="pho-img" alt="Fried rice with shrimp" />
             <p className="desc">65. Fried rice with shrimp</p>
           </div>
         </div>
 
+        {/* <Section reference="friedrice" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." /> */}
+
+        {/* <div className="pics">
+          <div className="img-desc">
+            <StaticImage src="../images/saigonFoodPics/saigon_deli_Fried_rice_with_shrimp.jpg" className="pho-img" alt="Fried rice with shrimp" />
+            <p className="desc">65. Fried rice with shrimp</p>
+          </div>
+        </div> */}
+
         {/* <Section reference="hotsoursoups" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." /> */}
 
+        <Section reference="noodlesoups" onLineItemAdd={undefined} section={{ Items: [] }} category="Specialty Noodle Soups" />
+
         <div className="pics">
+          <div className="img-desc">
+            <StaticImage src="../images/saigonFoodPics/saigon_deli_Bun_Bo_Hue.jpg" className="pho-img" alt="Spicy Beef Noodle Soup (Bun Bo Hue)" />
+            <p className="desc">63. Spicy Beef Noodle Soup (Bun Bo Hue)</p>
+          </div>
           <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_Bo_Kho.jpg" className="pho-img" alt="Beef Stew Noodle Soup (Hu Tieu Bo Kho)" />
             <p className="desc">Beef Stew Noodle Soup (Hu Tieu Bo Kho)</p>
           </div>
         </div>
 
-        {/* <Section reference="beverages" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Beverages"]} category="Beverages" description="Refreshing drinks to accompany your meal." /> */}
+        <Section reference="beverages" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Beverages"]} category="Beverages" description="Refreshing drinks to accompany your meal." />
         <br />
 
         {/*allowCheckout && <button className="checkout-button" onClick={handleCheckout}>Checkout</button>*/}

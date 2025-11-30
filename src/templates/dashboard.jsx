@@ -173,12 +173,14 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
             <h1>Settings</h1>
             <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
           </div>
-          {
-            isOpen ?
-              <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
-              <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
-          }
-          <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
+          <div className="actions">
+            {
+              isOpen ?
+                <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
+                <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
+            }
+            <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
+          </div>
         </div>
       </div>
     </div>
