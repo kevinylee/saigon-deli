@@ -8,7 +8,8 @@ exports.createPages = async ({ actions: { createPage } }) => {
   });
 
   const { sectionKeys, tipVariant, _businessDetails, business_details } = response.data;
-  const isOpen = business_details.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
+
+  // const isOpen = business_details.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
 
   // Create the index page & fill it with menu data
   createPage({
@@ -18,7 +19,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
       tipVariant,
       sectionKeys,
       businessDetails: business_details,
-      open: isOpen
+      open: false // isOpen
     },
   });
 
