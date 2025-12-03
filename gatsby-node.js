@@ -7,7 +7,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     console.log(error);
   });
 
-  const { sectionKeys, tipVariant, _businessDetails, business_details } = response.data;
+  const { sectionKeys, tipVariant, businessDetails } = response.data;
 
   // const isOpen = business_details.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
 
@@ -18,7 +18,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     context: {
       tipVariant,
       sectionKeys,
-      businessDetails: business_details,
+      businessDetails,
       open: false // isOpen
     },
   });
@@ -27,7 +27,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     path: `/dashboard`,
     component: require.resolve("./src/templates/dashboard.jsx"),
     context: {
-      businessDetails: business_details,
+      businessDetails,
       open: true
     },
   });

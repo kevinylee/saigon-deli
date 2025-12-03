@@ -159,16 +159,16 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
         <div className="small-info">
           <p>takeout & dine-in</p>
           <span className="seperator"></span>
-          <p>for catering: {businessDetails.Phone}</p>
+          <p>for catering: (206) 634-2866</p>
         </div>
       </header>
-      {
+      {/* {
         businessDetails.Notice && (
           <div className="notice">
             <p>{businessDetails.Notice}</p>
           </div>
         )
-      }
+      } */}
       <div className="title-container">
         <StaticImage
           className="backdrop"
@@ -178,9 +178,9 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           layout="fullWidth"
           quality={85}
         />
-        <Navigation restaurant={businessDetails} />
+        <Navigation />
       </div>
-      <StickyCheckoutHeader tipVariant={tipVariant} cart={cart} onOpenCheckoutModal={handleCheckoutModalOpen} onTipChange={handleUpdateLineItem} />
+      {/* <StickyCheckoutHeader tipVariant={tipVariant} cart={cart} onOpenCheckoutModal={handleCheckoutModalOpen} onTipChange={handleUpdateLineItem} /> */}
       {checkoutModalVisible && <CheckoutModal tipVariant={tipVariant} cart={cart} onClose={handleCheckoutModalClose} onLineItemRemove={handleLineItemRemove} />}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <RestaurantStatus />
@@ -188,7 +188,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
       <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
       {/* <p><pre>{JSON.stringify(cart, null, 2)}</pre></p> */}
       <div className="menu">
-        <Section reference="appetizers" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" />
+        {/* <Section reference="appetizers" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" /> */}
         <div className="pics">
           <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg" className="pho-img" alt="Spring Rolls" />
@@ -206,7 +206,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="pho" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Pho"]} category="Pho (noodle soup)" />
+        {/* <Section reference="pho" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Pho"]} category="Pho (noodle soup)" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -215,7 +215,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="bun" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Bun (Rice Vermicelli Noodles)"]} category="Bun (Rice Vermicelli)" />
+        {/* <Section reference="bun" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Bun (Rice Vermicelli Noodles)"]} category="Bun (Rice Vermicelli)" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -224,7 +224,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="vegetarian" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Vegetarian Dishes"]} category="Vegetarian Dishes" />
+        {/* <Section reference="vegetarian" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Vegetarian Dishes"]} category="Vegetarian Dishes" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -242,8 +242,8 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* <Section reference="hutieu" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." /> */}
-        <Section reference="stirfried" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" />
+        {/* Ignore this: <Section reference="hutieu" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." /> */}
+        {/* <Section reference="stirfried" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -252,7 +252,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="ricedishes" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Rice Dishes"]} category="Rice Dishes" />
+        {/* <Section reference="ricedishes" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Rice Dishes"]} category="Rice Dishes" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -292,7 +292,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
 
         {/* <Section reference="hotsoursoups" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." /> */}
 
-        <Section reference="noodlesoups" onLineItemAdd={undefined} section={{ Items: [] }} category="Specialty Noodle Soups" />
+        {/* <Section reference="noodlesoups" onLineItemAdd={undefined} section={{ Items: [] }} category="Specialty Noodle Soups" /> */}
 
         <div className="pics">
           <div className="img-desc">
@@ -305,15 +305,15 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="beverages" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Beverages"]} category="Beverages" description="Refreshing drinks to accompany your meal." />
+        {/* <Section reference="beverages" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Beverages"]} category="Beverages" description="Refreshing drinks to accompany your meal." /> */}
         <br />
 
         {/*allowCheckout && <button className="checkout-button" onClick={handleCheckout}>Checkout</button>*/}
       </div>
       <div className="catering-box">
         <div className="catering">
-          <p>{businessDetails.Catering}</p>
-          <p id="catering3">{businessDetails.Phone}</p>
+          <p>Don't forget to ask us about our catering service for your event or party.</p>
+          <p id="catering3">(206) 634-2866</p>
         </div>
       </div>
       <footer>
@@ -331,9 +331,9 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
             4142 Brooklyn Ave NE Seattle, WA 98105
           </a>
           <p id="footer-hours">
-            Mon - Fri: {businessDetails.Weekdays}
+            Mon - Fri: 11am-8pm
             <br />
-            Sat - Sun: {businessDetails.Weekends}
+            Sat - Sun: 11:30am-8pm
           </p>
         </div>
       </footer>
