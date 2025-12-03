@@ -45,7 +45,7 @@ All hooked up via Netlify.
 - [x] Grab the add-on price and size price according to the item, rather than centralized AddOn and Size objects
 - [x] Add Rice dishes section
 - [x] Add Beverages
-- [ ] Production rollout => Copy tables and rows, deploy current changes, yolo
+- [x] Copy all the tables & rows to production
 
 - [ ] Sort by uncompleted orders or sort by delivery dates
 - [ ] Allow you to edit availability in the dashboard
