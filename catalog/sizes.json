@@ -1,0 +1,17 @@
+[
+    {
+        "id": "one-size",
+        "title": null,
+        "add_price": 0
+    },
+    {
+        "id": "small",
+        "title": "Small",
+        "add_price": 100
+    },
+    {
+        "id": "large",
+        "title": "Large",
+        "add_price": 200
+    }
+]

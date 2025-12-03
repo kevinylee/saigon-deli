@@ -45,7 +45,8 @@ li::marker {
   transition: 200ms background-color;
   margin-top: 5px;
 
-  &:hover, &:active {
+  &:hover,
+  &:active {
     background-color: $secondary;
     color: white;
   }
@@ -74,7 +75,7 @@ label {
     /* For iOS < 15 to remove gradient background */
     background-color: #fff;
     margin: 0px 10px 0px 0px;
-  
+
     width: 3em;
     height: 3em;
   }
@@ -101,7 +102,7 @@ label {
   @include base-card;
   border: 1px solid $color;
   animation: blink 3s infinite;
-  
+
   .order {
     .badge {
       background-color: #01cb7370;
@@ -122,37 +123,45 @@ label {
   }
 }
 
-@keyframes blink{
+@keyframes blink {
   0% {
     background: $color;
   }
+
   25% {
-    background :white;
+    background: white;
   }
+
   50% {
     background: $color;
   }
+
   75% {
-    background:white;
+    background: white;
   }
+
   100% {
     background: $color;
   }
 }
 
-@-webkit-keyframes blink{
+@-webkit-keyframes blink {
   0% {
     background: $color;
   }
+
   25% {
-    background :white;
+    background: white;
   }
+
   50% {
     background: $color;
   }
+
   75% {
-    background:white;
+    background: white;
   }
+
   100% {
     background: $color;
   }
@@ -181,22 +190,31 @@ label {
 }
 
 .modal {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 
   .content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
+    /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid rgb(113, 113, 113);
-    width: 85%; /* Could be more or less, depending on screen size */
+    width: 85%;
+    /* Could be more or less, depending on screen size */
     max-width: 700px;
     border-radius: 5px;
     line-height: 150%;
@@ -204,10 +222,12 @@ label {
     .header-bar {
       display: flex;
       justify-content: space-between;
-    }
+      align-items: center;
+      margin-top: 12px;
 
-    .date-picker {
-      margin-bottom: 24px;
+      h1 {
+        margin: 0px;
+      }
     }
 
     p {
@@ -219,7 +239,7 @@ label {
       display: block;
       margin: 0 auto;
       letter-spacing: 1px;
-      padding: 15px 50px;
+      padding: 15px 35px;
       border-color: #009B58;
       border-style: solid;
       background-color: white;
@@ -228,10 +248,18 @@ label {
       color: #009B58;
       transition: 200ms background-color;
 
-      &:hover, &:active {
+      &:hover,
+      &:active {
         background-color: #009B58;
         color: white;
       }
+    }
+
+    .actions {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
     }
   }
 }
@@ -250,6 +278,23 @@ label {
 
 .order ul li {
   font-size: 1.75em;
+
+  .item-name {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+
+    .add-ons {
+      font-size: 0.85em;
+    }
+
+    .quantity {
+      margin-right: 8px;
+      font-size: 1.15em;
+      font-family: 'Courier New', Courier, monospace;
+    }
+  }
 }
 
 .order ul .price {
@@ -270,6 +315,7 @@ label {
 .orderTitle {
   font-weight: bold;
   font-size: 1.75em;
+  margin: 0px;
 }
 
 .timestamp {
@@ -278,10 +324,25 @@ label {
   color: rgb(135, 135, 135);
 }
 
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
 .timestamp .date {
   float: left;
+  font-size: 0.75em;
+  margin-right: 8px;
+}
+
+.timestamp .phone-number {
+  float: left;
+  font-size: 0.75em;
 }
 
 .timestamp .time {
-  float: right
+  float: right;
+  font-size: 0.75em;
 }

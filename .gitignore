@@ -7,4 +7,4 @@ src/images/.DS_Store
 .env
 .env.development
 .netlify/
-parity.ts
+seed.js

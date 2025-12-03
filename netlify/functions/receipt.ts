@@ -5,7 +5,7 @@ if (!process.env.STRIPE_SECRET) {
   throw "No Stripe API key or base URL founded.";
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET, { 
+const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: "2022-08-01"
 });
 
@@ -38,14 +38,16 @@ const handler: Handler = async (event, context) => {
 
   const sessionId = event.queryStringParameters['sessionId'] as string
 
-  const checkoutSession = await stripe.checkout.sessions.listLineItems(sessionId)
+  const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId)
+  const lineItemPayload = await stripe.checkout.sessions.listLineItems(sessionId, { limit: 100, expand: ["data.price.product"] })
 
   console.log(checkoutSession)
 
   return {
     statusCode: 200,
     body: JSON.stringify({
-      lineItems: checkoutSession.data
+      lineItems: lineItemPayload.data,
+      pickupTime: checkoutSession.metadata?.pickup_time
     }),
     headers: headers
   }

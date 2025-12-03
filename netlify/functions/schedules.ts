@@ -36,21 +36,10 @@ const handler: Handler = async (event, context) => {
 
     console.log(data);
 
-    if (error) { 
+    if (error) {
       console.log(error);
     }
 
-  } else if (payload.type == 'DATE_RANGE') {
-    // Expect `data` to be { start_datetime: "", end_datetime: "", reason: "" }
-    const { data, error } = await supabase.from('Schedules').insert({
-      start_datetime: payload.start_datetime,
-      end_datetime: payload.end_datetime,
-      reason: payload.reason
-    });
-
-    if (error) { 
-      console.log(error);
-    }
   }
 
   return {
