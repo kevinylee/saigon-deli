@@ -9,7 +9,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
 
   const { sectionKeys, tipVariant, businessDetails } = response.data;
 
-  // const isOpen = business_details.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
+  const isOpen = business_details.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
 
   // Create the index page & fill it with menu data
   createPage({
@@ -19,7 +19,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
       tipVariant,
       sectionKeys,
       businessDetails,
-      open: false // isOpen
+      open: isOpen
     },
   });
 
@@ -28,7 +28,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     component: require.resolve("./src/templates/dashboard.jsx"),
     context: {
       businessDetails,
-      open: true
+      open: isOpen
     },
   });
 };
