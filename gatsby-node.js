@@ -7,8 +7,8 @@ exports.createPages = async ({ actions: { createPage } }) => {
     console.log(error);
   });
 
-  const { sectionKeys, tipVariant, businessDetails } = response.data;
-  const isOpen = businessDetails.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
+  const { sectionKeys, tipVariant, _businessDetails, business_details } = response.data;
+  const isOpen = business_details.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
 
   // Create the index page & fill it with menu data
   createPage({
@@ -17,7 +17,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     context: {
       tipVariant,
       sectionKeys,
-      businessDetails,
+      businessDetails: business_details,
       open: isOpen
     },
   });
@@ -26,7 +26,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
     path: `/dashboard`,
     component: require.resolve("./src/templates/dashboard.jsx"),
     context: {
-      businessDetails,
+      businessDetails: business_details,
       open: true
     },
   });

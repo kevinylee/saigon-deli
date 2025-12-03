@@ -62,6 +62,14 @@ const handler: Handler = async (event, context) => {
     body: JSON.stringify({
       sectionKeys,
       tipVariant: tip,
+      business_details: {
+        Weekdays: "11am-8pm",
+        Weekends: "11:30am-8pm",
+        Phone: "(206) 634-2866",
+        Notice: "",
+        Catering: "Don't forget to ask us about our catering service for your event or party.",
+        Schedules: data
+      },
       businessDetails: {
         Weekdays: "11am-8pm",
         Weekends: "11:30am-8pm",
