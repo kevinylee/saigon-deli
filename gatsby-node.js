@@ -9,7 +9,7 @@ exports.createPages = async ({ actions: { createPage } }) => {
 
   const { sectionKeys, tipVariant, businessDetails } = response.data;
 
-  const isOpen = business_details.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
+  const isOpen = businessDetails.Schedules.some((sched) => sched.id == -1 && sched.reason == 'true');
 
   // Create the index page & fill it with menu data
   createPage({
