@@ -87,26 +87,22 @@ button {
     align-items: center;
 }
 
-@mixin status {
+.status-open {
+    color: #009B58;
+    background-color: #009b583a;
     font-weight: bold;
     padding: 0px 40px;
     border-radius: 2px;
-
     text-align: center;
 }
 
-.status-open {
-    color: $green;
-    background-color: $light-green;
-
-    @include status;
-}
-
 .status-closed {
-    color: $red;
-    background-color: $light-red;
-
-    @include status;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.262);
+    font-weight: bold;
+    padding: 0px 40px;
+    border-radius: 2px;
+    text-align: center;
 }
 
 .real-menu-link {

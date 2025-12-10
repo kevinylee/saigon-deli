@@ -57,10 +57,9 @@ const handler: Handler = async (event, context) => {
     console.log('Getting session completed!')
     const session = stripeEvent.data.object as Stripe.Checkout.Session;
 
-    let { name, phone } = session.customer_details!;
+    let { name, phone, email } = session.customer_details!;
 
-    if (!name || !phone) {
-      name = "No customer name."
+    if (!phone) {
       phone = "No phone number."
     }
 
@@ -81,7 +80,7 @@ const handler: Handler = async (event, context) => {
     const { data, error } = await supabase.from('Orders').insert([
       {
         total_amount: session.amount_total,
-        customer_name: name,
+        customer_name: name || email || "No name.",
         array_line_items: array_line_items,
         phone_number: phone,
         pickup_at: session.metadata?.pickup_time
