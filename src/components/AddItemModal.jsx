@@ -6,7 +6,7 @@ import LineItem from '../models/LineItem';
 
 export default function AddItemModal({ item, modalRef, handleAdd, handleClose }) {
     const firstAvailableVariant = item.Variants.filter((item) => item.available)[0];
-    const [selectedVariant, updateSelectedVariant] = useState(firstAvailableVariant);
+    const [selectedVariant, updateSelectedVariant] = useState(firstAvailableVariant || item.Variants[0]);
 
     const oneSizeAvailable = item.ItemSizes.length === 1;
     const defaultSizeId = item.ItemSizes[0].id;
@@ -56,7 +56,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
     }
 
     return (
-        <div ref={modalRef} className="modal-selection">
+        <div ref={modalRef} className="add-item-modal-selection">
             <div className="content">
                 <div className="header">
                     <h1>{item.title}</h1>
@@ -73,7 +73,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
                                         id={variant.id}
                                         name="variant"
                                         value={variant.id}
-                                        defaultChecked={Boolean(selectedVariant.id === variant.id)}
+                                        defaultChecked={selectedVariant.available && Boolean(selectedVariant.id === variant.id)}
                                         onChange={(e) => {
                                             const variant = item.Variants.find((variant) => variant.id === e.target.value)
                                             updateSelectedVariant(variant)
@@ -83,7 +83,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
                                     />
                                     {variant.available ?
                                         <label htmlFor={variant.id}>{variant.title}</label> :
-                                        <label htmlFor={variant.id} className='unavailable'>{variant.title}</label>
+                                        <label htmlFor={variant.id} className='unavailable'>{variant.title} (Out of Stock)</label>
                                     }
                                 </div>
                             ))}
@@ -92,7 +92,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
                         <br />
                     </>
                     <fieldset>
-                        <p>Size:</p>
+                        <p>Size</p>
                         {oneSizeAvailable ? (
                             <>
                                 <input type="radio" id="one-size" name="size" value={defaultSizeId} defaultChecked readOnly />
@@ -124,7 +124,7 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
                     </>}
                     <NewQuantitySelection />
                     <div className="submission-section">
-                        <button type="submit" className="add-cart-button"><b>Add to cart</b></button>
+                        <button type="submit" className="add-cart-button" disabled={!firstAvailableVariant}><b>Add to cart</b></button>
                     </div>
                 </form>
             </div>

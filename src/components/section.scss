@@ -104,26 +104,13 @@ fieldset {
 
       .add-cart-button {
         padding: 14px 24px 14px 24px;
-        border-style: solid;
-        border-color: #354884;
-        border-width: 1px;
-        background-color: #354884;
-        border-radius: 3px;
-        color: white;
-        font-family: "Ruda", sans-serif;
-
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, .1);
         font-size: 1.15rem;
-
-        &:hover {
-          cursor: pointer;
-        }
       }
     }
   }
 }
 
-.modal-selection {
+.add-item-modal-selection {
   display: none;
   position: fixed;
   /* Stay in place */
@@ -195,20 +182,7 @@ fieldset {
 
       .add-cart-button {
         padding: 14px 24px 14px 24px;
-        border-style: solid;
-        border-color: #354884;
-        border-width: 1px;
-        background-color: #354884;
-        border-radius: 3px;
-        color: white;
-        font-family: "Ruda", sans-serif;
-
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, .1);
         font-size: 1.15rem;
-
-        &:hover {
-          cursor: pointer;
-        }
       }
     }
   }
@@ -216,28 +190,11 @@ fieldset {
 
 .quantity-selection {
   button {
-    padding: 7px 12px 7px 12px;
-    border-style: solid;
-    border-color: #354884;
-    border-width: 1px;
-    background-color: #354884;
-    border-radius: 3px;
-    color: white;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, .1);
     font-size: 1.15rem;
-
-    &:disabled {
-      border-color: gray;
-      background-color: gray;
-      cursor: not-allowed;
-    }
-  }
-
-  button:hover {
-    cursor: pointer;
   }
 
   input {
