@@ -57,7 +57,6 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
   }
 
   function removeLineItem(lineItem) {
-    // remove item from cart
     const updated = cart.reduce((prev, current) => {
       return current.purchaseable.hash !== lineItem.purchaseable.hash ? [...prev, current] : prev;
     }, []);
