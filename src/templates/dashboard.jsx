@@ -4,7 +4,7 @@ import axios from "axios"
 import "./dashboard.scss"
 import { DateTime } from 'luxon'
 import Order from "../components/dashboard/Order"
-import { BASE_URL, BASE_SOUND_URL, BUILD_HOOK_URL, IS_PROD } from "../components/utilities";
+import { BASE_URL, BASE_SOUND_URL, STORE_STATUS_BUILD_HOOK_URL, REBUILD_BUILD_HOOK_URL, IS_PROD } from "../components/utilities";
 
 const playNotification = () => {
   const audio = new Audio(`${BASE_SOUND_URL}/notify_order.mp3`);
@@ -120,9 +120,11 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
     }
   };
 
-  const triggerRebuild = async () => {
-    const response = await axios.post(BUILD_HOOK_URL).catch(err => {
+  const triggerRebuild = async (url) => {
+    const response = await axios.post(url).catch(err => {
       console.log(err);
+
+      alert(err);
       return;
     });
   }
@@ -138,8 +140,12 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
     });
 
     if (IS_PROD) {
-      await triggerRebuild();
+      await triggerRebuild(STORE_STATUS_BUILD_HOOK_URL);
     }
+  }
+
+  const rebuildWebsite = async () => {
+    await triggerRebuild(REBUILD_BUILD_HOOK_URL);
   }
 
   return (
@@ -180,6 +186,7 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
                 <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
             }
             <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
+            <button className="default-button" onClick={rebuildWebsite}><b>Rebuild Website</b></button>
           </div>
         </div>
       </div>

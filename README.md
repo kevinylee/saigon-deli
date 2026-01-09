@@ -49,7 +49,7 @@ All hooked up via Netlify.
 
 - [ ] Sort by uncompleted orders or sort by delivery dates
 - [ ] Allow you to edit availability in the dashboard
-- [ ] Non-online form version of the menu
+- [ ] Non-online form version of the menu for price changes
 
 - [x] Add "View Cart" before going to checkout
 - [x] Support tips in the view cart modal
