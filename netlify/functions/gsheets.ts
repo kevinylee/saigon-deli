@@ -1,5 +1,4 @@
 import { Handler } from "@netlify/functions";
-import Stripe from 'stripe';
 import { createClient } from "@supabase/supabase-js"
 import { DateTime } from 'luxon'
 
@@ -17,10 +16,6 @@ const supabase = createClient(
   process.env.SUPABASE_API_URL,
   process.env.SUPABASE_PRIVATE_KEY
 )
-
-const stripe = new Stripe(process.env.STRIPE_SECRET, {
-  apiVersion: "2022-08-01"
-});
 
 const handler: Handler = async (event, context) => {
   const { data, error } = await supabase.from('Schedules').select().or(`start_datetime.gte.${DateTime.now()},id.eq.-1`)
