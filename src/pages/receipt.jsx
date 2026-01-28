@@ -89,7 +89,7 @@ function Success({ order, pickupTime }) {
                 <tr key={i}>
                   <td className="itemName">
                     <span className="quantity"><b>{el.quantity}</b></span>
-                    <span>{formatItemTitle(el.description)}<br />{el.price.product.description}</span>
+                    <span>{formatItemTitle(el.description)}<br /><i>{' '}{el.price.product.description}</i></span>
                   </td>
                   <td className="amountTotal">{toPrice(el.amount_total)}</td>
                 </tr>

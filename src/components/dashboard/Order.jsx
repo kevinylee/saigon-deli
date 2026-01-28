@@ -62,7 +62,7 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
                             {
                                 <div className="item-name">
                                     <span className="quantity"><b>{lineItem.quantity}</b></span>
-                                    <span>{formatItemTitle(lineItem.title)}<br /><span className="add-ons">{lineItem.addOns}</span></span>
+                                    <span>{formatItemTitle(lineItem.title)}<br /><span className="add-ons"><i>{lineItem.addOns}</i></span></span>
                                 </div>
                             }
                         </li>))}

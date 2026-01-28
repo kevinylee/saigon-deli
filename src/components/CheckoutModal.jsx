@@ -25,10 +25,10 @@ function LineItemPreview({ lineItem, onRemove }) {
 }
 
 export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClose, onLineItemRemove }) {
-    const FIFTEEN_MINUTE_DURATION = Duration.fromObject({ minutes: 15 });
+    const THIRTY_MINUTE_DURATION = Duration.fromObject({ minutes: 30 });
 
     // Fake ISO8601 without the timezone. Ugly!
-    const DEFAULT_TIME = DateTime.now().plus(FIFTEEN_MINUTE_DURATION).toFormat("yyyy-MM-dd'T'HH:mm");
+    const DEFAULT_TIME = DateTime.now().plus(THIRTY_MINUTE_DURATION).toFormat("yyyy-MM-dd'T'HH:mm");
 
     const [pickupTime, setPickupTime] = useState(DEFAULT_TIME);
     const cartWithoutTip = cart.filter((lineItem) => lineItem.variantId !== tipVariant.id)
@@ -88,7 +88,7 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
                     <h1>Checkout</h1>
                     <button onClick={onClose}><b>X</b></button>
                 </div>
-                <div style={{ marginBottom: 48 }}>
+                <div style={{ marginBottom: 96 }}>
                     <ul>
                         {cartWithoutTip.map((lineItem) => (<LineItemPreview lineItem={lineItem} onRemove={onLineItemRemove} />))}
                         {cartWithoutTip.length <= 0 && <li>No items selected</li>}
