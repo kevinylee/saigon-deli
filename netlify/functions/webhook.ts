@@ -1,7 +1,6 @@
 import { Handler } from "@netlify/functions";
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js'
-import LineItem from "../../src/models/LineItem";
 
 if (!process.env.STRIPE_SECRET) {
   throw "No Stripe API key or base URL found.";

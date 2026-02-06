@@ -1,6 +1,22 @@
 $green: #009B58;
 $secondary: rgb(165, 165, 165);
 
+#password-wrapper {
+  margin-bottom: 16px;
+}
+
+#password-input {
+  width: 100%;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 4px;
+  font-size: 1.25em;
+  padding: 4px;
+}
+
+#login-error {
+  color: red;
+}
+
 .noOrders {
   text-align: center;
 }

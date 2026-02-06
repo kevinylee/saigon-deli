@@ -49,20 +49,40 @@ function useInterval(callback, delay) {
 }
 
 const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
-  const now = DateTime.now().setZone('America/Los_Angeles');
-
-  const modalRef = useRef(null);
+  const introModalRef = useRef(null);
   const settingsModalRef = useRef(null);
+  const passwordModalRef = useRef(null);
 
   const [orders, setOrders] = useState([]);
   const [loadedBefore, setLoadedBefore] = useState(false);
   const [settingsModalOpen, toggleSettingsModal] = useState(false);
-
-  // Date range for a single schedule
-  const [startDate, setStartDate] = useState(now);
-  const [endDate, setEndDate] = useState(now);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const [isOpen, setIsOpen] = useState(open);
+
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    setPasswordError('');
+
+    try {
+      const res = await axios.post(`${BASE_URL}/.netlify/functions/auth`, {
+        password: passwordInput
+      });
+
+      if (res.data.success) {
+        setIsAuthenticated(true);
+        if (passwordModalRef.current) {
+          passwordModalRef.current.style.display = 'none';
+        }
+      } else {
+        setPasswordError('Incorrect password. Access denied.');
+      }
+    } catch (e) {
+      setPasswordError('Incorrect password. Access denied.');
+    }
+  };
 
   async function fetch() {
     try {
@@ -86,6 +106,8 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
   }
 
   useInterval(async () => {
+    if (!isAuthenticated) return;
+
     const now = DateTime.now().setZone('America/Los_Angeles')
     const withinHours = now.hour >= 11 && now.hour <= 19;
 
@@ -97,16 +119,18 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
 
   useEffect(() => {
     async function initialFetch() {
-      await fetch();
+      if (isAuthenticated) {
+        await fetch();
+      }
     }
 
     initialFetch();
-  }, []);
+  }, [isAuthenticated]);
 
   const handleClick = () => {
-    if (modalRef) {
+    if (introModalRef) {
       // Hide the modal and voila!
-      modalRef.current.style.display = 'none';
+      introModalRef.current.style.display = 'none';
     }
   }
 
@@ -148,45 +172,74 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
     await triggerRebuild(REBUILD_BUILD_HOOK_URL);
   }
 
-  return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-        <p>WEBSITE IS <b className={`store-status-${isOpen ? "open" : "closed"}`}>{isOpen ? "OPEN" : "CLOSED"}</b></p>
-        <button className="default-button test-button" onClick={toggleModal}>Settings</button>
-      </div>
-      {
-        orders.length === 0 ?
-          <p className="noOrders">No orders.</p> :
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            {
-              orders.slice(0, 100).map(order =>
-                <li key={order.id}>
-                  <Order {...order} />
-                </li>
-              )}
-          </ul>
-      }
-      <div ref={modalRef} className="modal-initial-open modal">
-        <div className="content" style={{ maxWidth: 500 }}>
-          <h1>Turn On Sound</h1>
-          <p>Please turn on sound so you can receive alerts with new orders by clicking <b>OK</b>.</p>
-          <button className="default-button" onClick={handleClick}><b>OK</b></button>
+  if (!isAuthenticated) {
+    return (
+      <div ref={passwordModalRef} className="modal">
+        <div className="content" style={{ maxWidth: 400 }}>
+          <h1>Dashboard Access</h1>
+          <p>Please enter the password to access the dashboard.</p>
+          <form onSubmit={handlePasswordSubmit}>
+            <div id="password-wrapper">
+              <input
+                id="password-input"
+                type="password"
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                placeholder="Enter password"
+                autoFocus
+              />
+              {passwordError && (<p id="login-error">{passwordError}</p>)}
+            </div>
+            <button type="submit" className="default-button">
+              <b>Submit</b>
+            </button>
+          </form>
         </div>
       </div>
-      <div ref={settingsModalRef} className="modal-initial-closed modal">
-        <div className="content">
-          <div className="header-bar">
-            <h1>Settings</h1>
-            <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
+    )
+  }
+
+  return (
+    <div>
+      <div>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+          <p>WEBSITE IS <b className={`store-status-${isOpen ? "open" : "closed"}`}>{isOpen ? "OPEN" : "CLOSED"}</b></p>
+          <button className="default-button test-button" onClick={toggleModal}>Settings</button>
+        </div>
+        {
+          orders.length === 0 ?
+            <p className="noOrders">No orders.</p> :
+            <ul style={{ listStyleType: "none", padding: 0 }}>
+              {
+                orders.slice(0, 100).map(order =>
+                  <li key={order.id}>
+                    <Order {...order} />
+                  </li>
+                )}
+            </ul>
+        }
+        <div ref={introModalRef} className="modal-initial-open modal">
+          <div className="content" style={{ maxWidth: 500 }}>
+            <h1>Turn On Sound</h1>
+            <p>Please turn on sound so you can receive alerts with new orders by clicking <b>OK</b>.</p>
+            <button className="default-button" onClick={handleClick}><b>OK</b></button>
           </div>
-          <div className="actions">
-            {
-              isOpen ?
-                <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
-                <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
-            }
-            <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
-            <button className="default-button" onClick={rebuildWebsite}><b>Rebuild Website</b></button>
+        </div>
+        <div ref={settingsModalRef} className="modal-initial-closed modal">
+          <div className="content">
+            <div className="header-bar">
+              <h1>Settings</h1>
+              <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
+            </div>
+            <div className="actions">
+              {
+                isOpen ?
+                  <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
+                  <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
+              }
+              <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
+              <button className="default-button" onClick={rebuildWebsite}><b>Rebuild Website</b></button>
+            </div>
           </div>
         </div>
       </div>
