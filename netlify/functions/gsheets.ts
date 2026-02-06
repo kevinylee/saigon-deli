@@ -1,8 +1,6 @@
 import { Handler } from "@netlify/functions";
-import { createClient } from "@supabase/supabase-js"
-import { DateTime } from 'luxon'
-
-const DOMAIN = process.env.BASE_URL;
+import { createClient } from "@supabase/supabase-js";
+import { DateTime } from 'luxon';
 
 if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
   throw "No Supabase credentials founded.";
