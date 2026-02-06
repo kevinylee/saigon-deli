@@ -67,7 +67,7 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
     setPasswordError('');
 
     try {
-      const res = await axios.post(`${BASE_URL}/.netlify/functions/password`, {
+      const res = await axios.post(`${BASE_URL}/.netlify/functions/auth`, {
         password: passwordInput
       });
 
