@@ -1,7 +1,7 @@
 import { Handler } from "@netlify/functions";
 
 const headers = {
-    'Access-Control-Allow-Origin': process.env.ORIGIN_URL,
+    'Access-Control-Allow-Origin': process.env.BASE_URL,
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST'
 }
