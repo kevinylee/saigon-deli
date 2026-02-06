@@ -1,11 +1,10 @@
 import React from 'react';
-import { DateTime, Duration } from 'luxon';
 
 export default function PickupAt({ minDateTime, time, onTimeChange }) {
 
     return <div className="pickup">
+        <p style={{ color: '#262626', fontSize: '0.9rem' }}>Default pickup time is in 30 minutes. You can select a different future time if needed.</p>
         <label for="pickup_at">Pickup At:</label>
-        <p style={{ margin: 0, color: "gray", fontSize: "0.8rem" }}>(Default to pick up in ~15 minutes)</p>
         <input
             type="datetime-local"
             id="pickup_at"
