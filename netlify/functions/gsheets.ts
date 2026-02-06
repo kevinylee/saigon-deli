@@ -4,10 +4,6 @@ import { DateTime } from 'luxon'
 
 const DOMAIN = process.env.BASE_URL;
 
-if (!process.env.STRIPE_SECRET || !DOMAIN) {
-  throw "No Stripe API key or base URL founded.";
-}
-
 if (!process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
   throw "No Supabase credentials founded.";
 }
