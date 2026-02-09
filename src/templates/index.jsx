@@ -83,32 +83,6 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
     }
   }
 
-  function handleQuantityUpdate(itemId) {
-    // itemId is the priceId!
-    return (event) => {
-      const quantity = parseInt(event.target.value);
-
-      const isTracked = cart.some(item => item.itemId === itemId);
-
-      if (quantity === 0 && isTracked) {
-        // remove item from cart
-        const updated = cart.reduce((prev, current) => {
-          return current.itemId !== itemId ? [...prev, current] : prev;
-        }, []);
-
-        updateCart(updated);
-      } else if (quantity > 0 && !isTracked) {
-
-        // append item to the cart
-        updateCart([...cart, { itemId: itemId, quantity }])
-      } else if (quantity > 0 && isTracked) {
-
-        // update item quantity in the cart
-        updateCart(cart.map(lineItem => lineItem.itemId === itemId ? { itemId: itemId, quantity } : lineItem))
-      }
-    };
-  }
-
   const RestaurantStatus = () => {
     const renderOpen = (canOrder() && allowCheckout);
 

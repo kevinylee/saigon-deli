@@ -71,13 +71,17 @@ const handler: Handler = async (event, context) => {
       array_line_items.push({
         title: line_item.description,
         addOns: (line_item.price?.product as Stripe.Product)?.description,
-        quantity: line_item.quantity
+        quantity: line_item.quantity,
+        unit_price: line_item.price?.unit_amount,
+        currency: line_item.price?.currency,
+        amount_total: line_item.amount_total
       });
     });
 
     // Fulfill the purchase...
     const { data, error } = await supabase.from('Orders').insert([
       {
+        session_id: session.id,
         total_amount: session.amount_total,
         customer_name: name || email || "No name.",
         array_line_items: array_line_items,
