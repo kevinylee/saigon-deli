@@ -10,7 +10,7 @@ export default function NavigationPage() {
         4142 Brooklyn Ave NE Seattle, WA 98105
       </a>
       <br />
-      {/*<a className="real-menu-link" href="https://drive.google.com/file/d/1plO_JfiofpCCu1gr1PayHl3s5vsQOuQm/view?usp=sharing" target="_blank" rel="noreferrer"><span style={{ textDecoration: "underline" }}>Menu</span> →</a> */}
+      <a className="real-menu-link" href="https://drive.google.com/file/d/1plO_JfiofpCCu1gr1PayHl3s5vsQOuQm/view?usp=sharing" target="_blank" rel="noreferrer"><span style={{ textDecoration: "underline" }}>Menu</span> →</a>
       <hr className="divider" />
       <p className="times">
         Mon - Fri: 11am-8pm
