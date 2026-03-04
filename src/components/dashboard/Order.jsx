@@ -68,7 +68,7 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
                         </li>))}
                     <li key="price" className="price">
                         <p>
-                            {tipLineItem && <span>Tip: ${tipLineItem.quantity}<br /></span>}
+                            {tipLineItem && <span>Tip: {tipLineItem.amount_total != null ? toPrice(tipLineItem.amount_total) : `$${tipLineItem.quantity}`}<br /></span>}
                             Total: {toPrice(total_amount)}
                         </p>
                     </li>

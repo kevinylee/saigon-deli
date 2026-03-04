@@ -71,7 +71,8 @@ const handler: Handler = async (event, context) => {
       array_line_items.push({
         title: line_item.description,
         addOns: (line_item.price?.product as Stripe.Product)?.description,
-        quantity: line_item.quantity
+        quantity: line_item.quantity,
+        amount_total: line_item.amount_total
       });
     });
 

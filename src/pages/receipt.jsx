@@ -88,7 +88,7 @@ function Success({ order, pickupTime }) {
               order.length > 0 && order.map((el, i) =>
                 <tr key={i}>
                   <td className="itemName">
-                    <span className="quantity"><b>{el.quantity}</b></span>
+                    {el.description !== 'Tip' && <span className="quantity"><b>{el.quantity}</b></span>}
                     <span>{formatItemTitle(el.description)}<br /><i>{' '}{el.price.product.description}</i></span>
                   </td>
                   <td className="amountTotal">{toPrice(el.amount_total)}</td>

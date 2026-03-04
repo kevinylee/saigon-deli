@@ -19,7 +19,7 @@ export default function NavigationPage() {
       <div className="anchor">
         <div className="navigation-categories">
           <div className="online-order-header">
-            <h2>Order Online</h2>
+            <h2>Online Menu</h2>
           </div>
           <div className="links">
             <div className="top-categories">
