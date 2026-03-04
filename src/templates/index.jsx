@@ -205,7 +205,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* <Section reference="banhcanh" allowOrderOnline={allowCheckout} section={banhcanh} category="Banh Canh (udon noodle soup)" description="Udon noodles served in a homemade broth with vegetables, green onions, cilantro and your choice of meat or seafood." /> */}
+        <Section reference="banhcanh" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Udon Noodle Soup Banh Canh"]} category="Banh Canh (Udon Noodle Soup)" description="Udon noodles served in a homemade broth with vegetables, green onions, cilantro and your choice of meat or seafood." />
 
         <div className="pics">
           <div className="img-desc">
@@ -214,7 +214,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* Ignore this: <Section reference="hutieu" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." /> */}
+        <Section reference="hutieu" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Noodle Soup Hu Thieu"]} category="Hu Tieu (Noodle Soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." />
         <Section reference="stirfried" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" />
 
         <div className="pics">
@@ -262,7 +262,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div> */}
 
-        {/* <Section reference="hotsoursoups" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." /> */}
+        <Section reference="hotsoursoups" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Hot and Sour Soup"]} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." />
 
         {/* <Section reference="noodlesoups" onLineItemAdd={undefined} section={{ Items: [] }} category="Specialty Noodle Soups" /> */}
 
