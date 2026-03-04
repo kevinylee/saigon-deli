@@ -60,10 +60,26 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
                     {lineItems.filter(filterTip).map(lineItem => (
                         <li key={`${lineItem.quantity}-${lineItem.title}`}>
                             {
-                                <div className="item-name">
-                                    <span className="quantity"><b>{lineItem.quantity}</b></span>
-                                    <span>{formatItemTitle(lineItem.title)}<br /><span className="add-ons"><i>{lineItem.addOns}</i></span></span>
-                                </div>
+                                <>
+                                    <span className="line-item">
+                                        <span className="item-name">
+                                            <span className="quantity"><b>{lineItem.quantity}</b></span>
+                                            <span>{lineItem.title}</span>
+                                            {lineItem.unit_price && (
+                                                <span className="line-item-unit-price">
+                                                    ({toPrice(lineItem.unit_price)} ea)
+                                                </span>
+                                            )}
+                                        </span>
+
+                                        {
+                                            lineItem.unit_price && (
+                                                <span className="line-item-total-price">{toPrice(lineItem.amount_total)}</span>
+                                            )
+                                        }
+                                    </span>
+                                    <div className="add-ons"><i>{lineItem.addOns}</i></div>
+                                </>
                             }
                         </li>))}
                     <li key="price" className="price">
@@ -80,17 +96,6 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
             </div>
         </div>
     )
-}
-
-// To strip the menu item number for those that have a number infront of them, eg. 1. Vegetarian Egg Rolls
-function formatItemTitle(title) {
-    if (title.indexOf(".") !== -1) {
-        const parts = title.split(".");
-
-        return parts[1];
-    } else {
-        return title;
-    }
 }
 
 function totalNumItems(lineItems) {

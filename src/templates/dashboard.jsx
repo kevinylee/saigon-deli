@@ -105,6 +105,8 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
     }
   }
 
+  const THIRTY_SECONDS = 30000;
+
   useInterval(async () => {
     if (!isAuthenticated) return;
 
@@ -115,7 +117,7 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
       // AND CHECK WITH CURRENT DATE RANGES ABOVE
       await fetch();
     }
-  }, 30000);
+  }, THIRTY_SECONDS);
 
   useEffect(() => {
     async function initialFetch() {
