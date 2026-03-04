@@ -73,28 +73,41 @@ const handler: Handler = async (event, context) => {
 
   const { lineItems, pickupTime } = JSON.parse(event.body);
 
-  const stripeLineItems = await Promise.all(lineItems.map(async (lineItem: LineItem) => {
-    const purchaseable = await validatePurchaseable(lineItem.purchaseable);
-    const sizePrefix = purchaseable.itemSize.Sizes.title !== 'One Size' ? purchaseable.itemSize.Sizes.title : "";
-    const description = purchaseable.itemAddOns.length > 0 ? purchaseable.itemAddOns.map((itemAddOn) => itemAddOn.AddOns.title).toString() : undefined;
+  const stripeLineItems = await Promise.all(lineItems
+    .filter((lineItem: LineItem) => lineItem.quantity > 0)
+    .map(async (lineItem: LineItem) => {
+      const purchaseable = await validatePurchaseable(lineItem.purchaseable);
 
-    const obj = {
-      price_data: {
-        currency: 'USD',
-        unit_amount: purchaseable.unitPrice,
-        product_data: {
-          name: `${sizePrefix} ${purchaseable.variant.title}`,
-          description: description,
-          metadata: {
-            hash: purchaseable.hash,
+      // Tip quantity represents dollars (e.g. 3.50 = $3.50), convert to cents for Stripe
+      if (purchaseable.variant.title === 'Tip') {
+        return {
+          price_data: {
+            currency: 'USD',
+            unit_amount: Math.round(lineItem.quantity * 100),
+            product_data: { name: 'Tip' }
+          },
+          quantity: 1
+        };
+      }
+
+      const sizePrefix = purchaseable.itemSize.Sizes.title !== 'One Size' ? purchaseable.itemSize.Sizes.title : "";
+      const description = purchaseable.itemAddOns.length > 0 ? purchaseable.itemAddOns.map((itemAddOn) => itemAddOn.AddOns.title).toString() : undefined;
+
+      return {
+        price_data: {
+          currency: 'USD',
+          unit_amount: purchaseable.unitPrice,
+          product_data: {
+            name: `${sizePrefix} ${purchaseable.variant.title}`,
+            description: description,
+            metadata: {
+              hash: purchaseable.hash,
+            }
           }
-        }
-      },
-      quantity: lineItem.quantity
-    };
-
-    return obj;
-  }));
+        },
+        quantity: lineItem.quantity
+      };
+    }));
 
   const session = await stripe.checkout.sessions.create({
     line_items: stripeLineItems,

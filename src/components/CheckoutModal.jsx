@@ -4,6 +4,8 @@ import axios from 'axios';
 import { DateTime, Duration } from 'luxon';
 import { toPrice, BASE_URL } from './utilities';
 import PickupAt from './PickupAt';
+import Purchaseable from '../models/Purchaseable';
+import LineItem from '../models/LineItem';
 
 function LineItemPreview({ lineItem, onRemove }) {
     const { variant, unitPrice, itemAddOns, itemSize } = lineItem.purchaseable;
@@ -31,19 +33,11 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
     const DEFAULT_TIME = DateTime.now().plus(THIRTY_MINUTE_DURATION).toFormat("yyyy-MM-dd'T'HH:mm");
 
     const [pickupTime, setPickupTime] = useState(DEFAULT_TIME);
-    const cartWithoutTip = cart.filter((lineItem) => lineItem.variantId !== tipVariant.id)
-    const totalPrice = cart.reduce((acc, lineItem) => acc + (lineItem.quantity * lineItem.purchaseable.unitPrice), 0)
+    const [tipAmount, setTipAmount] = useState(0);
 
-    // Calculate the tip specifically to show as well.
-    const totalTip = () => {
-        const tipItem = cart.find((lineItem) => lineItem.variantId === tipVariant.id);
-
-        if (tipItem) {
-            return tipItem.quantity * tipItem.purchaseable.unitPrice;
-        } else {
-            return 0;
-        }
-    }
+    const cartSubtotal = cart.reduce((acc, lineItem) => acc + (lineItem.quantity * lineItem.purchaseable.unitPrice), 0);
+    const tipCents = Math.round(Math.max(0, tipAmount) * 100);
+    const totalPrice = cartSubtotal + tipCents;
 
     const isValidTime = () => {
         if (process.env.NODE_ENV === 'development') {
@@ -62,8 +56,12 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
         if (cart.length > 0 && stripe && canOrder) {
             const dateTime = DateTime.fromISO(pickupTime, { zone: "America/Los_Angeles" });
 
+            const lineItems = tipCents > 0
+                ? [...cart, new LineItem(new Purchaseable(tipVariant, tipVariant.Items.ItemSizes[0], null, null), tipAmount)]
+                : cart;
+
             const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
-                lineItems: cart,
+                lineItems,
                 pickupTime: dateTime.toISO().toString()
             })
 
@@ -88,21 +86,47 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
                     <h1>Checkout</h1>
                     <button onClick={onClose}><b>X</b></button>
                 </div>
-                <div style={{ marginBottom: 96 }}>
+                <div style={{ marginBottom: 24 }}>
                     <ul>
-                        {cartWithoutTip.map((lineItem) => (<LineItemPreview lineItem={lineItem} onRemove={onLineItemRemove} />))}
-                        {cartWithoutTip.length <= 0 && <li>No items selected</li>}
+                        {cart.map((lineItem) => (<LineItemPreview lineItem={lineItem} onRemove={onLineItemRemove} />))}
+                        {cart.length <= 0 && <li>No items selected</li>}
                     </ul>
                 </div>
-                <PickupAt time={pickupTime} minDateTime={DEFAULT_TIME} onTimeChange={setPickupTime} />
-                <br />
+                <div className="modal-section">
+                    <p className="modal-section-label">Pickup Time</p>
+                    <PickupAt time={pickupTime} minDateTime={DEFAULT_TIME} onTimeChange={setPickupTime} />
+                </div>
+                <div className="tip-section">
+                    <p className="modal-section-label">Add a Tip</p>
+                    <div className="tip-presets">
+                        {[10, 15, 20].map(pct => (
+                            <button
+                                key={pct}
+                                type="button"
+                                className="tip-preset-button"
+                                onClick={() => setTipAmount(Math.round(cartSubtotal * pct / 100) / 100)}
+                            >
+                                {pct}%
+                            </button>
+                        ))}
+                    </div>
+                </div>
                 <div className="checkout-footer">
                     <span>
-                        <b>Tip</b>: {toPrice(totalTip())}
-                        <br />
-                        <b>Total</b>: {toPrice(totalPrice)}
+                        <div className="tip-form">
+                            <span><b>Tip</b>: $</span>
+                            <input
+                                type="number"
+                                value={tipAmount}
+                                onChange={(e) => setTipAmount(Math.max(0, Number(e.target.value)))}
+                                min="0"
+                                step="0.01"
+                                className="tip-input"
+                            />
+                        </div>
+                        <div><b>Total</b>: {toPrice(totalPrice)}</div>
                     </span>
-                    <button disabled={cartWithoutTip.length <= 0 || !isValidTime()} style={{ fontSize: "1.15rem" }} onClick={handleCheckout}>Checkout</button>
+                    <button disabled={cart.length <= 0 || !isValidTime()} style={{ fontSize: "1.15rem" }} onClick={handleCheckout}>Checkout</button>
                 </div>
             </div>
         </div>

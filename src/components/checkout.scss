@@ -6,7 +6,7 @@
 
   color: white;
   font-family: "Ruda", sans-serif;
-  box-shadow: 0px 2px 4px rgba(0,0,0,.1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, .1);
   border-width: 1px;
   border-radius: 3px;
 }
@@ -27,17 +27,86 @@
   justify-content: center;
 
   .content {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      width: 100%;
-      max-width: 800px;
-      border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 3px;
 
-      box-shadow: 0px 0px 6px 0px rgba(245, 245, 245,0.55);
-      -webkit-box-shadow: 0px 0px 6px 0px rgba(245, 245, 245,0.55);
-      -moz-box-shadow: 0px 0px 6px 0px rgba(245, 245, 245 ,0.55);
+    box-shadow: 0px 0px 6px 0px rgba(245, 245, 245, 0.55);
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(245, 245, 245, 0.55);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(245, 245, 245, 0.55);
   }
+}
+
+.modal-section {
+  border-top: 1px solid #eee;
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.modal-section-label {
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #656565;
+  margin-bottom: 10px;
+}
+
+.tip-section {
+  border-top: 1px solid #eee;
+  padding-top: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tip-presets {
+  display: flex;
+  gap: 8px;
+}
+
+.tip-preset-button {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 0.95rem;
+  background-color: white;
+  color: #354884;
+  border: 1px solid #354884;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #354884;
+    color: white;
+  }
+}
+
+.tip-form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tip-input {
+  width: 80px;
+  padding: 4px 8px;
+  font-size: 1rem;
+  font-family: "Ruda", sans-serif;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.order-pickup-label {
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #656565;
+  align-self: center;
 }
 
 .checkout-button {

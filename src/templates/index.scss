@@ -23,6 +23,11 @@ $light-red: rgba(255, 0, 0, 0.262);
         margin-right: 6px;
     }
 
+    input[type="datetime-local"] {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
     input+span {
         padding-right: 30px;
     }
@@ -48,7 +53,7 @@ ul {
         flex-direction: row;
         align-items: start;
         justify-content: space-between;
-        margin-bottom: 4px;
+        margin-bottom: 10px;
     }
 
     li {
@@ -85,6 +90,18 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 16px;
+    gap: 16px;
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: stretch;
+
+        button {
+            width: 100%;
+        }
+    }
 }
 
 .status-open {
