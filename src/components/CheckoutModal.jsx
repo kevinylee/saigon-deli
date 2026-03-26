@@ -27,7 +27,7 @@ function LineItemPreview({ lineItem, onRemove }) {
 }
 
 export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClose, onLineItemRemove }) {
-    const THIRTY_MINUTE_DURATION = Duration.fromObject({ minutes: 30 });
+    const THIRTY_MINUTE_DURATION = Duration.fromObject({ minutes: 15 });
 
     // Fake ISO8601 without the timezone. Ugly!
     const DEFAULT_TIME = DateTime.now().plus(THIRTY_MINUTE_DURATION).toFormat("yyyy-MM-dd'T'HH:mm");
