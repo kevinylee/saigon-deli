@@ -64,7 +64,7 @@ const ReceiptPage = (props) => {
 }
 
 function Success({ order, pickupTime, tax, tip }) {
-  const subtotal = order.reduce((prev, cur) => prev + (cur.amount_subtotal ?? cur.amount_total), 0);
+  const subtotal = order.reduce((prev, cur) => prev + cur.amount_subtotal, 0);
   const totalPrice = subtotal + tax + tip;
 
   return (
@@ -94,7 +94,7 @@ function Success({ order, pickupTime, tax, tip }) {
                     <span className="quantity"><b>{el.quantity}</b></span>
                     <span>{formatItemTitle(el.description)}<br /><i>{' '}{el.price.product.description}</i></span>
                   </td>
-                  <td className="amountTotal">{toPrice(el.amount_subtotal ?? el.amount_total)}</td>
+                  <td className="amountTotal">{toPrice(el.amount_subtotal)}</td>
                 </tr>
               )
             }
