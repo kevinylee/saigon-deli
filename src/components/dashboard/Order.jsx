@@ -76,7 +76,7 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
 
                                         {
                                             lineItem.unit_price && (
-                                                <span className="line-item-total-price">{toPrice(lineItem.amount_total)}</span>
+                                                <span className="line-item-total-price">{toPrice(lineItem.unit_price)}</span>
                                             )
                                         }
                                     </span>
