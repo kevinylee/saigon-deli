@@ -8,7 +8,7 @@ import { toPrice } from '../components/utilities';
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 const ReceiptPage = (props) => {
-  const [order, setOrder] = useState({ lineItems: [], loading: true, pickupTime: null });
+  const [order, setOrder] = useState({ lineItems: [], tax: 0, loading: true, pickupTime: null });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -22,6 +22,7 @@ const ReceiptPage = (props) => {
 
           setOrder({
             lineItems: response.data.lineItems,
+            tax: response.data.tax ?? 0,
             pickupTime: response.data.pickupTime,
             loading: false
           });
@@ -31,6 +32,7 @@ const ReceiptPage = (props) => {
 
           setOrder({
             lineItems: [],
+            tax: 0,
             pickupTime: null,
             loading: false
           });
@@ -52,17 +54,15 @@ const ReceiptPage = (props) => {
         {
           order.loading ?
             <Loading /> :
-            (order.lineItems.length === 0 ? <Error /> : <Success order={order.lineItems} pickupTime={order.pickupTime} />)
+            (order.lineItems.length === 0 ? <Error /> : <Success order={order.lineItems} pickupTime={order.pickupTime} tax={order.tax} />)
         }
       </div>
     </div>
   )
 }
 
-function Success({ order, pickupTime }) {
-  const totalPrice = order.reduce((prev, cur) => {
-    return prev + (cur.amount_total);
-  }, 0);
+function Success({ order, pickupTime, tax }) {
+  const totalPrice = order.reduce((prev, cur) => prev + cur.amount_total, 0) + tax;
 
   return (
     <React.Fragment>
@@ -97,7 +97,13 @@ function Success({ order, pickupTime }) {
             }
           </tbody>
           <tfoot>
-            <tr style={{ backgroundColor: (order.length % 2 === 0 ? "white" : "#f2f2f2") }}>
+            {tax > 0 && (
+              <tr style={{ backgroundColor: (order.length % 2 === 0 ? "white" : "#f2f2f2") }}>
+                <td>Sales Tax</td>
+                <td className="amountTotal">{toPrice(tax)}</td>
+              </tr>
+            )}
+            <tr style={{ backgroundColor: (order.length % 2 === 1 ? "white" : "#f2f2f2") }}>
               <td><b>Total:</b></td>
               <td className="amountTotal"><b>{toPrice(totalPrice)}</b></td>
             </tr>
