@@ -11,7 +11,7 @@ function isToday(comparisonDate) {
 }
 
 export default function Order({ id, phone_number: phoneNumber, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged, pickup_at: pickupAt }) {
-    const TAX_RATE_PERCENT = Number(process.env.GATSBY_TAX_RATE_PERCENT) || 10.55;
+    const TAX_RATE_PERCENT = Number(process.env.GATSBY_TAX_RATE_PERCENT);
     const [isRead, markAsRead] = useState(acknowledged);
     const isAcknowledged = () => {
         return isRead ? "acknowledged" : "alert"
@@ -85,11 +85,22 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
                             }
                         </li>))}
                     <li key="price" className="price">
-                        <p>
-                            {taxLineItem && <span>Sales Tax ({TAX_RATE_PERCENT}%): {toPrice(taxLineItem.amount_total)}<br /></span>}
-                            {tipLineItem && <span>Tip: {tipLineItem.amount_total != null ? toPrice(tipLineItem.amount_total) : `$${tipLineItem.quantity}`}<br /></span>}
-                            Total: {toPrice(total_amount)}
-                        </p>
+                        {taxLineItem && (
+                            <div className="price-row">
+                                <span>Sales Tax ({TAX_RATE_PERCENT}%):</span>
+                                <span>{toPrice(taxLineItem.amount_total)}</span>
+                            </div>
+                        )}
+                        {tipLineItem && (
+                            <div className="price-row">
+                                <span>Tip:</span>
+                                <span>{tipLineItem.amount_total != null ? toPrice(tipLineItem.amount_total) : `$${tipLineItem.quantity}`}</span>
+                            </div>
+                        )}
+                        <div className="price-row">
+                            <span>Total:</span>
+                            <span>{toPrice(total_amount)}</span>
+                        </div>
                     </li>
                 </ul>
                 <br />
