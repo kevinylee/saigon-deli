@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Helmet } from "react-helmet"
 import WebsiteIcon from "../images/banhmi-icon.png"
 import "@fontsource/ruda/600.css"
@@ -18,10 +18,16 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
   const [allowCheckout, _] = useState(true);
   const [restaurantOpen, __] = useState(open);
   const [checkoutModalVisible, setCheckoutModalVisibility] = useState(false);
+  const [now, setNow] = useState(null);
+
+  useEffect(() => {
+    const tick = () => setNow(DateTime.now().setZone('America/Los_Angeles'));
+    tick();
+    const id = setInterval(tick, 60_000);
+    return () => clearInterval(id);
+  }, []);
 
   const canOrder = () => {
-    const now = DateTime.now().setZone('America/Los_Angeles')
-
     if (!IS_PROD) {
       return true;
     }
@@ -84,13 +90,17 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
   }
 
   const RestaurantStatus = () => {
+    if (now === null) {
+      return null;
+    }
+
     const renderOpen = (canOrder() && allowCheckout);
 
     if (renderOpen) {
       return (
         <div className="status-open">
           <h3>OPEN FOR ORDERS</h3>
-          <p>AS OF {DateTime.now().setZone('America/Los_Angeles').toLocaleString(DateTime.TIME_SIMPLE)}</p>
+          <p>AS OF {now.toLocaleString(DateTime.TIME_SIMPLE)}</p>
         </div>)
     } else {
       return (<div className="status-closed"><h3>CLOSED FOR ORDERS</h3></div>)
