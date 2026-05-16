@@ -239,11 +239,17 @@ setOrder({
 });
 ```
 
-`Success` component takes `tax` prop. Total includes tax:
+`Success` component takes `tax` prop. Total sums the line items directly — **do not add `tax` again**:
 
 ```js
-const totalPrice = order.reduce((p, c) => p + c.amount_total, 0) + tax;
+const totalPrice = order.reduce((p, c) => p + c.amount_total, 0);
 ```
+
+Stripe's `LineItem.amount_total` is tax-inclusive for an exclusive `TaxRate`
+(`amount_total = amount_subtotal + amount_tax`), and the webhook persists that
+value. The Sales Tax row in the `<tfoot>` is purely informational so the
+customer can see the breakdown — adding it on top of line items would
+double-count.
 
 `<tfoot>` renders a Sales Tax row above Total when `tax > 0`:
 
