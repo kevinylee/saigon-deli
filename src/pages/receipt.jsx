@@ -100,6 +100,9 @@ function Success({ order, pickupTime, tax, tip }) {
             }
           </tbody>
           <tfoot>
+            <tr>
+              <td colSpan={2} style={{ padding: '10px 0' }}></td>
+            </tr>
             {(() => {
               const footerRows = [
                 { key: 'subtotal', label: 'Subtotal', amount: subtotal, bold: false },
