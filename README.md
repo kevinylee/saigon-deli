@@ -26,28 +26,6 @@ To debug locally, you can run the node REPL with: `node --env-file=.env.developm
 
 All hooked up via Netlify.
 
-## Sales Tax
-
-This app collects Washington combined sales tax (10.55%) on food only.
-Tips are not taxed. The rate is implemented as a Stripe `TaxRate`
-attached to each food line item at checkout time.
-
-Two env vars must be kept in sync:
-
-| Variable | Scope | Example |
-|---|---|---|
-| `GATSBY_TAX_RATE_PERCENT` | Client (Gatsby-bundled) | `10.55` |
-| `STRIPE_TAX_RATE_ID` | Server (Netlify functions) | `txr_…` |
-
-**If the WA sales tax rate changes:**
-
-1. Create a new `TaxRate` in the Stripe Dashboard (do not edit the existing one — Stripe TaxRates are immutable for already-issued invoices).
-2. Update `STRIPE_TAX_RATE_ID` in Netlify env to the new `txr_…`.
-3. Update `GATSBY_TAX_RATE_PERCENT` in Netlify env to match the new percentage.
-4. Redeploy.
-
-Both env vars must match the Stripe Dashboard rate — otherwise the in-app preview will disagree with the Stripe Checkout page.
-
 ## Todo
 
 - [x] Show variant option in the add item modal
