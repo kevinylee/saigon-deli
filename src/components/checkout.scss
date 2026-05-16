@@ -128,3 +128,31 @@
 
   @include buttonDefaults;
 }
+
+.checkout-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.totals-row.tip-row {
+  align-items: center;
+}
+
+.totals-row.total-row {
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+  margin-top: 4px;
+  color: #000;
+  font-size: 1.05rem;
+}

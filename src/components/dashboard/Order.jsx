@@ -4,13 +4,14 @@ import "../../templates/dashboard.scss"
 import { BASE_URL, toPrice } from "../utilities";
 import { DateTime } from 'luxon';
 
-const filterTip = (lineItem) => lineItem.title !== 'Tip';
+const filterAdjustments = (lineItem) => lineItem.title !== 'Tip' && lineItem.title !== 'Sales Tax';
 
 function isToday(comparisonDate) {
     return comparisonDate.toISODate() === DateTime.local().toISODate();
 }
 
 export default function Order({ id, phone_number: phoneNumber, customer_name: title, array_line_items: lineItems, total_amount, created_at: createdAt, acknowledged, pickup_at: pickupAt }) {
+    const TAX_RATE_PERCENT = Number(process.env.GATSBY_TAX_RATE_PERCENT);
     const [isRead, markAsRead] = useState(acknowledged);
     const isAcknowledged = () => {
         return isRead ? "acknowledged" : "alert"
@@ -31,6 +32,7 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
     }
 
     const tipLineItem = lineItems.find((item) => item.title === 'Tip');
+    const taxLineItem = lineItems.find((item) => item.title === 'Sales Tax');
 
     const pickupAtIso = DateTime.fromISO(pickupAt, { zone: "America/Los_Angeles" });
     const pickupFormatToday = pickupAtIso.toLocaleString(DateTime.TIME_SIMPLE);
@@ -57,7 +59,7 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
                 <br />
                 <br />
                 <ul>
-                    {lineItems.filter(filterTip).map(lineItem => (
+                    {lineItems.filter(filterAdjustments).map(lineItem => (
                         <li key={`${lineItem.quantity}-${lineItem.title}`}>
                             {
                                 <>
@@ -74,7 +76,7 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
 
                                         {
                                             lineItem.unit_price && (
-                                                <span className="line-item-total-price">{toPrice(lineItem.amount_total)}</span>
+                                                <span className="line-item-total-price">{toPrice(lineItem.unit_price)}</span>
                                             )
                                         }
                                     </span>
@@ -83,10 +85,22 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
                             }
                         </li>))}
                     <li key="price" className="price">
-                        <p>
-                            {tipLineItem && <span>Tip: {tipLineItem.amount_total != null ? toPrice(tipLineItem.amount_total) : `$${tipLineItem.quantity}`}<br /></span>}
-                            Total: {toPrice(total_amount)}
-                        </p>
+                        {taxLineItem && (
+                            <div className="price-row">
+                                <span>Sales Tax ({TAX_RATE_PERCENT}%):</span>
+                                <span>{toPrice(taxLineItem.amount_total)}</span>
+                            </div>
+                        )}
+                        {tipLineItem && (
+                            <div className="price-row">
+                                <span>Tip:</span>
+                                <span>{tipLineItem.amount_total != null ? toPrice(tipLineItem.amount_total) : `$${tipLineItem.quantity}`}</span>
+                            </div>
+                        )}
+                        <div className="price-row">
+                            <span>Total:</span>
+                            <span>{toPrice(total_amount)}</span>
+                        </div>
                     </li>
                 </ul>
                 <br />
@@ -99,5 +113,5 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
 }
 
 function totalNumItems(lineItems) {
-    return lineItems.filter(filterTip).reduce((curr, item) => curr + item.quantity, 0)
+    return lineItems.filter(filterAdjustments).reduce((curr, item) => curr + item.quantity, 0)
 }

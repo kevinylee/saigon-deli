@@ -78,6 +78,18 @@ const handler: Handler = async (event, context) => {
       });
     });
 
+    const taxAmount = session.total_details?.amount_tax ?? 0;
+    if (taxAmount > 0) {
+      array_line_items.push({
+        title: 'Sales Tax',
+        addOns: undefined,
+        quantity: 1,
+        unit_price: null,
+        currency: 'usd',
+        amount_total: taxAmount
+      });
+    }
+
     // Fulfill the purchase...
     const { data, error } = await supabase.from('Orders').insert([
       {

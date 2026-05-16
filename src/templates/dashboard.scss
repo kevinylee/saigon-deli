@@ -332,13 +332,16 @@ label {
 
 .order ul .price {
   font-size: 1.25em;
-  display: inline-block;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
-.order ul .price p {
-  float: right;
-  margin: 0px;
+.order ul .price .price-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  min-width: 240px;
 }
 
 .order ul {

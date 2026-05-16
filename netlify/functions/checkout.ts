@@ -5,9 +5,11 @@ import Purchaseable from '../../src/models/Purchaseable';
 
 const DOMAIN = process.env.BASE_URL;
 
-if (!process.env.STRIPE_SECRET || !DOMAIN || !process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY) {
-  throw "No API keys found for either Stripe or Supabase or no base URL founded.";
+if (!process.env.STRIPE_SECRET || !DOMAIN || !process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY || !process.env.STRIPE_TAX_RATE_ID) {
+  throw "Missing required env vars (Stripe / Supabase / base URL / tax rate).";
 }
+
+const STRIPE_TAX_RATE_ID = process.env.STRIPE_TAX_RATE_ID;
 
 const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: "2022-08-01"
@@ -105,7 +107,8 @@ const handler: Handler = async (event, context) => {
             }
           }
         },
-        quantity: lineItem.quantity
+        quantity: lineItem.quantity,
+        tax_rates: [STRIPE_TAX_RATE_ID]
       };
     }));
 

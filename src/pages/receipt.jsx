@@ -8,7 +8,7 @@ import { toPrice } from '../components/utilities';
 const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
 
 const ReceiptPage = (props) => {
-  const [order, setOrder] = useState({ lineItems: [], loading: true, pickupTime: null });
+  const [order, setOrder] = useState({ lineItems: [], tax: 0, tip: 0, loading: true, pickupTime: null });
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -22,6 +22,8 @@ const ReceiptPage = (props) => {
 
           setOrder({
             lineItems: response.data.lineItems,
+            tax: response.data.tax ?? 0,
+            tip: response.data.tip ?? 0,
             pickupTime: response.data.pickupTime,
             loading: false
           });
@@ -31,6 +33,8 @@ const ReceiptPage = (props) => {
 
           setOrder({
             lineItems: [],
+            tax: 0,
+            tip: 0,
             pickupTime: null,
             loading: false
           });
@@ -52,17 +56,17 @@ const ReceiptPage = (props) => {
         {
           order.loading ?
             <Loading /> :
-            (order.lineItems.length === 0 ? <Error /> : <Success order={order.lineItems} pickupTime={order.pickupTime} />)
+            (order.lineItems.length === 0 ? <Error /> : <Success order={order.lineItems} pickupTime={order.pickupTime} tax={order.tax} tip={order.tip} />)
         }
       </div>
     </div>
   )
 }
 
-function Success({ order, pickupTime }) {
-  const totalPrice = order.reduce((prev, cur) => {
-    return prev + (cur.amount_total);
-  }, 0);
+function Success({ order, pickupTime, tax, tip }) {
+  const TAX_RATE_PERCENT = Number(process.env.GATSBY_TAX_RATE_PERCENT) || 10.55;
+  const subtotal = order.reduce((prev, cur) => prev + cur.amount_subtotal, 0);
+  const totalPrice = subtotal + tax + tip;
 
   return (
     <React.Fragment>
@@ -88,19 +92,32 @@ function Success({ order, pickupTime }) {
               order.length > 0 && order.map((el, i) =>
                 <tr key={i}>
                   <td className="itemName">
-                    {el.description !== 'Tip' && <span className="quantity"><b>{el.quantity}</b></span>}
+                    <span className="quantity"><b>{el.quantity}</b></span>
                     <span>{formatItemTitle(el.description)}<br /><i>{' '}{el.price.product.description}</i></span>
                   </td>
-                  <td className="amountTotal">{toPrice(el.amount_total)}</td>
+                  <td className="amountTotal">{toPrice(el.amount_subtotal)}</td>
                 </tr>
               )
             }
           </tbody>
           <tfoot>
-            <tr style={{ backgroundColor: (order.length % 2 === 0 ? "white" : "#f2f2f2") }}>
-              <td><b>Total:</b></td>
-              <td className="amountTotal"><b>{toPrice(totalPrice)}</b></td>
-            </tr>
+            {(() => {
+              const footerRows = [
+                { key: 'subtotal', label: 'Subtotal:', amount: subtotal, bold: true },
+                ...(tax > 0 ? [{ key: 'tax', label: `Sales Tax (${TAX_RATE_PERCENT}%):`, amount: tax, bold: true }] : []),
+                ...(tip > 0 ? [{ key: 'tip', label: 'Tip:', amount: tip, bold: true }] : []),
+                { key: 'total', label: 'Total:', amount: totalPrice, bold: true },
+              ];
+              return footerRows.map((row, i) => {
+                const bg = (order.length + i) % 2 === 0 ? "white" : "#f2f2f2";
+                return (
+                  <tr key={row.key} style={{ backgroundColor: bg }}>
+                    <td>{row.bold ? <b>{row.label}</b> : row.label}</td>
+                    <td className="amountTotal">{row.bold ? <b>{toPrice(row.amount)}</b> : toPrice(row.amount)}</td>
+                  </tr>
+                );
+              });
+            })()}
           </tfoot>
         </table>
       </div>
