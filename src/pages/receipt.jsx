@@ -64,7 +64,7 @@ const ReceiptPage = (props) => {
 }
 
 function Success({ order, pickupTime, tax, tip }) {
-  const subtotal = order.reduce((prev, cur) => prev + cur.amount_total, 0) - tax;
+  const subtotal = order.reduce((prev, cur) => prev + (cur.amount_subtotal ?? cur.amount_total), 0);
   const totalPrice = subtotal + tax + tip;
 
   return (
@@ -94,20 +94,17 @@ function Success({ order, pickupTime, tax, tip }) {
                     <span className="quantity"><b>{el.quantity}</b></span>
                     <span>{formatItemTitle(el.description)}<br /><i>{' '}{el.price.product.description}</i></span>
                   </td>
-                  <td className="amountTotal">{toPrice(el.amount_total)}</td>
+                  <td className="amountTotal">{toPrice(el.amount_subtotal ?? el.amount_total)}</td>
                 </tr>
               )
             }
           </tbody>
           <tfoot>
-            <tr>
-              <td colSpan={2} style={{ padding: '10px 0' }}></td>
-            </tr>
             {(() => {
               const footerRows = [
-                { key: 'subtotal', label: 'Subtotal', amount: subtotal, bold: false },
-                ...(tax > 0 ? [{ key: 'tax', label: 'Sales Tax', amount: tax, bold: false }] : []),
-                ...(tip > 0 ? [{ key: 'tip', label: 'Tip', amount: tip, bold: false }] : []),
+                { key: 'subtotal', label: 'Subtotal:', amount: subtotal, bold: true },
+                ...(tax > 0 ? [{ key: 'tax', label: 'Sales Tax:', amount: tax, bold: true }] : []),
+                ...(tip > 0 ? [{ key: 'tip', label: 'Tip:', amount: tip, bold: true }] : []),
                 { key: 'total', label: 'Total:', amount: totalPrice, bold: true },
               ];
               return footerRows.map((row, i) => {

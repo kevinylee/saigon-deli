@@ -33,6 +33,7 @@ const normalizeLineItem = (lineItem: any) => {
     quantity: lineItem.quantity,
     description: lineItem.title,
     amount_total: lineItem.amount_total,
+    amount_subtotal: (lineItem.unit_price ?? 0) * lineItem.quantity,
     price: {
       product: {
         description: lineItem.addOns
