@@ -103,7 +103,7 @@ function Success({ order, pickupTime, tax }) {
                 <td className="amountTotal">{toPrice(tax)}</td>
               </tr>
             )}
-            <tr style={{ backgroundColor: (order.length % 2 === 1 ? "white" : "#f2f2f2") }}>
+            <tr style={{ backgroundColor: ((tax > 0 ? order.length % 2 === 1 : order.length % 2 === 0) ? "white" : "#f2f2f2") }}>
               <td><b>Total:</b></td>
               <td className="amountTotal"><b>{toPrice(totalPrice)}</b></td>
             </tr>
