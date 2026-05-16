@@ -62,7 +62,7 @@ const ReceiptPage = (props) => {
 }
 
 function Success({ order, pickupTime, tax }) {
-  const totalPrice = order.reduce((prev, cur) => prev + cur.amount_total, 0) + tax;
+  const totalPrice = order.reduce((prev, cur) => prev + cur.amount_total, 0);
 
   return (
     <React.Fragment>
