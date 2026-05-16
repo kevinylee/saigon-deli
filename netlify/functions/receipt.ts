@@ -49,14 +49,18 @@ const getReceiptData = async (sessionId: string) => {
     .single()
 
   if (data) {
-    const normalizedLineItems = data.array_line_items.map(normalizeLineItem);
-    return [normalizedLineItems, data.pickup_at];
+    const taxRow = data.array_line_items.find((li: any) => li.title === 'Sales Tax');
+    const tax = taxRow?.amount_total ?? 0;
+    const itemsOnly = data.array_line_items.filter((li: any) => li.title !== 'Sales Tax');
+    const normalizedLineItems = itemsOnly.map(normalizeLineItem);
+    return [normalizedLineItems, data.pickup_at, tax];
   } else {
     const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId)
     const lineItemPayload = await stripe.checkout.sessions.listLineItems(sessionId, { limit: 100, expand: ["data.price.product"] })
 
     const normalizedLineItems = lineItemPayload.data.map(normalizeLineItem);
-    return [normalizedLineItems, checkoutSession.metadata?.pickup_time]
+    const tax = checkoutSession.total_details?.amount_tax ?? 0;
+    return [normalizedLineItems, checkoutSession.metadata?.pickup_time, tax]
   }
 }
 
@@ -81,13 +85,14 @@ const handler: Handler = async ({ httpMethod, queryStringParameters }, context) 
   const sessionId = queryStringParameters['sessionId'];
 
   try {
-    const [lineItems, pickupTime] = await getReceiptData(sessionId);
+    const [lineItems, pickupTime, tax] = await getReceiptData(sessionId);
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         lineItems,
-        pickupTime
+        pickupTime,
+        tax
       }),
       headers: headers
     }
