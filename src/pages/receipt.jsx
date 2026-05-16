@@ -64,6 +64,7 @@ const ReceiptPage = (props) => {
 }
 
 function Success({ order, pickupTime, tax, tip }) {
+  const TAX_RATE_PERCENT = Number(process.env.GATSBY_TAX_RATE_PERCENT) || 10.55;
   const subtotal = order.reduce((prev, cur) => prev + cur.amount_subtotal, 0);
   const totalPrice = subtotal + tax + tip;
 
@@ -103,7 +104,7 @@ function Success({ order, pickupTime, tax, tip }) {
             {(() => {
               const footerRows = [
                 { key: 'subtotal', label: 'Subtotal:', amount: subtotal, bold: true },
-                ...(tax > 0 ? [{ key: 'tax', label: 'Sales Tax:', amount: tax, bold: true }] : []),
+                ...(tax > 0 ? [{ key: 'tax', label: `Sales Tax (${TAX_RATE_PERCENT}%):`, amount: tax, bold: true }] : []),
                 ...(tip > 0 ? [{ key: 'tip', label: 'Tip:', amount: tip, bold: true }] : []),
                 { key: 'total', label: 'Total:', amount: totalPrice, bold: true },
               ];
