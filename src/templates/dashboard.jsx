@@ -4,6 +4,8 @@ import axios from "axios"
 import "./dashboard.scss"
 import { DateTime } from 'luxon'
 import Order from "../components/dashboard/Order"
+import MenuPrices from "../components/dashboard/MenuPrices"
+import "../components/dashboard/menuPrices.scss"
 import { BASE_URL, BASE_SOUND_URL, STORE_STATUS_BUILD_HOOK_URL, REBUILD_BUILD_HOOK_URL, IS_PROD } from "../components/utilities";
 
 const playNotification = () => {
@@ -61,6 +63,7 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
   const [passwordError, setPasswordError] = useState('');
 
   const [isOpen, setIsOpen] = useState(open);
+  const [activeTab, setActiveTab] = useState("orders");
 
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
@@ -203,48 +206,69 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
 
   return (
     <div>
-      <div>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-          <p>WEBSITE IS <b className={`store-status-${isOpen ? "open" : "closed"}`}>{isOpen ? "OPEN" : "CLOSED"}</b></p>
-          <button className="default-button test-button" onClick={toggleModal}>Settings</button>
-        </div>
-        {
-          orders.length === 0 ?
-            <p className="noOrders">No orders.</p> :
-            <ul style={{ listStyleType: "none", padding: 0 }}>
-              {
-                orders.slice(0, 100).map(order =>
-                  <li key={order.id}>
-                    <Order {...order} />
-                  </li>
-                )}
-            </ul>
-        }
-        <div ref={introModalRef} className="modal-initial-open modal">
-          <div className="content" style={{ maxWidth: 500 }}>
-            <h1>Turn On Sound</h1>
-            <p>Please turn on sound so you can receive alerts with new orders by clicking <b>OK</b>.</p>
-            <button className="default-button" onClick={handleClick}><b>OK</b></button>
-          </div>
-        </div>
-        <div ref={settingsModalRef} className="modal-initial-closed modal">
-          <div className="content">
-            <div className="header-bar">
-              <h1>Settings</h1>
-              <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
-            </div>
-            <div className="actions">
-              {
-                isOpen ?
-                  <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
-                  <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
-              }
-              <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
-              <button className="default-button" onClick={rebuildWebsite}><b>Rebuild Website</b></button>
-            </div>
-          </div>
-        </div>
+      <div className="dashboard-tabs">
+        <button
+          className={activeTab === "orders" ? "active" : ""}
+          onClick={() => setActiveTab("orders")}
+        >
+          Orders
+        </button>
+        <button
+          className={activeTab === "prices" ? "active" : ""}
+          onClick={() => setActiveTab("prices")}
+        >
+          Menu Prices
+        </button>
       </div>
+
+      {activeTab === "orders" && (
+        <div>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+            <p>WEBSITE IS <b className={`store-status-${isOpen ? "open" : "closed"}`}>{isOpen ? "OPEN" : "CLOSED"}</b></p>
+            <button className="default-button test-button" onClick={toggleModal}>Settings</button>
+          </div>
+          {
+            orders.length === 0 ?
+              <p className="noOrders">No orders.</p> :
+              <ul style={{ listStyleType: "none", padding: 0 }}>
+                {
+                  orders.slice(0, 100).map(order =>
+                    <li key={order.id}>
+                      <Order {...order} />
+                    </li>
+                  )}
+              </ul>
+          }
+          <div ref={introModalRef} className="modal-initial-open modal">
+            <div className="content" style={{ maxWidth: 500 }}>
+              <h1>Turn On Sound</h1>
+              <p>Please turn on sound so you can receive alerts with new orders by clicking <b>OK</b>.</p>
+              <button className="default-button" onClick={handleClick}><b>OK</b></button>
+            </div>
+          </div>
+          <div ref={settingsModalRef} className="modal-initial-closed modal">
+            <div className="content">
+              <div className="header-bar">
+                <h1>Settings</h1>
+                <button className="default-button" style={{ margin: 0 }} onClick={toggleModal}>Exit</button>
+              </div>
+              <div className="actions">
+                {
+                  isOpen ?
+                    <button className="default-button" onClick={toggleStoreOpening}><b>Close Orders</b></button> :
+                    <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
+                }
+                <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
+                <button className="default-button" onClick={rebuildWebsite}><b>Rebuild Website</b></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeTab === "prices" && (
+        <MenuPrices password={passwordInput} />
+      )}
     </div>
   );
 }
