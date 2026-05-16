@@ -74,6 +74,7 @@ const handler: Handler = async (event, context) => {
         quantity: line_item.quantity,
         unit_price: line_item.price?.unit_amount,
         currency: line_item.price?.currency,
+        amount_subtotal: line_item.amount_subtotal,
         amount_total: line_item.amount_total
       });
     });
