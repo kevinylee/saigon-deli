@@ -50,17 +50,24 @@ const getReceiptData = async (sessionId: string) => {
 
   if (data) {
     const taxRow = data.array_line_items.find((li: any) => li.title === 'Sales Tax');
+    const tipRow = data.array_line_items.find((li: any) => li.title === 'Tip');
     const tax = taxRow?.amount_total ?? 0;
-    const itemsOnly = data.array_line_items.filter((li: any) => li.title !== 'Sales Tax');
+    const tip = tipRow?.amount_total ?? 0;
+    const itemsOnly = data.array_line_items.filter((li: any) =>
+      li.title !== 'Sales Tax' && li.title !== 'Tip'
+    );
     const normalizedLineItems = itemsOnly.map(normalizeLineItem);
-    return [normalizedLineItems, data.pickup_at, tax];
+    return [normalizedLineItems, data.pickup_at, tax, tip];
   } else {
-    const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId)
-    const lineItemPayload = await stripe.checkout.sessions.listLineItems(sessionId, { limit: 100, expand: ["data.price.product"] })
+    const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
+    const lineItemPayload = await stripe.checkout.sessions.listLineItems(sessionId, { limit: 100, expand: ["data.price.product"] });
 
-    const normalizedLineItems = lineItemPayload.data.map(normalizeLineItem);
+    const tipItem = lineItemPayload.data.find((li) => li.description === 'Tip');
+    const tip = tipItem?.amount_total ?? 0;
+    const foodOnly = lineItemPayload.data.filter((li) => li.description !== 'Tip');
+    const normalizedLineItems = foodOnly.map(normalizeLineItem);
     const tax = checkoutSession.total_details?.amount_tax ?? 0;
-    return [normalizedLineItems, checkoutSession.metadata?.pickup_time, tax]
+    return [normalizedLineItems, checkoutSession.metadata?.pickup_time, tax, tip];
   }
 }
 
@@ -85,14 +92,15 @@ const handler: Handler = async ({ httpMethod, queryStringParameters }, context) 
   const sessionId = queryStringParameters['sessionId'];
 
   try {
-    const [lineItems, pickupTime, tax] = await getReceiptData(sessionId);
+    const [lineItems, pickupTime, tax, tip] = await getReceiptData(sessionId);
 
     return {
       statusCode: 200,
       body: JSON.stringify({
         lineItems,
         pickupTime,
-        tax
+        tax,
+        tip
       }),
       headers: headers
     }
