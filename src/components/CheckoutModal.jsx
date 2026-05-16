@@ -35,9 +35,18 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
     const [pickupTime, setPickupTime] = useState(DEFAULT_TIME);
     const [tipAmount, setTipAmount] = useState(0);
 
+    const TAX_RATE_PERCENT = Number(process.env.GATSBY_TAX_RATE_PERCENT) || 10.55;
+
     const cartSubtotal = cart.reduce((acc, lineItem) => acc + (lineItem.quantity * lineItem.purchaseable.unitPrice), 0);
+
+    // Per-line rounding to match Stripe's TaxRate calculation exactly
+    const taxCents = cart.reduce((acc, lineItem) => {
+        const lineCents = lineItem.quantity * lineItem.purchaseable.unitPrice;
+        return acc + Math.round(lineCents * TAX_RATE_PERCENT / 100);
+    }, 0);
+
     const tipCents = Math.round(Math.max(0, tipAmount) * 100);
-    const totalPrice = cartSubtotal + tipCents;
+    const totalPrice = cartSubtotal + taxCents + tipCents;
 
     const isValidTime = () => {
         if (process.env.NODE_ENV === 'development') {
@@ -112,20 +121,34 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
                     </div>
                 </div>
                 <div className="checkout-footer">
-                    <span>
-                        <div className="tip-form">
-                            <span><b>Tip</b>: $</span>
-                            <input
-                                type="number"
-                                value={tipAmount}
-                                onChange={(e) => setTipAmount(Math.max(0, Number(e.target.value)))}
-                                min="0"
-                                step="0.01"
-                                className="tip-input"
-                            />
+                    <div className="checkout-totals">
+                        <div className="totals-row">
+                            <span>Subtotal</span>
+                            <span>{toPrice(cartSubtotal)}</span>
                         </div>
-                        <div><b>Total</b>: {toPrice(totalPrice)}</div>
-                    </span>
+                        <div className="totals-row">
+                            <span>Sales Tax ({TAX_RATE_PERCENT}%)</span>
+                            <span>{toPrice(taxCents)}</span>
+                        </div>
+                        <div className="totals-row tip-row">
+                            <div className="tip-form">
+                                <span><b>Tip</b>: $</span>
+                                <input
+                                    type="number"
+                                    value={tipAmount}
+                                    onChange={(e) => setTipAmount(Math.max(0, Number(e.target.value)))}
+                                    min="0"
+                                    step="0.01"
+                                    className="tip-input"
+                                />
+                            </div>
+                            <span>{toPrice(tipCents)}</span>
+                        </div>
+                        <div className="totals-row total-row">
+                            <span><b>Total</b></span>
+                            <span><b>{toPrice(totalPrice)}</b></span>
+                        </div>
+                    </div>
                     <button disabled={cart.length <= 0 || !isValidTime()} style={{ fontSize: "1.15rem" }} onClick={handleCheckout}>Checkout</button>
                 </div>
             </div>
