@@ -66,10 +66,10 @@
   margin-top: 32px;
   display: flex;
   gap: 16px;
-  justify-content: space-between;
+  justify-content: flex-end;
+}
 
-  button[disabled] {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+.menu-prices-banner .default-button {
+  padding: 6px 14px;
+  font-size: 0.9rem;
 }

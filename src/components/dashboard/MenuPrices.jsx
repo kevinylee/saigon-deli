@@ -130,22 +130,18 @@ export default function MenuPrices({ password }) {
       } else {
         setBannerState("error");
         setBannerMessage(
-          res.data?.buildHookFailed
-            ? "Your prices were saved but the website did not start updating. Contact the developer."
-            : res.data?.partiallyApplied
-              ? "Something went wrong. Some prices may have updated. Click 'Try again' to finish."
-              : "Something went wrong. Your changes are still here."
+          res.data?.partiallyApplied
+            ? "Something went wrong. Some prices may have updated. Click 'Try again' to finish."
+            : "Something went wrong. Your changes are still here."
         );
       }
     } catch (err) {
       const data = err?.response?.data;
       setBannerState("error");
       setBannerMessage(
-        data?.buildHookFailed
-          ? "Your prices were saved but the website did not start updating. Contact the developer."
-          : data?.partiallyApplied
-            ? "Something went wrong. Some prices may have updated. Click 'Try again' to finish."
-            : "Something went wrong. Your changes are still here."
+        data?.partiallyApplied
+          ? "Something went wrong. Some prices may have updated. Click 'Try again' to finish."
+          : "Something went wrong. Your changes are still here."
       );
     }
   };
@@ -230,10 +226,9 @@ export default function MenuPrices({ password }) {
 
       <div className="menu-prices-actions">
         <button
-          className="default-button"
+          className="default-button danger"
           onClick={handleDiscard}
           disabled={dirtyCount === 0}
-          style={{ borderColor: "#c62828", color: "#c62828" }}
         >
           <b>Discard Changes</b>
         </button>

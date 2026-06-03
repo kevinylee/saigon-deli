@@ -225,7 +225,7 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
         <div>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             <p>WEBSITE IS <b className={`store-status-${isOpen ? "open" : "closed"}`}>{isOpen ? "OPEN" : "CLOSED"}</b></p>
-            <button className="default-button test-button" onClick={toggleModal}>Settings</button>
+            <button className="default-button secondary" onClick={toggleModal}>Settings</button>
           </div>
           {
             orders.length === 0 ?

@@ -25,6 +25,54 @@ li::marker {
   content: '';
 }
 
+.default-button {
+  letter-spacing: 1px;
+  padding: 15px 35px;
+  border: 2px solid #009B58;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #009B58;
+  font-size: 1rem;
+  transition: 200ms background-color, 200ms color;
+
+  &:hover:not([disabled]),
+  &:active:not([disabled]) {
+    background-color: #009B58;
+    color: white;
+  }
+
+  &.danger {
+    border-color: #c62828;
+    color: #c62828;
+
+    &:hover:not([disabled]),
+    &:active:not([disabled]) {
+      background-color: #c62828;
+      color: white;
+    }
+  }
+
+  &.secondary {
+    padding: 5px 25px;
+    border-color: $secondary;
+    color: $secondary;
+
+    &:hover:not([disabled]),
+    &:active:not([disabled]) {
+      background-color: $secondary;
+      color: white;
+    }
+  }
+
+  &[disabled] {
+    border-color: #bbb;
+    color: #666;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+}
+
 .store-status-start {
   margin: 0px;
   padding: 0px;
@@ -46,26 +94,6 @@ li::marker {
 
   background-color: #cb2d01;
   border-radius: 5px;
-}
-
-.test-button {
-  display: block;
-  letter-spacing: 1px;
-  padding: 5px 25px;
-  border-color: $secondary;
-  border-style: solid;
-  background-color: white;
-  cursor: pointer;
-  border-radius: 3px;
-  color: $secondary;
-  transition: 200ms background-color;
-  margin-top: 5px;
-
-  &:hover,
-  &:active {
-    background-color: $secondary;
-    color: white;
-  }
 }
 
 .orders {
@@ -254,28 +282,19 @@ label {
     .default-button {
       display: block;
       margin: 0 auto;
-      letter-spacing: 1px;
-      padding: 15px 35px;
-      border-color: #009B58;
-      border-style: solid;
-      background-color: white;
-      cursor: pointer;
-      border-radius: 3px;
-      color: #009B58;
-      transition: 200ms background-color;
+    }
 
-      &:hover,
-      &:active {
-        background-color: #009B58;
-        color: white;
-      }
+    .header-bar .default-button,
+    .actions .default-button {
+      margin: 0;
     }
 
     .actions {
       margin-top: 32px;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-end;
+      gap: 16px;
     }
   }
 }
