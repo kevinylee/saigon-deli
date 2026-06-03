@@ -23,15 +23,21 @@ type PriceMap = Record<string, number>;
 const isValidPriceCents = (n: unknown): n is number =>
   typeof n === "number" && Number.isInteger(n) && n >= 1 && n <= 99999;
 
-const isValidIdKey = (k: string): boolean => /^[1-9][0-9]*$/.test(k);
+const isValidIdKey = (k: string): boolean =>
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(k);
 
-const isValidMap = (m: unknown): m is PriceMap => {
-  if (!m || typeof m !== "object" || Array.isArray(m)) return false;
-  for (const [k, v] of Object.entries(m as Record<string, unknown>)) {
-    if (!isValidIdKey(k)) return false;
-    if (!isValidPriceCents(v)) return false;
+// Returns null if valid, else a human-readable reason naming the bad key/value.
+const validateMap = (field: string, m: unknown): string | null => {
+  if (!m || typeof m !== "object" || Array.isArray(m)) {
+    return `${field} must be an object, got ${Array.isArray(m) ? "array" : typeof m}`;
   }
-  return true;
+  for (const [k, v] of Object.entries(m as Record<string, unknown>)) {
+    if (!isValidIdKey(k)) return `${field} has invalid id key ${JSON.stringify(k)}`;
+    if (!isValidPriceCents(v)) {
+      return `${field}[${k}] must be an integer in [1, 99999] cents, got ${JSON.stringify(v)} (${typeof v})`;
+    }
+  }
+  return null;
 };
 
 const handler: Handler = async (event) => {
@@ -57,11 +63,15 @@ const handler: Handler = async (event) => {
   const itemSizes: PriceMap = payload.itemSizes ?? {};
   const itemAddOns: PriceMap = payload.itemAddOns ?? {};
 
-  if (!isValidMap(variants) || !isValidMap(itemSizes) || !isValidMap(itemAddOns)) {
+  const reason =
+    validateMap("variants", variants) ||
+    validateMap("itemSizes", itemSizes) ||
+    validateMap("itemAddOns", itemAddOns);
+  if (reason) {
     return {
       statusCode: 400,
       headers,
-      body: JSON.stringify({ ok: false, error: "Invalid price payload" }),
+      body: JSON.stringify({ ok: false, error: `Invalid price payload: ${reason}` }),
     };
   }
 
@@ -84,7 +94,7 @@ const handler: Handler = async (event) => {
     const { error } = await supabase
       .from("Variants")
       .update({ base_price: price })
-      .eq("id", Number(id));
+      .eq("id", id);
     if (error) {
       return {
         statusCode: 500,
@@ -99,7 +109,7 @@ const handler: Handler = async (event) => {
     const { error } = await supabase
       .from("ItemSizes")
       .update({ add_price: price })
-      .eq("id", Number(id));
+      .eq("id", id);
     if (error) {
       return {
         statusCode: 500,
@@ -114,7 +124,7 @@ const handler: Handler = async (event) => {
     const { error } = await supabase
       .from("ItemAddOns")
       .update({ add_price: price })
-      .eq("id", Number(id));
+      .eq("id", id);
     if (error) {
       return {
         statusCode: 500,
@@ -125,21 +135,8 @@ const handler: Handler = async (event) => {
     updated++;
   }
 
-  try {
-    const res = await fetch(BUILD_HOOK_URL, { method: "POST" });
-    if (!res.ok) {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify({ ok: false, updated, buildHookFailed: true, error: `Build hook returned ${res.status}` }),
-      };
-    }
-  } catch (e: any) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ ok: false, updated, buildHookFailed: true, error: e?.message ?? "Build hook fetch failed" }),
-    };
+  if (process.env.NETLIFY_DEV !== "true") {
+    await fetch(BUILD_HOOK_URL, { method: "POST" }).catch(() => {});
   }
 
   return {
