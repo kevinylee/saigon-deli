@@ -89,14 +89,16 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
       const res = await axios.get(`${BASE_URL}/.netlify/functions/orders`);
 
       if (res) {
-        if (orders.length && res.data.length && orders[0].id !== res.data[0].id && loadedBefore) {
+        const { orders: newOrders, open } = res.data;
+
+        if (orders.length && newOrders.length && orders[0].id !== newOrders[0].id && loadedBefore) {
           playNotification();
         }
 
-        setOrders(res.data);
+        setOrders(newOrders);
+        setIsOpen(open);
 
         if (!loadedBefore) {
-
           setLoadedBefore(true);
         }
       }
