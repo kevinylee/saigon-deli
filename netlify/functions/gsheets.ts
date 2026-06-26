@@ -11,6 +11,12 @@ const supabase = createClient(
   process.env.SUPABASE_PRIVATE_KEY
 )
 
+const headers = {
+  'Access-Control-Allow-Origin': '*', // unsafe to allow any origin; fix this
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS'
+}
+
 const handler: Handler = async (event, context) => {
   const { data, error } = await supabase.from('Schedules').select().or(`start_datetime.gte.${DateTime.now()},id.eq.-1`)
 
@@ -33,6 +39,7 @@ const handler: Handler = async (event, context) => {
   if (error || sectionsError || tipError) {
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ ...(error || sectionsError || tipError) })
     }
   }
@@ -59,7 +66,8 @@ const handler: Handler = async (event, context) => {
         Catering: "Don't forget to ask us about our catering service for your event or party.",
         Schedules: data
       }
-    })
+    }),
+    headers
   }
 };
 
