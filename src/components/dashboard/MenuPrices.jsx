@@ -39,7 +39,6 @@ export default function MenuPrices({ password }) {
   const [bannerMessage, setBannerMessage] = useState("");
   const [confirmKind, setConfirmKind] = useState(null);
 
-  // Fetch the menu on mount.
   useEffect(() => {
     let active = true;
     axios
@@ -59,7 +58,6 @@ export default function MenuPrices({ password }) {
   const invalidCount = countInvalid(pendingEdits);
   const dirtyCount = countDirty(pendingEdits);
 
-  // beforeunload guard whenever there are ANY touched rows (valid or invalid).
   useEffect(() => {
     if (dirtyCount === 0) return undefined;
     const handler = (e) => {
@@ -71,7 +69,6 @@ export default function MenuPrices({ password }) {
     return () => window.removeEventListener("beforeunload", handler);
   }, [dirtyCount]);
 
-  // Banner derived from edit state when not in an explicit lifecycle state.
   useEffect(() => {
     if (bannerState === "saving" || bannerState === "done" || bannerState === "error") return;
     if (dirtyCount > 0) {
