@@ -32,7 +32,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
       return true;
     }
 
-    if (!restaurantOpen) {
+    if (!restaurantOpen || now === null) {
       return false;
     }
 
@@ -164,7 +164,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
         <Navigation />
       </div>
       <StickyCheckoutHeader tipVariant={tipVariant} cart={cart} onOpenCheckoutModal={handleCheckoutModalOpen} />
-      {checkoutModalVisible && <CheckoutModal tipVariant={tipVariant} cart={cart} onClose={handleCheckoutModalClose} onLineItemRemove={handleLineItemRemove} />}
+      {checkoutModalVisible && <CheckoutModal tipVariant={tipVariant} cart={cart} canOrder={canOrder()} onClose={handleCheckoutModalClose} onLineItemRemove={handleLineItemRemove} />}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <RestaurantStatus />
       </div>

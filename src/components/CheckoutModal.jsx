@@ -150,7 +150,7 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
                         </div>
                     </div>
                     <div className="checkout">
-                        <button disabled={cart.length <= 0 || !isValidTime()} style={{ fontSize: "1.15rem" }} onClick={handleCheckout}>Checkout</button>
+                        <button disabled={!canOrder || cart.length <= 0 || !isValidTime()} style={{ fontSize: "1.15rem" }} onClick={handleCheckout}>Checkout</button>
                     </div>
                 </div>
             </div>

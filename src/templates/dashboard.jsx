@@ -166,7 +166,8 @@ const DashboardPage = ({ pageContext: { businessDetails, open } }) => {
     });
 
     if (IS_PROD) {
-      await triggerRebuild(STORE_STATUS_BUILD_HOOK_URL);
+      const status = !openStatus ? "open" : "closed";
+      await triggerRebuild(`${STORE_STATUS_BUILD_HOOK_URL}&trigger_title=store+${status}`);
     }
   }
 
