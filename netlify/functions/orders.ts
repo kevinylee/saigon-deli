@@ -41,21 +41,25 @@ const handler: Handler = async (event, _) => {
     }
   }
 
-  const { data, error } = await supabase.from('Orders').select('*').order('created_at', { ascending: false })
+  const [ordersResult, statusResult] = await Promise.all([
+    supabase.from('Orders').select('*').order('created_at', { ascending: false }),
+    supabase.from('Schedules').select('reason').eq('id', -1).single()
+  ]);
 
-  if (error) {
+  if (ordersResult.error || statusResult.error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({
-        message: `Invalid DB response. ${error}`
-      }),
+      body: JSON.stringify({ message: `Invalid DB response. ${ordersResult.error || statusResult.error}` }),
       headers: headers
     }
   }
 
+  const reason = statusResult.data?.reason;
+  const open = reason === 'true' || reason === true;
+
   return {
     statusCode: 200,
-    body: JSON.stringify(data),
+    body: JSON.stringify({ orders: ordersResult.data, open }),
     headers: headers
   }
 }
