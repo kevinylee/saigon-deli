@@ -49,13 +49,13 @@ const handler: Handler = async (event, _) => {
   if (ordersResult.error || statusResult.error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: `Invalid DB response. ${ordersResult.error || statusResult.error}` }),
+      body: JSON.stringify({ message: `Invalid DB response. ${JSON.stringify(ordersResult.error || statusResult.error)}` }),
       headers: headers
     }
   }
 
   const reason = statusResult.data?.reason;
-  const open = reason === 'true' || reason === true;
+  const open = reason === 'true';
 
   return {
     statusCode: 200,
