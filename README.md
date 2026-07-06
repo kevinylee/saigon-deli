@@ -10,6 +10,21 @@ Make sure you have Homebrew, Stripe CLI, and Gatsby CLI installed:
 
 1. Run `npm install`
 2. Create your own `.env.development` file in the project root
+
+```
+SUPABASE_API_URL=
+SUPABASE_PRIVATE_KEY=
+STRIPE_SECRET=
+WEBHOOK_ENDPOINT_SECRET=
+BASE_URL=
+NETLIFY_PASSWORD=
+STRIPE_TAX_RATE_ID=
+
+GATSBY_TAX_RATE_PERCENT=
+GATSBY_STRIPE_PUBLIC_KEY=
+GATSBY_ENV=
+```
+
 3. Copy over the specific environment variables you would like to load.
 
 ## 🚀 Running Locally
