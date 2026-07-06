@@ -1,24 +1,9 @@
-import { Handler } from "@netlify/functions";
-import Stripe from 'stripe';
-import { createClient } from "@supabase/supabase-js"
 import Purchaseable from '../../src/models/Purchaseable';
+import { supabase, stripe } from "../lib/clients";
+import AppHandler from "../lib/app-handler";
 
 const DOMAIN = process.env.BASE_URL;
-
-if (!process.env.STRIPE_SECRET || !DOMAIN || !process.env.SUPABASE_API_URL || !process.env.SUPABASE_PRIVATE_KEY || !process.env.STRIPE_TAX_RATE_ID) {
-  throw "Missing required env vars (Stripe / Supabase / base URL / tax rate).";
-}
-
 const STRIPE_TAX_RATE_ID = process.env.STRIPE_TAX_RATE_ID;
-
-const stripe = new Stripe(process.env.STRIPE_SECRET, {
-  apiVersion: "2022-08-01"
-});
-
-const supabase = createClient(
-  process.env.SUPABASE_API_URL,
-  process.env.SUPABASE_PRIVATE_KEY
-)
 
 const headers = {
   'Access-Control-Allow-Origin': '*', // unsafe to allow any origin; fix this
@@ -60,7 +45,7 @@ const validatePurchaseable = async (purchaseable: Purchaseable) => {
   return new Purchaseable(variant, size, addOns, null);
 };
 
-const handler: Handler = async (event, context) => {
+const handler = AppHandler(async ({ event }) => {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 200,
@@ -70,7 +55,7 @@ const handler: Handler = async (event, context) => {
 
   if (!event.body) {
     console.log(event)
-    throw "No request body attached.";
+    throw new Error("No checkout body attached.");
   }
 
   const { lineItems, pickupTime } = JSON.parse(event.body);
@@ -134,6 +119,6 @@ const handler: Handler = async (event, context) => {
       }
     )
   }
-}
+});
 
 export { handler };

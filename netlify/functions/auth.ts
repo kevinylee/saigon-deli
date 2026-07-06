@@ -1,12 +1,12 @@
-import { Handler } from "@netlify/functions";
+import AppHandler from "../lib/app-handler";
 
 const headers = {
-    'Access-Control-Allow-Origin': process.env.BASE_URL,
+    'Access-Control-Allow-Origin': process.env.BASE_URL!,
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST'
 }
 
-const handler: Handler = async (event, context) => {
+const handler = AppHandler(async ({ event }) => {
     if (event.httpMethod === 'OPTIONS') {
         return {
             statusCode: 204,
@@ -21,7 +21,7 @@ const handler: Handler = async (event, context) => {
         }
     }
 
-    const { password } = JSON.parse(event.body);
+    const { password } = JSON.parse(event.body || "{}");
 
     if (password === process.env.NETLIFY_PASSWORD) {
         return {
@@ -36,10 +36,11 @@ const handler: Handler = async (event, context) => {
         body: JSON.stringify({ success: false }),
         headers
     };
-};
+});
 
 export { handler };
 
+// Apply specific rate limits for this endpoint:
 export const config = {
     path: "/",
     rateLimit: {
