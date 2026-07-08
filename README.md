@@ -82,6 +82,8 @@ All hooked up via Netlify.
 - [x] Add per-item availability in the website
 - [x] Remove dependency on Supabase in Gatsby
 
+- [ ] An agent designed to: answer questions on store opening, refunds, and menu item availability.
+- [ ] Feature-flags
 
 ## Development Notes
 
