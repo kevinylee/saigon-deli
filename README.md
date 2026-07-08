@@ -87,6 +87,8 @@ All hooked up via Netlify.
 
 When testing out branch deployments, make sure your `BASE_URL` is set correctly. In other words, you might have to use the preview deployment link rather than our production url in your code. Once you merge into `main`, then you can switch out the preview deployment link for the production url. This is because the production url does not have your latest code, until you merge into `main`.
 
+Netlify functions are deployed AFTER the Gatsby build. So if you're migrating to a new function within the SSG logic, make sure the API calls work during the build.
+
 ## Product Notes
 
 A menu item has many variants, add-ons, and size options. Each menu item will have at least one variant.
