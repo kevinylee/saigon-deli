@@ -26,7 +26,7 @@ export function useCheckoutCart() {
 
     return {
         cart,
-        upsert: (lineItem: LineItem) => updateCart(upsertLineItem(cart, lineItem)),
-        remove: (lineItem: LineItem) => updateCart(removeLineItem(cart, lineItem))
+        upsert: (lineItem: LineItem) => updateCart(prev => upsertLineItem(prev, lineItem)),
+        remove: (lineItem: LineItem) => updateCart(prev => removeLineItem(prev, lineItem))
     }
 }
