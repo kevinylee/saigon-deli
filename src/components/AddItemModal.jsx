@@ -37,12 +37,8 @@ export default function AddItemModal({ item, modalRef, handleAdd, handleClose })
         const additionalNote = undefined;
         const quantity = Number(formData.get('quantity'));
 
-        console.log(size);
-
         const purchaseable = new Purchaseable(selectedVariant, size, addOns, additionalNote);
         const lineItem = new LineItem(purchaseable, quantity);
-
-        console.log(purchaseable.itemSize.id);
 
         submitEvent.target.reset();
         handleAdd(lineItem);

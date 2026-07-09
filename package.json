@@ -7,8 +7,8 @@
     "gatsby"
   ],
   "scripts": {
+    "test": "vitest",
     "develop": "gatsby develop",
-    "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
@@ -43,5 +43,8 @@
     "sharp": "^0.31.0",
     "stripe": "^10.7.0",
     "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.10"
   }
 }
