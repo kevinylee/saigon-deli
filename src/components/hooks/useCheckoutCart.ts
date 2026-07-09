@@ -21,8 +21,8 @@ export const removeLineItem = (cart: LineItem[], lineItem: LineItem) => {
     return cart.filter((curr) => curr.purchaseable.hash !== lineItem.purchaseable.hash)
 };
 
-export function useCheckoutCart() {
-    const [cart, updateCart] = useState<LineItem[]>([]);
+export function useCheckoutCart(initial: LineItem[] = []) {
+    const [cart, updateCart] = useState<LineItem[]>(initial);
 
     return {
         cart,

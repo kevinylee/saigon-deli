@@ -15,7 +15,7 @@ import { useCheckoutCart } from "../components/hooks/useCheckoutCart"
 const IS_PROD = process.env.GATSBY_ENV === "prod";
 
 const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVariant } }) => {
-  const { cart, upsert, remove } = useCheckoutCart();
+  const { cart, upsert, remove } = useCheckoutCart([]);
   const [allowCheckout, _] = useState(true);
   const [restaurantOpen, __] = useState(open);
   const [checkoutModalVisible, setCheckoutModalVisibility] = useState(false);
