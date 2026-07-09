@@ -10,11 +10,12 @@ import Navigation from "../components/Navigation"
 import { DateTime } from 'luxon'
 import CheckoutModal from "../components/CheckoutModal"
 import StickyCheckoutHeader from '../components/StickyCheckoutHeader'
+import { useCheckoutCart } from "../components/hooks/useCheckoutCart"
 
 const IS_PROD = process.env.GATSBY_ENV === "prod";
 
 const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVariant } }) => {
-  const [cart, updateCart] = useState([]);
+  const { cart, upsert, remove } = useCheckoutCart();
   const [allowCheckout, _] = useState(true);
   const [restaurantOpen, __] = useState(open);
   const [checkoutModalVisible, setCheckoutModalVisibility] = useState(false);
@@ -62,33 +63,6 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
     return !withinRestrictions;
   }
 
-  function removeLineItem(lineItem) {
-    const updated = cart.reduce((prev, current) => {
-      return current.purchaseable.hash !== lineItem.purchaseable.hash ? [...prev, current] : prev;
-    }, []);
-
-    updateCart(updated);
-  }
-
-  function handleUpdateLineItem(lineItem) {
-    const { purchaseable, quantity } = lineItem;
-
-    const isTracked = cart.some(existingItem => existingItem.purchaseable.hash === purchaseable.hash);
-
-    if (quantity === 0 && isTracked) {
-      // remove item from cart
-      removeLineItem(lineItem);
-    } else if (quantity > 0 && !isTracked) {
-
-      // append item to the cart
-      updateCart([...cart, lineItem])
-    } else if (quantity > 0 && isTracked) {
-
-      // update item quantity in the cart
-      updateCart(cart.map(existingItem => existingItem.purchaseable.hash === purchaseable.hash ? lineItem : existingItem))
-    }
-  }
-
   const RestaurantStatus = () => {
     if (now === null) {
       return null;
@@ -114,10 +88,6 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
   const handleCheckoutModalOpen = () => {
     setCheckoutModalVisibility(true);
   };
-
-  const handleLineItemRemove = (lineItem) => {
-    removeLineItem(lineItem)
-  }
 
   return (
     <div className="main">
@@ -164,13 +134,13 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
         <Navigation />
       </div>
       <StickyCheckoutHeader tipVariant={tipVariant} cart={cart} onOpenCheckoutModal={handleCheckoutModalOpen} />
-      {checkoutModalVisible && <CheckoutModal tipVariant={tipVariant} cart={cart} canOrder={canOrder()} onClose={handleCheckoutModalClose} onLineItemRemove={handleLineItemRemove} />}
+      {checkoutModalVisible && <CheckoutModal tipVariant={tipVariant} cart={cart} canOrder={canOrder()} onClose={handleCheckoutModalClose} onLineItemRemove={remove} />}
       <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
         <RestaurantStatus />
       </div>
       <p style={{ color: "#656565", textAlign: "center" }}>Thank you for ordering online with us!</p>
       <div className="menu">
-        <Section reference="appetizers" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" />
+        <Section reference="appetizers" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={sectionKeys["Appetizers"]} category="Appetizers" />
         <div className="pics">
           <div className="img-desc">
             <StaticImage src="../images/saigonFoodPics/saigon_deli_spring_roll_with_shrimp.jpg" className="pho-img" alt="Spring Rolls" />
@@ -188,7 +158,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="pho" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Pho"]} category="Pho (noodle soup)" />
+        <Section reference="pho" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={sectionKeys["Pho"]} category="Pho (noodle soup)" />
 
         <div className="pics">
           <div className="img-desc">
@@ -197,7 +167,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="bun" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Bun (Rice Vermicelli Noodles)"]} category="Bun (Rice Vermicelli)" />
+        <Section reference="bun" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={sectionKeys["Bun (Rice Vermicelli Noodles)"]} category="Bun (Rice Vermicelli)" />
 
         <div className="pics">
           <div className="img-desc">
@@ -206,7 +176,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="vegetarian" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Vegetarian Dishes"]} category="Vegetarian Dishes" />
+        <Section reference="vegetarian" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={sectionKeys["Vegetarian Dishes"]} category="Vegetarian Dishes" />
 
         <div className="pics">
           <div className="img-desc">
@@ -224,8 +194,8 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* Ignore this: <Section reference="hutieu" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." /> */}
-        <Section reference="stirfried" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" />
+        {/* Ignore this: <Section reference="hutieu" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={hutieu} category="Hu Tieu (noodle soup)" description="Rice or egg noodles served in a pork broth with broccoli and your choice of meat, seafood, or tofu." /> */}
+        <Section reference="stirfried" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={sectionKeys["Stir Fry Noodles"]} category="Stir Fried Noodles" />
 
         <div className="pics">
           <div className="img-desc">
@@ -234,7 +204,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="ricedishes" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Rice Dishes"]} category="Rice Dishes" />
+        <Section reference="ricedishes" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={sectionKeys["Rice Dishes"]} category="Rice Dishes" />
 
         <div className="pics">
           <div className="img-desc">
@@ -263,7 +233,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        {/* <Section reference="friedrice" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." /> */}
+        {/* <Section reference="friedrice" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={friedrice} category="Fried Rice" description="Our fried rice is cooked with egg, mixed peas and your choice of meat or seafood." /> */}
 
         {/* <div className="pics">
           <div className="img-desc">
@@ -272,7 +242,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div> */}
 
-        {/* <Section reference="hotsoursoups" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." /> */}
+        {/* <Section reference="hotsoursoups" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={soursoup} category="Hot & Sour Soup" description="Served with vermicelli noodles in a broth with pineapple chunks, tomatoes, and your choice of fish, meat, or seafood." /> */}
 
         {/* <Section reference="noodlesoups" onLineItemAdd={undefined} section={{ Items: [] }} category="Specialty Noodle Soups" /> */}
 
@@ -287,7 +257,7 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
           </div>
         </div>
 
-        <Section reference="beverages" onLineItemAdd={handleUpdateLineItem} allowOrderOnline={allowCheckout} section={sectionKeys["Beverages"]} category="Beverages" description="Refreshing drinks to accompany your meal." />
+        <Section reference="beverages" onLineItemAdd={upsert} allowOrderOnline={allowCheckout} section={sectionKeys["Beverages"]} category="Beverages" description="Refreshing drinks to accompany your meal." />
         <br />
       </div>
       <div className="catering-box">
