@@ -53,8 +53,9 @@ const IndexPage = ({ pageContext: { businessDetails, open, sectionKeys, tipVaria
       throw new Error('Sorry! Something went wrong.')
     }
 
-    // 11am to 8pm
-    const withinHours = (now.hour >= 11 && now.hour <= 19);
+    // Open 11am; stop taking orders 20 min before the 8pm close (7:40pm)
+    const cutoff = now.set({ hour: 19, minute: 40, second: 0, millisecond: 0 });
+    const withinHours = now.hour >= 11 && now < cutoff;
 
     if (!withinHours) {
       return false;

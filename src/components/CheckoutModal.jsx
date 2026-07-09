@@ -55,8 +55,13 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
 
         const luxonPickupTime = DateTime.fromISO(pickupTime, { zone: "America/Los_Angeles" });
 
-        // If it's in the future and within the default working hours.
-        return luxonPickupTime > DateTime.now() && luxonPickupTime.hour >= 11 && luxonPickupTime.hour <= 20;
+        // Valid pickup window: today 11am–8pm (close), and in the future.
+        const openingTime = luxonPickupTime.set({ hour: 11, minute: 0, second: 0, millisecond: 0 });
+        const closingTime = luxonPickupTime.set({ hour: 20, minute: 0, second: 0, millisecond: 0 });
+
+        return luxonPickupTime > DateTime.now()
+            && luxonPickupTime >= openingTime
+            && luxonPickupTime <= closingTime;
     }
 
     async function handleCheckout() {
