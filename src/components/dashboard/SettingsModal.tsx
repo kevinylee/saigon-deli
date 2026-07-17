@@ -25,7 +25,7 @@ export function SettingsModal({
 
         if (IS_PROD) {
             const status = !isOpen ? "open" : "closed";
-            await triggerRebuild({ trigger_title: `store+${status}` });
+            await triggerRebuild({ trigger_title: `store ${status}` });
         }
     }
 
@@ -43,7 +43,7 @@ export function SettingsModal({
                             <button className="default-button" onClick={toggleStoreOpening}><b>Open Orders</b></button>
                     }
                     <button className="default-button" onClick={playNotification}><b>Test Sound</b></button>
-                    <button className="default-button" onClick={triggerRebuild}><b>Rebuild Website</b></button>
+                    <button className="default-button" onClick={() => triggerRebuild({ trigger_title: "rebuild" })}><b>Rebuild Website</b></button>
                 </div>
             </div>
         </div>
