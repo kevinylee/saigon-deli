@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 import { DateTime, Duration } from 'luxon';
-import { toPrice, BASE_URL } from './utilities';
+import { toPrice, NETLIFY_FUNCTIONS_URL } from './utilities';
 import PickupAt from './PickupAt';
 import Purchaseable from '../models/Purchaseable';
 import LineItem from '../models/LineItem';
@@ -74,7 +74,7 @@ export default function CheckoutModal({ cart, tipVariant, canOrder = true, onClo
                 ? [...cart, new LineItem(new Purchaseable(tipVariant, tipVariant.Items.ItemSizes[0], null, null), tipAmount)]
                 : cart;
 
-            const response = await axios.post(`${BASE_URL}/.netlify/functions/checkout`, {
+            const response = await axios.post(`${NETLIFY_FUNCTIONS_URL}/.netlify/functions/checkout`, {
                 lineItems,
                 pickupTime: dateTime.toISO().toString()
             })

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios"
 import "../../templates/dashboard.scss"
-import { BASE_URL, toPrice } from "../utilities";
+import { NETLIFY_FUNCTIONS_URL, toPrice } from "../utilities";
 import { DateTime } from 'luxon';
 
 const filterAdjustments = (lineItem) => lineItem.title !== 'Tip' && lineItem.title !== 'Sales Tax';
@@ -23,7 +23,7 @@ export default function Order({ id, phone_number: phoneNumber, customer_name: ti
         if (isChecked) {
             markAsRead(true);
 
-            await axios.post(`${BASE_URL}/.netlify/functions/orders`, {
+            await axios.post(`${NETLIFY_FUNCTIONS_URL}/.netlify/functions/orders`, {
                 id: id
             }).catch((err) => {
                 alert("Something went wrong! Please contact the owner for more information.")

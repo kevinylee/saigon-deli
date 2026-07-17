@@ -3,9 +3,7 @@ import axios from "axios";
 import Logo from "../images/SDLogo1.svg"
 import "./receipt.scss";
 import { DateTime, DATETIME_MED_WITH_WEEKDAY } from 'luxon';
-import { toPrice } from '../components/utilities';
-
-const BASE_URL = (process.env.GATSBY_ENV === "prod" ? "https://saigon-deli.netlify.app" : "http://localhost:9999");
+import { toPrice, NETLIFY_FUNCTIONS_URL } from '../components/utilities';
 
 const ReceiptPage = (props) => {
   const [order, setOrder] = useState({ lineItems: [], tax: 0, tip: 0, loading: true, pickupTime: null });
@@ -18,7 +16,7 @@ const ReceiptPage = (props) => {
 
       if (sessionId) {
         try {
-          const response = await axios.get(`${BASE_URL}/.netlify/functions/receipt?sessionId=${sessionId}`)
+          const response = await axios.get(`${NETLIFY_FUNCTIONS_URL}/.netlify/functions/receipt?sessionId=${sessionId}`)
 
           setOrder({
             lineItems: response.data.lineItems,
